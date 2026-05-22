@@ -9,7 +9,7 @@
 <p>
 <strong>Step 1:</strong> 將所有一般Entity types轉換為Table<br>
     user(<ins>id</ins>, email, password, role)<br>
-    adminstrator(<ins>id</ins>)<br>
+    administrator(<ins>id</ins>)<br>
     student(<ins>student_id</ins>, name, admission_year)<br>
     department(<ins>id</ins>, college, name)<br>
     course(<ins>id</ins>, course_code, year, semester, name, credits, type)<br>
@@ -17,7 +17,7 @@
 <p>
 <strong>Step 4:</strong> 處理1:1 Relationship Types<br>
     user(<ins>id</ins>, email, password, role)<br>
-    adminstrator(<ins>id</ins>, <span style="color:red">department_id (FK), user_id (FK)</span>)<br>
+    administrator(<ins>id</ins>, <span style="color:red">department_id (FK), user_id (FK)</span>)<br>
     student(<ins>student_id</ins>, name, admission_year, <span style="color:red">user_id (FK)</span>)<br>
     department(<ins>id</ins>, college, name)<br>
     course(<ins>id</ins>, course_code, year, semester, name, credits, type)<br>
@@ -25,7 +25,7 @@
 <p>
 <strong>Step 5:</strong> 處理1:N Relationship Types<br>
     user(<ins>id</ins>, email, password, role)<br>
-    adminstrator(<ins>id</ins>, department_id (FK), user_id (FK))<br>
+    administrator(<ins>id</ins>, department_id (FK), user_id (FK))<br>
     student(<ins>student_id</ins>, name, admission_year, user_id (FK))<br>
     department(<ins>id</ins>, college, name)<br>
     course(<ins>id</ins>, course_code, year, semester, name, credits, type, <span style="color:red">department_id (FK)</span>)<br>
@@ -33,7 +33,7 @@
 <p>
 <strong>Step 6:</strong> 處理M:N Relationship Types<br>
     user(<ins>id</ins>, email, password, role)<br>
-    adminstrator(<ins>id</ins>, department_id (FK), user_id (FK))<br>
+    administrator(<ins>id</ins>, department_id (FK), user_id (FK))<br>
     student(<ins>student_id</ins>, name, admission_year, user_id (FK))<br>
     department(<ins>id</ins>, college, name)<br>
     course(<ins>id</ins>, course_code, year, semester, name, credits, type, department_id (FK))<br>
@@ -43,7 +43,7 @@
 
 ### DB Schema
 user(<ins>id</ins>, email, password, role) \
-adminstrator(<ins>id</ins>, department_id (FK), user_id (FK)) \
+administrator(<ins>id</ins>, department_id (FK), user_id (FK)) \
 student(<ins>student_id</ins>, name, admission_year, user_id (FK)) \
 department(<ins>id</ins>, college, name) \
 course(<ins>id</ins>, course_code, year, semester, name, credits, type, department_id (FK)) \
