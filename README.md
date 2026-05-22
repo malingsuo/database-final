@@ -1,7 +1,6 @@
 # Database Final
 
-[<img height="630" alt="db-en" src="https://github.com/user-attachments/assets/9b30ce4c-6b87-43a1-8aea-7ab66af35be3" />](https://app.diagrams.net/#Uhttps%3A%2F%2Fgithub.com%2Fmalingsuo%2Fdatabase-final%2Freleases%2Fdownload%2Fresource%2Ferd.drawio)
-
+[<img height="630" alt="erd" src="https://github.com/user-attachments/assets/30a9ca3a-d25a-425e-a832-568a069c5361" />](https://app.diagrams.net/#Uhttps%3A%2F%2Fgithub.com%2Fmalingsuo%2Fdatabase-final%2Freleases%2Fdownload%2Fresource%2Ferd.drawio)
 
 <details>
 <summary>ER to DB</summary>
@@ -38,7 +37,7 @@
     department(<ins>id</ins>, college, name)<br>
     course(<ins>id</ins>, course_code, year, semester, name, credits, type, department_id (FK))<br>
     <span style="color:red">enrollment(<ins>student_id</ins>, <ins>course_id</ins>, year, semester, grade, is_passed)</span><br>
-    <span style="color:red">fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type)</span><br>
+    <span style="color:red">fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type, enrollment_year)</span><br>
 </details>
 
 ### DB Schema
@@ -48,5 +47,4 @@ student(<ins>student_id</ins>, name, admission_year, user_id (FK)) \
 department(<ins>id</ins>, college, name) \
 course(<ins>id</ins>, course_code, year, semester, name, credits, type, department_id (FK)) \
 enrollment(<ins>student_id</ins>, <ins>course_id</ins>, year, semester, grade, is_passed) \
-fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type)
-
+fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type, enrollment_year)
