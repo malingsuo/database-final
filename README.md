@@ -4,7 +4,7 @@
 > - `account.id` 改為 UUID（原為 SERIAL）
 > - `account.account` 欄位改為 `email`
 > - `course.id` 移除，改為複合 PK `(course_code, year, semester)`
-> - `course` 新增 `ge_label`（SMALLINT 8-bit 通識標籤），移除 `group_label`；`type` 值域改為：必修 / 群修 / 選修 / 通識 / 體育
+> - `course` 新增 `ge_label`（BIT(8) 8-bit bitmask 通識標籤），移除 `group_label`；`type` 值域改為：必修 / 群修 / 選修 / 通識 / 體育
 > - `token` 表移除（auth 由 JWT 處理）
 > - `administrator.id` 直接使用 `account.id`（UUID FK）
 > - `enrollment` 的 `course_id` 改為複合 FK `(course_code, year, semester)`
@@ -64,7 +64,7 @@ fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type, e
 
 ### ge_label 說明
 
-`course.ge_label` 為 SMALLINT，以 8-bit bitmask 紀錄通識課的類別，**僅 `type='通識'` 時有非零值，其餘 type 皆為 0**。
+`course.ge_label` 為 BIT(8)，以 8-bit bitmask 紀錄通識課的類別，**僅 `type='通識'` 時有非零值，其餘 type 皆為 B'00000000'**。
 
 **`course.type` 值域：**
 
@@ -111,19 +111,19 @@ fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type, e
 
 ```sql
 -- 查人文通識（含跨領域有人文的）
-WHERE type = '通識' AND (ge_label & 64) > 0
+WHERE type = '通識' AND (ge_label & B'01000000') <> B'00000000'
 
 -- 查核心通識
-WHERE type = '通識' AND (ge_label & 128) > 0
+WHERE type = '通識' AND (ge_label & B'10000000') <> B'00000000'
 
 -- 查中文通識
-WHERE type = '通識' AND (ge_label & 1) > 0
+WHERE type = '通識' AND (ge_label & B'00000001') <> B'00000000'
 
 -- 查外文通識
-WHERE type = '通識' AND (ge_label & 2) > 0
+WHERE type = '通識' AND (ge_label & B'00000010') <> B'00000000'
 
 -- 查書院通識
-WHERE type = '通識' AND (ge_label & 4) > 0
+WHERE type = '通識' AND (ge_label & B'00000100') <> B'00000000'
 
 -- 查體育
 WHERE type = '體育'
