@@ -262,4 +262,4 @@ INSERT INTO department (id, college, name) VALUES
     ('ZC0', '其他', '其他學程'),
     ('ZM1', '創新國際學院', '全創碩一'),
     ('ZU1', '創新國際學院', '創國學二')
-ON CONFLICT (code) DO NOTHING;
+ON CONFLICT (id) DO NOTHING;

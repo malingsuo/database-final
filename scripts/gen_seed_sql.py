@@ -125,24 +125,64 @@ COLLEGE_MAP = {
 KIND_MAP = {
     0: "選修",
     1: "必修",
-    2: "通識",  # 細分由 lmtKind 決定
+    2: "通識",
     3: "群修",
-    4: "通識",  # 國文/外文/資訊通識，細分由 lmtKind 決定
+    4: "通識",
+}
+
+# ge_label bit 定義（高位到低位）
+# bit5=核心 bit4=人文 bit3=社會 bit2=自然 bit1=資訊 bit0=書院
+GE_BIT = {
+    "核心": 1 << 5,  # 32
+    "人文": 1 << 4,  # 16
+    "社會": 1 << 3,  # 8
+    "自然": 1 << 2,  # 4
+    "資訊": 1 << 1,  # 2
+    "書院": 1 << 0,  # 1
+}
+
+LMT_TO_BITS = {
+    "人文通識":            GE_BIT["人文"],
+    "社會通識":            GE_BIT["社會"],
+    "自然通識":            GE_BIT["自然"],
+    "資訊通識":            GE_BIT["資訊"],
+    "書院通識":            GE_BIT["書院"],
+    "中文通識":            GE_BIT["人文"],
+    "外文通識":            GE_BIT["人文"],
+    "跨領域(人文、社會)":        GE_BIT["人文"] | GE_BIT["社會"],
+    "跨領域(人文、自然)":        GE_BIT["人文"] | GE_BIT["自然"],
+    "跨領域(人文、資訊)":        GE_BIT["人文"] | GE_BIT["資訊"],
+    "跨領域(社會、自然)":        GE_BIT["社會"] | GE_BIT["自然"],
+    "跨領域(社會、資訊)":        GE_BIT["社會"] | GE_BIT["資訊"],
+    "跨領域(自然、資訊)":        GE_BIT["自然"] | GE_BIT["資訊"],
+    "跨領域(人文、社會、自然)":    GE_BIT["人文"] | GE_BIT["社會"] | GE_BIT["自然"],
+    "跨領域(人文、社會、資訊)":    GE_BIT["人文"] | GE_BIT["社會"] | GE_BIT["資訊"],
+    "跨領域(社會、自然、資訊)":    GE_BIT["社會"] | GE_BIT["自然"] | GE_BIT["資訊"],
 }
 
 
 def get_type(kind: int, lmt_kind: str) -> str:
-    """組出 type 欄位值：必修/群修/選修/人文通識/社會通識/..."""
     lmt = (lmt_kind or "").strip()
     if kind == 1:
         return "必修"
     if kind == 3:
         return "群修"
-    if kind in (2, 4) and lmt:
-        return lmt   # 人文通識、社會通識、書院通識、中文通識、外文通識...
-    if kind == 0 and lmt:
-        return lmt   # 跨領域(人文、社會) 等
+    if kind in (2, 4) or (kind == 0 and lmt):
+        return "通識"
     return "選修"
+
+
+def get_ge_label(kind: int, lmt_kind: str, core: int) -> int:
+    """通識課才有 ge_label，非通識回傳 0"""
+    lmt = (lmt_kind or "").strip()
+    if kind not in (0, 2, 4):
+        return 0
+    if kind == 0 and not lmt:
+        return 0
+    bits = LMT_TO_BITS.get(lmt, 0)
+    if core == 1:
+        bits |= GE_BIT["核心"]
+    return bits
 
 
 def escape(s: str) -> str:
@@ -220,7 +260,7 @@ def main():
 
     batches = [course_rows[i:i+BATCH] for i in range(0, total, BATCH)]
     for batch in batches:
-        course_lines.append("INSERT INTO course (course_code, year, semester, name, credits, type, is_core, department_id) VALUES")
+        course_lines.append("INSERT INTO course (course_code, year, semester, name, credits, type, ge_label, department_id) VALUES")
         vals = []
         for r in batch:
             sub_num = (r["subNum"] or "").strip()
@@ -230,12 +270,13 @@ def main():
             credits = float(r["point"]) if r["point"] is not None else 0.0
             kind = r["kind"] or 0
             lmt_kind = r["lmtKind"] or ""
+            core = r["core"] or 0
             course_type = get_type(kind, lmt_kind)
-            is_core = "TRUE" if r["core"] == 1 else "FALSE"
+            ge_label = get_ge_label(kind, lmt_kind, core)
             dp3 = (r["dp3"] or "").strip()
             vals.append(
                 f"    ({escape(sub_num)}, {escape(year)}, {escape(sem)}, "
-                f"{escape(name)}, {credits}, {escape(course_type)}, {is_core}, {escape(dp3)})"
+                f"{escape(name)}, {credits}, {escape(course_type)}, {ge_label}, {escape(dp3)})"
             )
         course_lines.append(",\n".join(vals))
         course_lines.append("ON CONFLICT (course_code, year, semester) DO NOTHING;")
