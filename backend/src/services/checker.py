@@ -132,8 +132,8 @@ def _build_sc_by_code(student_courses: Sequence[Enrollment]) -> dict:
             continue
         if code not in result:
             result[code] = sc
-        # 前8碼索引（去班次），讓 703044001 能比到 703044021
-        prefix = code[:8]
+        # 前6碼索引（去班次），讓 703044001 能比到 703044021
+        prefix = code[:6]
         if prefix not in result:
             result[prefix] = sc
     return result
@@ -148,11 +148,11 @@ def _match_course(
     code = (rule_code or "").strip()
     if code and code in sc_by_code:
         return sc_by_code[code], "exact"
-    # 前綴比對：rule_code 較短時（如 000713），找第一個以它為前綴的選課
-    if code and len(code) < 9:
-        for sc_code, sc in sc_by_code.items():
-            if sc_code.startswith(code):
-                return sc, "exact_prefix"
+    # 前綴比對：用前6碼去班次（703044001 -> 703044）
+    if code and len(code) >= 6:
+        prefix = code[:6]
+        if prefix in sc_by_code:
+            return sc_by_code[prefix], "exact_prefix"
 
     rule_norm = _normalize_name(rule_name)
     best_sc = None
