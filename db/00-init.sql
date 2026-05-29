@@ -20,11 +20,11 @@ END $$;
 -- =============================================================
 CREATE TABLE IF NOT EXISTS account (
     id              SERIAL PRIMARY KEY,
-    account         VARCHAR(20)      NOT NULL,
+    email           VARCHAR(255)     NOT NULL,
     password_hash   VARCHAR(255)     NOT NULL,
-    role            user_role_enum   NOT NULL,
+    role            user_role_enum,
     created_at      TIMESTAMPTZ      NOT NULL DEFAULT NOW(),
-    CONSTRAINT uq_account_account UNIQUE (account)
+    CONSTRAINT uq_account_email UNIQUE (email)
 );
 
 -- =============================================================
@@ -83,14 +83,14 @@ CREATE INDEX IF NOT EXISTS idx_student_course_code    ON student_course (course_
 -- =============================================================
 -- 測試用管理員帳號（密碼：admin1234，argon2 hash）
 -- =============================================================
-INSERT INTO account (account, password_hash, role)
+INSERT INTO account (email, password_hash, role)
 VALUES (
-    'admin',
+    'admin@example.com',
     '$argon2id$v=19$m=65536,t=3,p=4$c29tZXNhbHQ$RdescudvJCsgt3ub+b27Gli694kX9aDMRA31tWBmVPU',
     'admin'
 ) ON CONFLICT DO NOTHING;
 
 INSERT INTO admin (user_id, dept_code, dept_name)
 SELECT id, '703', '資訊科學系'
-FROM account WHERE account = 'admin'
+FROM account WHERE email = 'admin@example.com'
 ON CONFLICT DO NOTHING;
