@@ -161,13 +161,20 @@ LMT_TO_BITS = {
 }
 
 
-def get_type(kind: int, lmt_kind: str) -> str:
+def get_type(kind: int, lmt_kind: str, unit: str) -> str:
     lmt = (lmt_kind or "").strip()
+    u = (unit or "").strip()
     if kind == 1:
+        if u == "體育":
+            return "體育"
         return "必修"
     if kind == 3:
         return "群修"
     if kind == 4:
+        if lmt == "中文通識":
+            return "中文通識"
+        if lmt == "外文通識":
+            return "外文通識"
         return "通識"
     if (kind == 2 or kind == 0) and lmt:
         return "通識"
@@ -177,6 +184,9 @@ def get_type(kind: int, lmt_kind: str) -> str:
 def get_ge_label(kind: int, lmt_kind: str, core: int) -> int:
     """通識課才有 ge_label，非通識回傳 0"""
     lmt = (lmt_kind or "").strip()
+    # 中文/外文通識已用 type 獨立表示，ge_label 無意義
+    if lmt in ("中文通識", "外文通識"):
+        return 0
     # kind=4 必是通識；kind=2/0 要有 lmtKind 才算通識
     is_ge = (kind == 4) or ((kind in (0, 2)) and bool(lmt))
     if not is_ge:
@@ -243,7 +253,7 @@ def main():
     # ── 2. course ──────────────────────────────────────────────────────────
     # 以 subNum（課號）+ y（學年）+ s（學期）去重，取第一筆
     cur.execute("""
-        SELECT subNum, y, s, name, point, kind, lmtKind, core, dp3
+        SELECT subNum, y, s, name, point, kind, lmtKind, core, dp3, unit
         FROM COURSE
         WHERE CAST(y AS INTEGER) BETWEEN 109 AND 114
         GROUP BY subNum, y, s
@@ -274,7 +284,8 @@ def main():
             kind = r["kind"] or 0
             lmt_kind = r["lmtKind"] or ""
             core = r["core"] or 0
-            course_type = get_type(kind, lmt_kind)
+            unit = r["unit"] or ""
+            course_type = get_type(kind, lmt_kind, unit)
             ge_label = get_ge_label(kind, lmt_kind, core)
             dp3 = (r["dp3"] or "").strip()
             vals.append(
