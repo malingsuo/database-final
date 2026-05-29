@@ -115,6 +115,10 @@ class Student(Base):
     )
     name: Mapped[str | None] = mapped_column(String(50), default=None)
     admission_year: Mapped[int] = mapped_column(Integer, nullable=False)
+    advisor_status: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default="on_track", default="on_track"
+    )
+    advisor_notes: Mapped[str | None] = mapped_column(String(500), default=None)
 
     account: Mapped[Account] = relationship("Account", back_populates="student")
     enrollments: Mapped[list[Enrollment]] = relationship(

@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { ArrowLeft, Check, DocumentChecked, EditPen, Warning } from '@element-plus/icons-vue'
-import { useAdminStore, type Course } from '@/stores/admin'
+import { ArrowLeft, Check, EditPen, Warning } from '@element-plus/icons-vue'
+import { useAdminStore } from '@/stores/admin'
+import CheckOverview from '@/components/CheckOverview.vue'
 
 const route = useRoute()
 const router = useRouter()
 const adminStore = useAdminStore()
 
 const editingNotes = ref('')
+const savingNotes = ref(false)
+const savingStatus = ref(false)
+
 const student = computed(() => adminStore.currentStudent)
+const check = computed(() => adminStore.currentCheck)
+const loading = computed(() => adminStore.loading)
 
 const currentAcademicYear = computed(() => {
   const now = new Date()
@@ -29,38 +35,6 @@ const completionPercentage = computed(() => {
   return Math.min(100, Math.round((student.value.total_credits / student.value.required_credits) * 100))
 })
 
-const passedCourses = computed(() => student.value?.courses.filter((course) => course.is_passed) ?? [])
-const failedCourses = computed(() => student.value?.courses.filter((course) => !course.is_passed) ?? [])
-
-const categoryTargets = [
-  { key: 'departmentCore', label: '系所必修', target: 40, color: '#409eff' },
-  { key: 'core', label: '校共同必修', target: 30, color: '#67c23a' },
-  { key: 'elective', label: '選修課程', target: 30, color: '#7c3aed' },
-  { key: 'general', label: '通識課程', target: 20, color: '#e6a23c' },
-] as const
-
-function getCategoryCredits(category: Course['category']) {
-  if (!student.value) return 0
-  return student.value.courses
-    .filter((course) => course.category === category && course.is_passed)
-    .reduce((sum, course) => sum + course.credits, 0)
-}
-
-function categoryPercentage(category: Course['category'], target: number) {
-  if (target <= 0) return 0
-  return Math.min(100, Math.round((getCategoryCredits(category) / target) * 100))
-}
-
-function getCategoryName(category: Course['category']) {
-  const names: Record<Course['category'], string> = {
-    core: '校共同必修',
-    departmentCore: '系所必修',
-    elective: '選修',
-    general: '通識',
-  }
-  return names[category]
-}
-
 function statusTag(status?: 'on_track' | 'at_risk') {
   return status === 'on_track'
     ? { label: '已達標', type: 'success' as const, icon: Check }
@@ -71,31 +45,51 @@ function goBack() {
   router.push({ name: 'admin-dashboard' })
 }
 
-function saveNotes() {
+async function saveNotes() {
   if (!student.value) return
-  adminStore.updateStudentNotes(student.value.student_id, editingNotes.value)
-  ElMessage.success('備註已儲存')
+  savingNotes.value = true
+  try {
+    await adminStore.updateStudentNotes(student.value.student_id, editingNotes.value)
+    ElMessage.success('備註已儲存')
+  } catch (e) {
+    ElMessage.error(e instanceof Error ? e.message : '備註儲存失敗')
+  } finally {
+    savingNotes.value = false
+  }
 }
 
 function cancelEdit() {
-  editingNotes.value = student.value?.notes || ''
+  editingNotes.value = student.value?.notes ?? ''
 }
 
-function updateStatus(status: 'on_track' | 'at_risk') {
+async function updateStatus(status: 'on_track' | 'at_risk') {
   if (!student.value) return
-  adminStore.updateStudentStatus(student.value.student_id, status)
-  ElMessage.success('學生狀態已更新')
+  savingStatus.value = true
+  try {
+    await adminStore.updateStudentStatus(student.value.student_id, status)
+    ElMessage.success('學生狀態已更新')
+  } catch (e) {
+    ElMessage.error(e instanceof Error ? e.message : '狀態更新失敗')
+  } finally {
+    savingStatus.value = false
+  }
 }
+
+watch(
+  student,
+  (s) => {
+    editingNotes.value = s?.notes ?? ''
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
-  const studentId = route.params.id as string
-  adminStore.getStudentDetail(studentId)
-  editingNotes.value = student.value?.notes || ''
+  adminStore.fetchStudentDetail(route.params.id as string)
 })
 </script>
 
 <template>
-  <main class="detail-page">
+  <main v-loading="loading" class="detail-page">
     <template v-if="student">
       <header class="detail-header">
         <el-button :icon="ArrowLeft" text @click="goBack">返回管理員工作臺</el-button>
@@ -136,12 +130,12 @@ onMounted(() => {
             <strong>{{ student.completed_courses }}</strong>
           </div>
           <div>
-            <span>通過課程</span>
-            <strong class="success">{{ passedCourses.length }}</strong>
+            <span>未通過課程</span>
+            <strong class="danger">{{ student.failed_courses }}</strong>
           </div>
           <div>
-            <span>未通過課程</span>
-            <strong class="danger">{{ failedCourses.length }}</strong>
+            <span>身分</span>
+            <strong>{{ student.double_major ? '雙主修' : '一般生' }}</strong>
           </div>
         </div>
       </section>
@@ -150,60 +144,10 @@ onMounted(() => {
         <el-col :xs="24" :lg="15">
           <el-card shadow="never" class="block-card">
             <template #header>
-              <div class="block-header">
-                <span>學分分類進度</span>
-                <DocumentChecked class="header-icon" />
-              </div>
+              <div class="block-header"><span>畢業檢核結果</span></div>
             </template>
-
-            <div class="category-list">
-              <div v-for="item in categoryTargets" :key="item.key" class="category-row">
-                <div class="category-title">
-                  <strong>{{ item.label }}</strong>
-                  <span>{{ getCategoryCredits(item.key) }} / {{ item.target }} 學分</span>
-                </div>
-                <el-progress
-                  :percentage="categoryPercentage(item.key, item.target)"
-                  :stroke-width="14"
-                  :color="item.color"
-                />
-              </div>
-            </div>
-          </el-card>
-
-          <el-card shadow="never" class="block-card">
-            <template #header>
-              <div class="block-header">
-                <span>修課清單</span>
-                <el-tag effect="plain">{{ student.courses.length }} 門課</el-tag>
-              </div>
-            </template>
-
-            <el-table :data="student.courses" empty-text="目前沒有修課紀錄">
-              <el-table-column label="課程" min-width="180">
-                <template #default="{ row }">
-                  <strong>{{ row.course_name }}</strong>
-                  <p class="course-code">{{ row.course_id }}</p>
-                </template>
-              </el-table-column>
-              <el-table-column label="類別" width="120">
-                <template #default="{ row }">
-                  <el-tag effect="plain">{{ getCategoryName(row.category) }}</el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column prop="credits" label="學分" width="80" align="center" />
-              <el-table-column label="學年學期" width="110" align="center">
-                <template #default="{ row }">{{ row.year }}-{{ row.semester }}</template>
-              </el-table-column>
-              <el-table-column prop="grade" label="成績" width="90" align="center" />
-              <el-table-column label="狀態" width="110" align="center">
-                <template #default="{ row }">
-                  <el-tag :type="row.is_passed ? 'success' : 'danger'" effect="light">
-                    {{ row.is_passed ? '通過' : '未通過' }}
-                  </el-tag>
-                </template>
-              </el-table-column>
-            </el-table>
+            <CheckOverview v-if="check" :result="check" />
+            <el-empty v-else description="尚無檢核資料（學生可能未上傳修課資料）" />
           </el-card>
         </el-col>
 
@@ -239,8 +183,7 @@ onMounted(() => {
 
             <div class="tag-group">
               <el-tag v-if="student.double_major" type="info" effect="plain">雙主修</el-tag>
-              <el-tag v-if="student.exchange_student" type="primary" effect="plain">交換生預審</el-tag>
-              <el-tag v-if="!student.double_major && !student.exchange_student" effect="plain">一般學生</el-tag>
+              <el-tag v-else effect="plain">一般學生</el-tag>
             </div>
           </el-card>
 
@@ -260,7 +203,7 @@ onMounted(() => {
             />
             <div class="note-actions">
               <el-button @click="cancelEdit">取消</el-button>
-              <el-button type="primary" @click="saveNotes">儲存備註</el-button>
+              <el-button type="primary" :loading="savingNotes" @click="saveNotes">儲存備註</el-button>
             </div>
 
             <el-alert
@@ -291,6 +234,7 @@ onMounted(() => {
               <el-button
                 v-if="student.status !== 'on_track'"
                 type="success"
+                :loading="savingStatus"
                 @click="updateStatus('on_track')"
               >
                 標記為已達標
@@ -298,6 +242,7 @@ onMounted(() => {
               <el-button
                 v-if="student.status !== 'at_risk'"
                 type="warning"
+                :loading="savingStatus"
                 @click="updateStatus('at_risk')"
               >
                 標記為需關注
@@ -308,7 +253,7 @@ onMounted(() => {
       </el-row>
     </template>
 
-    <el-empty v-else description="找不到此學生資料">
+    <el-empty v-else-if="!loading" description="找不到此學生資料">
       <el-button type="primary" @click="goBack">返回管理員工作臺</el-button>
     </el-empty>
   </main>
@@ -360,7 +305,6 @@ h1 {
 
 .student-meta,
 .summary-main p,
-.course-code,
 .status-copy {
   color: var(--el-text-color-secondary);
 }
@@ -439,28 +383,6 @@ h1 {
 .header-icon {
   width: 18px;
   color: var(--el-color-primary);
-}
-
-.category-list {
-  display: grid;
-  gap: 18px;
-}
-
-.category-title {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 8px;
-}
-
-.category-title span {
-  color: var(--el-text-color-secondary);
-  font-size: 14px;
-}
-
-.course-code {
-  margin-top: 4px;
-  font-size: 12px;
 }
 
 .info-list {

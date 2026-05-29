@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Download, RefreshRight, Search, TrendCharts, User, Warning } from '@element-plus/icons-vue'
@@ -16,12 +16,22 @@ const difficultCourses = computed(() => adminStore.difficultCourses)
 const departmentName = computed(() => auth.user?.department_name ?? '未指定單位')
 const adminName = computed(() => auth.user?.name || auth.user?.account || '管理員')
 
+onMounted(() => {
+  adminStore.fetchDashboard()
+  if (adminStore.students.length === 0) adminStore.fetchStudents()
+})
+
+function refresh() {
+  adminStore.fetchDashboard()
+  adminStore.fetchStudents()
+  ElMessage.info('資料已更新')
+}
+
 function percent(value: number, total: number) {
   return total > 0 ? Math.min(100, Math.round((value / total) * 100)) : 0
 }
 
 function navigateToStudent(id: string) {
-  adminStore.getStudentDetail(id)
   router.push({ name: 'student-detail', params: { id } })
 }
 
@@ -32,6 +42,7 @@ function exportCsv() {
 
 async function handleLogout() {
   await auth.logout()
+  adminStore.reset()
   ElMessage.success('已登出')
   router.push({ name: 'admin-login' })
 }
@@ -141,8 +152,9 @@ async function handleLogout() {
                 <strong>{{ course.name }}</strong>
                 <span>{{ course.failed }} / {{ course.total }} 未通過</span>
               </div>
-              <el-progress type="circle" :width="52" :percentage="course.failRate" color="#dc2626" />
+              <el-progress type="circle" :width="52" :percentage="course.fail_rate" color="#dc2626" />
             </div>
+            <el-empty v-if="difficultCourses.length === 0" description="暫無課程風險資料" :image-size="60" />
           </div>
         </article>
 
@@ -151,7 +163,7 @@ async function handleLogout() {
           <div class="action-list">
             <el-button :icon="Search" @click="router.push({ name: 'student-list' })">搜尋學生</el-button>
             <el-button :icon="Download" @click="exportCsv">匯出 CSV</el-button>
-            <el-button :icon="RefreshRight" @click="ElMessage.info('資料已更新')">重新整理</el-button>
+            <el-button :icon="RefreshRight" @click="refresh">重新整理</el-button>
           </div>
         </article>
       </aside>

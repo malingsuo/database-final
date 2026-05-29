@@ -211,3 +211,39 @@ export interface UploadResponse {
   chinese_name: string | null
   course_count: number
 }
+
+// ---------------- Admin ----------------
+
+export interface AdminStudentProfile {
+  student_id: string
+  name: string | null
+  admission_year: number
+  status: 'on_track' | 'at_risk'
+  notes: string | null
+  double_major: boolean
+  total_credits: number
+  required_credits: number
+  completed_courses: number
+  failed_courses: number
+}
+
+export interface DifficultCourse {
+  name: string
+  total: number
+  failed: number
+  fail_rate: number
+}
+
+export interface AdminDashboardData {
+  total_students: number
+  on_track_students: number
+  at_risk_students: number
+  pass_rate: number
+  risk_students: AdminStudentProfile[]
+  difficult_courses: DifficultCourse[]
+}
+
+export interface AdminStudentDetail {
+  profile: AdminStudentProfile
+  check: CheckResult
+}

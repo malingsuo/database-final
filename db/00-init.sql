@@ -65,8 +65,14 @@ CREATE TABLE IF NOT EXISTS student (
     user_id      UUID        NOT NULL REFERENCES account(id) ON DELETE CASCADE,
     name         VARCHAR(50),
     admission_year INTEGER   NOT NULL,
+    advisor_status VARCHAR(20) NOT NULL DEFAULT 'on_track',  -- 系辦標記：on_track / at_risk
+    advisor_notes  VARCHAR(500),                             -- 系辦備註
     CONSTRAINT uq_student_user UNIQUE (user_id)
 );
+
+-- 既有資料庫補欄位（重新建 volume 時上面 CREATE 已含，這裡確保升級相容）
+ALTER TABLE student ADD COLUMN IF NOT EXISTS advisor_status VARCHAR(20) NOT NULL DEFAULT 'on_track';
+ALTER TABLE student ADD COLUMN IF NOT EXISTS advisor_notes  VARCHAR(500);
 
 -- =============================================================
 -- course：課程總表（從全校課表預建）

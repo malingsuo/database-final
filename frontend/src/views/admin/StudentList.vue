@@ -1,271 +1,310 @@
-<template>
-  <div class="min-h-screen bg-slate-50">
-    <!-- 頂部導覽列 -->
-    <div class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <button
-            @click="goBack"
-            class="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition"
-          >
-            ←
-          </button>
-          <div>
-            <h1 class="text-xl font-bold text-slate-900">學生列表管理</h1>
-            <p class="text-xs text-slate-500">共 {{ totalStudents }} 位學生</p>
-          </div>
-        </div>
-
-        <button
-          @click="handleExport"
-          class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition inline-flex items-center space-x-2"
-        >
-          <span>匯出 CSV</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- 主容器 -->
-    <div class="max-w-7xl mx-auto px-6 py-8">
-      <!-- 搜尋與篩選列 -->
-      <div class="bg-white rounded-xl border border-slate-200 p-6 mb-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <!-- 搜尋框 -->
-          <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-slate-900 mb-2">搜尋學生</label>
-            <div class="relative">
-              <input
-                v-model="adminStore.searchQuery"
-                type="text"
-                placeholder="輸入學號或姓名..."
-                class="w-full px-4 py-2 pl-10 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <span class="absolute left-3 top-2.5 text-slate-400">🔍</span>
-            </div>
-          </div>
-
-          <!-- 入學年度篩選 -->
-          <div>
-            <label class="block text-sm font-medium text-slate-900 mb-2">入學年度篩選</label>
-            <select
-              v-model.number="adminStore.filterYear"
-              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option :value="null">全部學年度</option>
-              <option :value="112">112 學年度</option>
-              <option :value="113">113 學年度</option>
-              <option :value="114">114 學年度</option>
-            </select>
-          </div>
-
-          <!-- 狀態篩選 -->
-          <div>
-            <label class="block text-sm font-medium text-slate-900 mb-2">狀態篩選</label>
-            <select
-              v-model="adminStore.filterStatus"
-              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="all">全部狀態</option>
-              <option value="on_track">已達標</option>
-              <option value="at_risk">需關注</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- 篩選結果統計 -->
-        <div class="mt-4 flex items-center justify-between text-sm">
-          <span class="text-slate-600">
-            搜尋結果：<span class="font-bold text-slate-900">{{ filteredStudents.length }}</span> 位學生
-          </span>
-          <button
-            @click="clearFilters"
-            class="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            清除篩選
-          </button>
-        </div>
-      </div>
-
-      <!-- 學生卡片網格 -->
-      <div v-if="filteredStudents.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div
-          v-for="student in filteredStudents"
-          :key="student.student_id"
-          @click="navigateToDetail(student.student_id)"
-          class="bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg hover:border-blue-300 transition cursor-pointer transform hover:scale-105 duration-200 group"
-        >
-          <!-- 卡片頂部：學生基本資訊 -->
-          <div class="flex items-start justify-between mb-4">
-            <div>
-              <h3 class="text-lg font-bold text-slate-900">{{ student.name }}</h3>
-              <p class="text-xs text-slate-500 mt-1">學號：{{ student.student_id }}</p>
-            </div>
-
-            <!-- 狀態標籤 -->
-            <div class="flex flex-col items-end space-y-1">
-              <span
-                :class="[
-                  'px-3 py-1 text-xs font-semibold rounded-full',
-                  student.status === 'on_track'
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-orange-100 text-orange-800',
-                ]"
-              >
-                {{ student.status === 'on_track' ? '已達標' : '需關注' }}
-              </span>
-
-              <!-- 特殊身分標籤 -->
-              <div class="flex gap-1 flex-wrap justify-end">
-                <span
-                  v-if="student.double_major"
-                  class="px-2 py-0.5 text-xs font-semibold rounded bg-purple-100 text-purple-800"
-                >
-                  雙主修
-                </span>
-                <span
-                  v-if="student.exchange_student"
-                  class="px-2 py-0.5 text-xs font-semibold rounded bg-blue-100 text-blue-800"
-                >
-                  交換生
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 學分進度 -->
-          <div class="space-y-2 mb-4">
-            <div class="flex items-center justify-between text-sm">
-              <span class="text-slate-600">學分進度</span>
-              <span class="font-bold text-slate-900">
-                {{ student.total_credits }} / {{ student.required_credits }}
-              </span>
-            </div>
-            <div class="w-full bg-slate-200 rounded-full h-2">
-              <div
-                class="h-2 rounded-full transition-all"
-                :class="[
-                  student.status === 'on_track'
-                    ? 'bg-gradient-to-r from-green-400 to-green-500'
-                    : 'bg-gradient-to-r from-orange-400 to-red-500',
-                ]"
-                :style="{ width: Math.round((student.total_credits / student.required_credits) * 100) + '%' }"
-              ></div>
-            </div>
-            <p class="text-xs text-slate-500 text-right">
-              {{ Math.round((student.total_credits / student.required_credits) * 100) }}% 完成
-            </p>
-          </div>
-
-          <!-- 課程統計 -->
-          <div class="grid grid-cols-2 gap-3 mb-4 p-3 bg-slate-50 rounded-lg">
-            <div class="text-center">
-              <p class="text-2xl font-bold text-blue-600">{{ student.completed_courses }}</p>
-              <p class="text-xs text-slate-600">已修課程</p>
-            </div>
-            <div class="text-center">
-              <p class="text-2xl font-bold text-purple-600">
-                {{ student.courses.filter((c) => !c.is_passed).length }}
-              </p>
-              <p class="text-xs text-slate-600">未通過課程</p>
-            </div>
-          </div>
-
-          <!-- 入學年度 -->
-          <div class="text-xs text-slate-500 mb-4">
-            入學年度：{{ student.admission_year }} 學年度
-            <span class="ml-2 font-semibold text-slate-700">（{{ gradeLabel(student.admission_year) }}）</span>
-          </div>
-
-          <!-- 管理員備註預覽 -->
-          <div
-            v-if="student.notes"
-            class="p-3 bg-blue-50 border border-blue-200 rounded-lg mb-4"
-          >
-            <p class="text-xs text-blue-700 line-clamp-2">{{ student.notes }}</p>
-          </div>
-
-          <!-- 操作按鈕 -->
-          <div class="flex gap-2 pt-4 border-t border-slate-200 group-hover:opacity-100 opacity-75">
-            <button
-              @click.stop="navigateToDetail(student.student_id)"
-              class="flex-1 px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium rounded-lg transition text-sm"
-            >
-              檢視詳情
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 空狀態 -->
-      <div v-else class="text-center py-16">
-        <p class="text-xl font-semibold text-slate-900 mb-2">找不到符合條件的學生</p>
-        <p class="text-slate-600 mb-4">請調整搜尋或篩選條件</p>
-        <button
-          @click="clearFilters"
-          class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
-        >
-          清除篩選
-        </button>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAdminStore } from '@/stores/admin'
 import { ElMessage } from 'element-plus'
+import { ArrowLeft, Download, Search } from '@element-plus/icons-vue'
+import { useAdminStore } from '@/stores/admin'
 
-// ===== 狀態管理 =====
 const router = useRouter()
 const adminStore = useAdminStore()
 
-// ===== 計算屬性 =====
 const filteredStudents = computed(() => adminStore.filteredStudents)
-
 const totalStudents = computed(() => adminStore.students.length)
 
-// ===== 方法 =====
 const currentAcademicYear = computed(() => {
   const now = new Date()
   const taiwanYear = now.getFullYear() - 1911
   return now.getMonth() + 1 >= 8 ? taiwanYear : taiwanYear - 1
 })
 
-const gradeLabel = (admissionYear: number) => {
+function gradeLabel(admissionYear: number) {
   const grade = Math.max(1, currentAcademicYear.value - admissionYear + 1)
   return `${grade} 年級`
 }
 
-const navigateToDetail = (studentId: string) => {
-  adminStore.getStudentDetail(studentId)
-  router.push({
-    name: 'student-detail',
-    params: { id: studentId },
-  })
+function progress(s: { total_credits: number; required_credits: number }) {
+  if (s.required_credits <= 0) return 0
+  return Math.min(100, Math.round((s.total_credits / s.required_credits) * 100))
 }
 
-const goBack = () => {
-  router.back()
+function statusTag(status: 'on_track' | 'at_risk') {
+  return status === 'on_track'
+    ? { label: '已達標', type: 'success' as const }
+    : { label: '需關注', type: 'warning' as const }
 }
 
-const handleExport = () => {
+function navigateToDetail(studentId: string) {
+  router.push({ name: 'student-detail', params: { id: studentId } })
+}
+
+function goBack() {
+  router.push({ name: 'admin-dashboard' })
+}
+
+function handleExport() {
+  if (filteredStudents.value.length === 0) {
+    ElMessage.warning('目前沒有可匯出的學生')
+    return
+  }
   adminStore.exportStudentsAsCSV()
   ElMessage.success('已匯出學生列表')
 }
 
-const clearFilters = () => {
+function clearFilters() {
   adminStore.searchQuery = ''
   adminStore.filterYear = null
   adminStore.filterStatus = 'all'
   ElMessage.info('已清除篩選條件')
 }
+
+onMounted(() => {
+  if (adminStore.students.length === 0) adminStore.fetchStudents()
+})
 </script>
 
+<template>
+  <main class="list-page">
+    <header class="topbar">
+      <div class="title-block">
+        <el-button :icon="ArrowLeft" text @click="goBack">返回工作臺</el-button>
+        <div>
+          <h1>學生列表管理</h1>
+          <p>共 {{ totalStudents }} 位學生</p>
+        </div>
+      </div>
+      <el-button type="success" :icon="Download" @click="handleExport">匯出 CSV</el-button>
+    </header>
+
+    <el-card shadow="never" class="filter-card">
+      <div class="filters">
+        <el-input
+          v-model="adminStore.searchQuery"
+          class="filter-search"
+          placeholder="輸入學號或姓名搜尋…"
+          clearable
+          :prefix-icon="Search"
+        />
+        <el-select v-model="adminStore.filterYear" class="filter-select" placeholder="入學年度" clearable>
+          <el-option :value="112" label="112 學年度" />
+          <el-option :value="113" label="113 學年度" />
+          <el-option :value="114" label="114 學年度" />
+        </el-select>
+        <el-select v-model="adminStore.filterStatus" class="filter-select" placeholder="狀態">
+          <el-option value="all" label="全部狀態" />
+          <el-option value="on_track" label="已達標" />
+          <el-option value="at_risk" label="需關注" />
+        </el-select>
+      </div>
+      <div class="filter-foot">
+        <span>搜尋結果：<strong>{{ filteredStudents.length }}</strong> 位學生</span>
+        <el-button link type="primary" @click="clearFilters">清除篩選</el-button>
+      </div>
+    </el-card>
+
+    <div v-loading="adminStore.loading" class="list-body">
+      <el-row v-if="filteredStudents.length > 0" :gutter="16">
+        <el-col v-for="s in filteredStudents" :key="s.student_id" :xs="24" :sm="12" :lg="8">
+          <el-card shadow="hover" class="student-card" @click="navigateToDetail(s.student_id)">
+            <div class="card-head">
+              <div>
+                <h3>{{ s.name || '未命名' }}</h3>
+                <p class="sid">學號 {{ s.student_id }}</p>
+              </div>
+              <div class="tags">
+                <el-tag :type="statusTag(s.status).type" effect="light" size="small">
+                  {{ statusTag(s.status).label }}
+                </el-tag>
+                <el-tag v-if="s.double_major" type="info" effect="plain" size="small">雙主修</el-tag>
+              </div>
+            </div>
+
+            <div class="credit-row">
+              <span>學分進度</span>
+              <strong>{{ s.total_credits }} / {{ s.required_credits }}</strong>
+            </div>
+            <el-progress
+              :percentage="progress(s)"
+              :status="s.status === 'on_track' ? 'success' : 'warning'"
+              :stroke-width="10"
+            />
+
+            <div class="stat-row">
+              <div>
+                <strong class="pass">{{ s.completed_courses }}</strong>
+                <span>已修課程</span>
+              </div>
+              <div>
+                <strong class="miss">{{ s.failed_courses }}</strong>
+                <span>未通過課程</span>
+              </div>
+              <div>
+                <strong>{{ gradeLabel(s.admission_year) }}</strong>
+                <span>{{ s.admission_year }} 學年度入學</span>
+              </div>
+            </div>
+
+            <el-alert
+              v-if="s.notes"
+              class="note"
+              type="info"
+              :closable="false"
+              :title="s.notes"
+            />
+
+            <el-button class="detail-btn" type="primary" plain @click.stop="navigateToDetail(s.student_id)">
+              檢視詳情
+            </el-button>
+          </el-card>
+        </el-col>
+      </el-row>
+
+      <el-empty v-else description="找不到符合條件的學生">
+        <el-button type="primary" @click="clearFilters">清除篩選</el-button>
+      </el-empty>
+    </div>
+  </main>
+</template>
+
 <style scoped>
-/* 卡片陰影效果 */
-.group:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+.list-page {
+  min-height: 100vh;
+  padding: 24px clamp(16px, 4vw, 48px) 48px;
+  background: #f5f7fa;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.title-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  color: #1f2937;
+}
+
+.title-block p {
+  margin: 2px 0 0;
+  color: var(--el-text-color-secondary);
+  font-size: 13px;
+}
+
+.filter-card {
+  margin-bottom: 18px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filter-search {
+  flex: 1 1 280px;
+}
+
+.filter-select {
+  width: 160px;
+}
+
+.filter-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--el-text-color-secondary);
+}
+
+.list-body {
+  min-height: 200px;
+}
+
+.student-card {
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.card-head h3 {
+  margin: 0;
+  font-size: 17px;
+  color: #1f2937;
+}
+
+.sid {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--el-text-color-secondary);
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.credit-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.stat-row div {
+  display: grid;
+  gap: 2px;
+  padding: 8px 4px;
+  border-radius: 6px;
+  background: #f8fafc;
+}
+
+.stat-row strong {
+  font-size: 18px;
+}
+
+.stat-row span {
+  font-size: 12px;
+  color: var(--el-text-color-secondary);
+}
+
+.pass {
+  color: var(--el-color-primary);
+}
+
+.miss {
+  color: var(--el-color-danger);
+}
+
+.note {
+  margin-bottom: 12px;
+}
+
+.detail-btn {
+  width: 100%;
 }
 </style>

@@ -3,6 +3,9 @@
 // 請求都改回傳本檔的假資料，不需啟動後端即可走完整學生端流程。
 
 import type {
+  AdminDashboardData,
+  AdminStudentDetail,
+  AdminStudentProfile,
   CheckResult,
   Department,
   LoginRequest,
@@ -384,4 +387,58 @@ export function mockUpload(): Promise<UploadResponse> {
     chinese_name: '彭啟則',
     course_count: 48,
   })
+}
+
+// ==================== Admin mock ====================
+const mockAdminProfiles: AdminStudentProfile[] = [
+  { student_id: '112703001', name: '林子晴', admission_year: 112, status: 'on_track', notes: '雙主修資訊科學系，學分進度穩定。', double_major: true, total_credits: 120, required_credits: 128, completed_courses: 42, failed_courses: 0 },
+  { student_id: '112703002', name: '王浩宇', admission_year: 112, status: 'at_risk', notes: '學分進度落後，建議安排導師晤談。', double_major: false, total_credits: 45, required_credits: 128, completed_courses: 15, failed_courses: 1 },
+  { student_id: '112703003', name: '陳思語', admission_year: 112, status: 'on_track', notes: null, double_major: false, total_credits: 115, required_credits: 128, completed_courses: 38, failed_courses: 0 },
+  { student_id: '113703004', name: '許家豪', admission_year: 113, status: 'at_risk', notes: '必修課多次未通過，需安排學業輔導。', double_major: false, total_credits: 52, required_credits: 128, completed_courses: 18, failed_courses: 2 },
+  { student_id: '112703005', name: '黃詩涵', admission_year: 112, status: 'on_track', notes: null, double_major: false, total_credits: 128, required_credits: 128, completed_courses: 45, failed_courses: 0 },
+]
+
+export function mockListAdminStudents(): Promise<AdminStudentProfile[]> {
+  return delay(mockAdminProfiles.map((p) => ({ ...p })))
+}
+
+export function mockAdminDashboard(): Promise<AdminDashboardData> {
+  const total = mockAdminProfiles.length
+  const onTrack = mockAdminProfiles.filter((p) => p.status === 'on_track').length
+  const atRisk = total - onTrack
+  const riskStudents = mockAdminProfiles
+    .filter((p) => p.status === 'at_risk')
+    .sort((a, b) => a.total_credits / a.required_credits - b.total_credits / b.required_credits)
+    .slice(0, 5)
+    .map((p) => ({ ...p }))
+  const difficultCourses = [
+    { name: '微積分', total: 5, failed: 2, fail_rate: 40 },
+    { name: '計算機組織', total: 4, failed: 1, fail_rate: 25 },
+    { name: '資料結構', total: 5, failed: 1, fail_rate: 20 },
+  ]
+  return delay({
+    total_students: total,
+    on_track_students: onTrack,
+    at_risk_students: atRisk,
+    pass_rate: total ? Math.round((onTrack / total) * 100) : 0,
+    risk_students: riskStudents,
+    difficult_courses: difficultCourses,
+  })
+}
+
+export function mockAdminStudentDetail(sid: string): Promise<AdminStudentDetail> {
+  const profile = mockAdminProfiles.find((p) => p.student_id === sid) ?? mockAdminProfiles[0]
+  if (!profile) return Promise.reject(new Error('找不到學生'))
+  return delay({ profile: { ...profile }, check: mockCheckResult })
+}
+
+export function mockUpdateAdminStudent(
+  sid: string,
+  body: { status?: 'on_track' | 'at_risk'; notes?: string },
+): Promise<AdminStudentProfile> {
+  const profile = mockAdminProfiles.find((p) => p.student_id === sid)
+  if (!profile) return Promise.reject(new Error('找不到學生'))
+  if (body.status !== undefined) profile.status = body.status
+  if (body.notes !== undefined) profile.notes = body.notes
+  return delay({ ...profile })
 }
