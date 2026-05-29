@@ -128,7 +128,7 @@ async function onSubmit() {
     <el-card class="auth-card" shadow="always">
       <div class="auth-header">
         <h1 class="title">建立系統帳號</h1>
-        <p class="subtitle">依身分填寫必要資料，前端 mock 會先完成流程驗證</p>
+        <p class="subtitle">依身分填寫必要資料，建立畢業檢核系統帳號</p>
       </div>
 
       <el-form
@@ -167,7 +167,7 @@ async function onSubmit() {
             <el-input v-model="form.account" :prefix-icon="User" placeholder="例如 cs_admin" />
           </el-form-item>
           <el-form-item label="管理單位" prop="departmentId">
-            <el-select v-model="form.departmentId" :prefix-icon="OfficeBuilding" placeholder="選擇 department_id">
+            <el-select v-model="form.departmentId" :prefix-icon="OfficeBuilding" placeholder="選擇管理單位">
               <el-option v-for="dept in departments" :key="dept.id" :label="`${dept.id} - ${dept.name}`" :value="dept.id" />
             </el-select>
           </el-form-item>

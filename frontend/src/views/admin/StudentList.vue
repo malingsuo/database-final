@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-slate-50">
-    <!-- 顶部导航栏 -->
+    <!-- 頂部導覽列 -->
     <div class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
@@ -11,8 +11,8 @@
             ←
           </button>
           <div>
-            <h1 class="text-xl font-bold text-slate-900">学生列表管理</h1>
-            <p class="text-xs text-slate-500">共 {{ totalStudents }} 位学生</p>
+            <h1 class="text-xl font-bold text-slate-900">學生列表管理</h1>
+            <p class="text-xs text-slate-500">共 {{ totalStudents }} 位學生</p>
           </div>
         </div>
 
@@ -20,75 +20,73 @@
           @click="handleExport"
           class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition inline-flex items-center space-x-2"
         >
-          <span>📥</span>
-          <span>导出 CSV</span>
+          <span>匯出 CSV</span>
         </button>
       </div>
     </div>
 
     <!-- 主容器 -->
     <div class="max-w-7xl mx-auto px-6 py-8">
-      <!-- 搜索与筛选栏 -->
+      <!-- 搜尋與篩選列 -->
       <div class="bg-white rounded-xl border border-slate-200 p-6 mb-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <!-- 搜索框 -->
+          <!-- 搜尋框 -->
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-slate-900 mb-2">搜索学生</label>
+            <label class="block text-sm font-medium text-slate-900 mb-2">搜尋學生</label>
             <div class="relative">
               <input
                 v-model="adminStore.searchQuery"
                 type="text"
-                placeholder="输入学号或姓名..."
+                placeholder="輸入學號或姓名..."
                 class="w-full px-4 py-2 pl-10 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <span class="absolute left-3 top-2.5 text-slate-400">🔍</span>
             </div>
           </div>
 
-          <!-- 年级筛选 -->
+          <!-- 入學年度篩選 -->
           <div>
-            <label class="block text-sm font-medium text-slate-900 mb-2">年级筛选</label>
+            <label class="block text-sm font-medium text-slate-900 mb-2">入學年度篩選</label>
             <select
               v-model.number="adminStore.filterYear"
               class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option :value="null">全部年级</option>
-              <option :value="2021">2021 入学</option>
-              <option :value="2022">2022 入学</option>
-              <option :value="2023">2023 入学</option>
-              <option :value="2024">2024 入学</option>
+              <option :value="null">全部學年度</option>
+              <option :value="112">112 學年度</option>
+              <option :value="113">113 學年度</option>
+              <option :value="114">114 學年度</option>
             </select>
           </div>
 
-          <!-- 状态筛选 -->
+          <!-- 狀態篩選 -->
           <div>
-            <label class="block text-sm font-medium text-slate-900 mb-2">状态筛选</label>
+            <label class="block text-sm font-medium text-slate-900 mb-2">狀態篩選</label>
             <select
               v-model="adminStore.filterStatus"
               class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="all">全部状态</option>
-              <option value="on_track">已达标</option>
-              <option value="at_risk">学分落后</option>
+              <option value="all">全部狀態</option>
+              <option value="on_track">已達標</option>
+              <option value="at_risk">需關注</option>
             </select>
           </div>
         </div>
 
-        <!-- 筛选结果统计 -->
+        <!-- 篩選結果統計 -->
         <div class="mt-4 flex items-center justify-between text-sm">
           <span class="text-slate-600">
-            搜索结果：<span class="font-bold text-slate-900">{{ filteredStudents.length }}</span> 位学生
+            搜尋結果：<span class="font-bold text-slate-900">{{ filteredStudents.length }}</span> 位學生
           </span>
           <button
             @click="clearFilters"
             class="text-blue-600 hover:text-blue-700 font-medium"
           >
-            清除筛选
+            清除篩選
           </button>
         </div>
       </div>
 
-      <!-- 学生卡片网格 -->
+      <!-- 學生卡片網格 -->
       <div v-if="filteredStudents.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="student in filteredStudents"
@@ -96,14 +94,14 @@
           @click="navigateToDetail(student.student_id)"
           class="bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg hover:border-blue-300 transition cursor-pointer transform hover:scale-105 duration-200 group"
         >
-          <!-- 卡片顶部：学生基本信息 -->
+          <!-- 卡片頂部：學生基本資訊 -->
           <div class="flex items-start justify-between mb-4">
             <div>
               <h3 class="text-lg font-bold text-slate-900">{{ student.name }}</h3>
-              <p class="text-xs text-slate-500 mt-1">学号: {{ student.student_id }}</p>
+              <p class="text-xs text-slate-500 mt-1">學號：{{ student.student_id }}</p>
             </div>
 
-            <!-- 状态徽章 -->
+            <!-- 狀態標籤 -->
             <div class="flex flex-col items-end space-y-1">
               <span
                 :class="[
@@ -113,31 +111,31 @@
                     : 'bg-orange-100 text-orange-800',
                 ]"
               >
-                {{ student.status === 'on_track' ? '✓ 已达标' : '⚠ 落后' }}
+                {{ student.status === 'on_track' ? '已達標' : '需關注' }}
               </span>
 
-              <!-- 特殊身份标签 -->
+              <!-- 特殊身分標籤 -->
               <div class="flex gap-1 flex-wrap justify-end">
                 <span
                   v-if="student.double_major"
                   class="px-2 py-0.5 text-xs font-semibold rounded bg-purple-100 text-purple-800"
                 >
-                  双主修
+                  雙主修
                 </span>
                 <span
                   v-if="student.exchange_student"
                   class="px-2 py-0.5 text-xs font-semibold rounded bg-blue-100 text-blue-800"
                 >
-                  交换生
+                  交換生
                 </span>
               </div>
             </div>
           </div>
 
-          <!-- 学分进度 -->
+          <!-- 學分進度 -->
           <div class="space-y-2 mb-4">
             <div class="flex items-center justify-between text-sm">
-              <span class="text-slate-600">学分进度</span>
+              <span class="text-slate-600">學分進度</span>
               <span class="font-bold text-slate-900">
                 {{ student.total_credits }} / {{ student.required_credits }}
               </span>
@@ -158,56 +156,55 @@
             </p>
           </div>
 
-          <!-- 课程统计 -->
+          <!-- 課程統計 -->
           <div class="grid grid-cols-2 gap-3 mb-4 p-3 bg-slate-50 rounded-lg">
             <div class="text-center">
               <p class="text-2xl font-bold text-blue-600">{{ student.completed_courses }}</p>
-              <p class="text-xs text-slate-600">已修课程</p>
+              <p class="text-xs text-slate-600">已修課程</p>
             </div>
             <div class="text-center">
               <p class="text-2xl font-bold text-purple-600">
                 {{ student.courses.filter((c) => !c.is_passed).length }}
               </p>
-              <p class="text-xs text-slate-600">挂科课程</p>
+              <p class="text-xs text-slate-600">未通過課程</p>
             </div>
           </div>
 
-          <!-- 入学年度 -->
+          <!-- 入學年度 -->
           <div class="text-xs text-slate-500 mb-4">
-            入学年度: {{ student.admission_year }}
-            <span class="ml-2 font-semibold text-slate-700">({{ new Date().getFullYear() - student.admission_year + 1 }}年级)</span>
+            入學年度：{{ student.admission_year }} 學年度
+            <span class="ml-2 font-semibold text-slate-700">（{{ gradeLabel(student.admission_year) }}）</span>
           </div>
 
-          <!-- 管理员备注预览 -->
+          <!-- 管理員備註預覽 -->
           <div
             v-if="student.notes"
             class="p-3 bg-blue-50 border border-blue-200 rounded-lg mb-4"
           >
-            <p class="text-xs text-blue-700 line-clamp-2">💬 {{ student.notes }}</p>
+            <p class="text-xs text-blue-700 line-clamp-2">{{ student.notes }}</p>
           </div>
 
-          <!-- 操作按钮 -->
+          <!-- 操作按鈕 -->
           <div class="flex gap-2 pt-4 border-t border-slate-200 group-hover:opacity-100 opacity-75">
             <button
               @click.stop="navigateToDetail(student.student_id)"
               class="flex-1 px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium rounded-lg transition text-sm"
             >
-              查看详情 →
+              檢視詳情
             </button>
           </div>
         </div>
       </div>
 
-      <!-- 空状态 -->
+      <!-- 空狀態 -->
       <div v-else class="text-center py-16">
-        <p class="text-4xl mb-4">📭</p>
-        <p class="text-xl font-semibold text-slate-900 mb-2">未找到符合条件的学生</p>
-        <p class="text-slate-600 mb-4">尝试调整搜索或筛选条件</p>
+        <p class="text-xl font-semibold text-slate-900 mb-2">找不到符合條件的學生</p>
+        <p class="text-slate-600 mb-4">請調整搜尋或篩選條件</p>
         <button
           @click="clearFilters"
           class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
         >
-          清除筛选
+          清除篩選
         </button>
       </div>
     </div>
@@ -220,22 +217,27 @@ import { useRouter } from 'vue-router'
 import { useAdminStore } from '@/stores/admin'
 import { ElMessage } from 'element-plus'
 
-// ===== 状态管理 =====
+// ===== 狀態管理 =====
 const router = useRouter()
 const adminStore = useAdminStore()
 
-// ===== 计算属性 =====
-// 过滤后的学生列表
+// ===== 計算屬性 =====
 const filteredStudents = computed(() => adminStore.filteredStudents)
 
-// 总学生数
 const totalStudents = computed(() => adminStore.students.length)
 
 // ===== 方法 =====
-/**
- * 导航到学生详情页面
- * @param studentId - 学生ID
- */
+const currentAcademicYear = computed(() => {
+  const now = new Date()
+  const taiwanYear = now.getFullYear() - 1911
+  return now.getMonth() + 1 >= 8 ? taiwanYear : taiwanYear - 1
+})
+
+const gradeLabel = (admissionYear: number) => {
+  const grade = Math.max(1, currentAcademicYear.value - admissionYear + 1)
+  return `${grade} 年級`
+}
+
 const navigateToDetail = (studentId: string) => {
   adminStore.getStudentDetail(studentId)
   router.push({
@@ -244,34 +246,25 @@ const navigateToDetail = (studentId: string) => {
   })
 }
 
-/**
- * 返回到上一页
- */
 const goBack = () => {
   router.back()
 }
 
-/**
- * 导出学生列表
- */
 const handleExport = () => {
   adminStore.exportStudentsAsCSV()
-  ElMessage.success('已导出学生列表')
+  ElMessage.success('已匯出學生列表')
 }
 
-/**
- * 清除所有筛选条件
- */
 const clearFilters = () => {
   adminStore.searchQuery = ''
   adminStore.filterYear = null
   adminStore.filterStatus = 'all'
-  ElMessage.info('已清除筛选条件')
+  ElMessage.info('已清除篩選條件')
 }
 </script>
 
 <style scoped>
-/* 卡片阴影效果 */
+/* 卡片陰影效果 */
 .group:hover {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }

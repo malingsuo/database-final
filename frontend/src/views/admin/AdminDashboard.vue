@@ -2,15 +2,7 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import {
-  Download,
-  OfficeBuilding,
-  RefreshRight,
-  Search,
-  TrendCharts,
-  User,
-  Warning,
-} from '@element-plus/icons-vue'
+import { Download, RefreshRight, Search, TrendCharts, User, Warning } from '@element-plus/icons-vue'
 import { useAdminStore } from '@/stores/admin'
 import { useAuthStore } from '@/stores/auth'
 
@@ -52,7 +44,7 @@ async function handleLogout() {
         <div class="brand-mark">A</div>
         <div>
           <h1>管理員工作台</h1>
-          <p>{{ departmentName }} · administrator.user_id = {{ auth.user?.user_id }}</p>
+          <p>{{ departmentName }} · {{ adminName }}</p>
         </div>
       </div>
 
@@ -65,16 +57,15 @@ async function handleLogout() {
 
     <section class="hero">
       <div>
-        <p class="eyebrow">Academic review console</p>
+        <p class="eyebrow">學分檢核總覽</p>
         <h2>{{ adminName }}，今天需要優先處理 {{ dashboardStats.at_risk_students }} 位風險學生</h2>
         <p class="hero-copy">
-          管理員資料以 administrator(id, department_id, user_id) 模擬；學生清單以
-          student(student_id, name, admission_year, user_id) 作為前端測試資料來源。
+          依學生學分進度、未通過課程與備註紀錄彙整待追蹤名單，協助系辦快速掌握畢業檢核風險。
         </p>
       </div>
       <div class="hero-meta">
-        <OfficeBuilding />
-        <span>department_id: {{ auth.user?.department_id ?? '-' }}</span>
+        <span>管理單位</span>
+        <strong>{{ departmentName }}</strong>
       </div>
     </section>
 
@@ -114,8 +105,8 @@ async function handleLogout() {
         <el-table :data="riskStudents" class="admin-table" empty-text="目前沒有風險學生">
           <el-table-column prop="student_id" label="學號" width="110" />
           <el-table-column prop="name" label="姓名" min-width="120" />
-          <el-table-column label="入學年度" width="100">
-            <template #default="{ row }">{{ row.admission_year }}</template>
+          <el-table-column label="入學年度" width="120">
+            <template #default="{ row }">{{ row.admission_year }} 學年度</template>
           </el-table-column>
           <el-table-column label="學分進度" min-width="180">
             <template #default="{ row }">
@@ -134,7 +125,7 @@ async function handleLogout() {
           </el-table-column>
           <el-table-column label="操作" width="100" align="right">
             <template #default="{ row }">
-              <el-button link type="primary" @click="navigateToStudent(row.student_id)">查看</el-button>
+              <el-button link type="primary" @click="navigateToStudent(row.student_id)">檢視</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -143,7 +134,7 @@ async function handleLogout() {
       <aside class="side-stack">
         <article class="panel">
           <h3>課程風險</h3>
-          <p class="panel-note">依 mock 成績計算未通過率。</p>
+          <p class="panel-note">依學生修課紀錄計算未通過率。</p>
           <div class="course-list">
             <div v-for="course in difficultCourses" :key="course.name" class="course-row">
               <div>
@@ -160,7 +151,7 @@ async function handleLogout() {
           <div class="action-list">
             <el-button :icon="Search" @click="router.push({ name: 'student-list' })">搜尋學生</el-button>
             <el-button :icon="Download" @click="exportCsv">匯出 CSV</el-button>
-            <el-button :icon="RefreshRight" @click="ElMessage.info('mock 資料已是最新狀態')">重新整理</el-button>
+            <el-button :icon="RefreshRight" @click="ElMessage.info('資料已更新')">重新整理</el-button>
           </div>
         </article>
       </aside>
@@ -267,20 +258,25 @@ h1 {
 
 .hero-meta {
   min-width: 210px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  min-height: 60px;
+  display: grid;
+  gap: 4px;
+  align-content: center;
   align-self: flex-end;
   color: #1f2937;
   border: 1px solid #dbe3ef;
   border-radius: 8px;
   background: #fff;
+  padding: 10px 16px;
 }
 
-.hero-meta svg {
-  width: 18px;
+.hero-meta span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.hero-meta strong {
+  font-size: 16px;
 }
 
 .stats-grid {
