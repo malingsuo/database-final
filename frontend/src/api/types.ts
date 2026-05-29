@@ -106,18 +106,35 @@ export interface DoubleMajorGroupCheck {
   status: 'complete' | 'incomplete'
 }
 
+export interface GeCourse {
+  course_name: string
+  course_code: string
+  credits: number
+  score?: string | null
+  ge_label: number
+  allocated_category?: string
+  candidate_categories?: string[]
+}
+
 export interface GeCategory {
   category_name: string
   remark_code: string
-  credits_required: number
+  credits_required_min: number
+  credits_required_max: number
   earned_credits: number
   missing_credits: number
-  courses: CourseEntry[]
+  courses: GeCourse[]
   status: 'complete' | 'incomplete'
 }
 
 export interface GeCheck {
   categories: GeCategory[]
+  total_required_credits: number
+  earned_credits: number
+  missing_credits: number
+  core_domains: string[]
+  core_domains_required: number
+  cross_domain_courses: GeCourse[]
   status: 'complete' | 'incomplete'
 }
 

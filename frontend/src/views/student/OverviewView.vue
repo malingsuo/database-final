@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import type { GeCheck, PeCheck } from '@/api/types'
+import type { GeCategory, GeCheck, PeCheck } from '@/api/types'
 import CheckGate from '@/components/CheckGate.vue'
 import GraduationStatusCard from '@/components/GraduationStatusCard.vue'
 import RequirementBlock from '@/components/RequirementBlock.vue'
 import ElectiveGapCard from '@/components/ElectiveGapCard.vue'
 
 function gePercentage(ge: GeCheck): number {
-  const required = ge.categories.reduce((s, c) => s + c.credits_required, 0)
-  if (required <= 0) return ge.status === 'complete' ? 100 : 0
-  const earned = ge.categories.reduce((s, c) => s + Math.min(c.earned_credits, c.credits_required), 0)
-  return Math.min(100, Math.round((earned / required) * 100))
+  if (ge.total_required_credits <= 0) return ge.status === 'complete' ? 100 : 0
+  return Math.min(100, Math.round((ge.earned_credits / ge.total_required_credits) * 100))
+}
+
+// 通識各類別的應修為一個區間（最低～最高），相等時只顯示單一數字。
+function geRequirementLabel(cat: GeCategory): string {
+  return cat.credits_required_min === cat.credits_required_max
+    ? `${cat.credits_required_min}`
+    : `${cat.credits_required_min}~${cat.credits_required_max}`
 }
 
 function pePercentage(pe: PeCheck): number {
@@ -72,7 +77,7 @@ function statusTag(status: string) {
                   class="ge-cat-credit"
                   :class="{ miss: cat.missing_credits > 0 }"
                 >
-                  {{ cat.earned_credits }} / {{ cat.credits_required }}
+                  {{ cat.earned_credits }} / {{ geRequirementLabel(cat) }}
                 </span>
               </div>
             </div>
