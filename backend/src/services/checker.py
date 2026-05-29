@@ -29,9 +29,13 @@ from src.models import Student, StudentCourse
 
 # ---------------------------------------------------------------------------
 # JSON 規定載入
-# 路徑：backend/src/services/checker.py → 往上 4 層 → repo 根 → data/
+# 優先讀 DATA_DIR 環境變數（container 內用 volume mount）
+# fallback：往上 4 層到 repo 根 / data/（本機開發）
 # ---------------------------------------------------------------------------
-_DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
+import os as _os
+_DATA_DIR = Path(_os.environ.get("DATA_DIR", "")) if _os.environ.get("DATA_DIR") else (
+    Path(__file__).parent.parent.parent.parent / "data"
+)
 
 
 @lru_cache(maxsize=None)
