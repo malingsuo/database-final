@@ -285,7 +285,7 @@ def main():
             dp3 = (r["dp3"] or "").strip()
             vals.append(
                 f"    ({escape(sub_num)}, {escape(year)}, {escape(sem)}, "
-                f"{escape(name)}, {credits}, {escape(course_type)}, {ge_label}, {escape(dp3)})"
+                f"{escape(name)}, {credits}, {escape(course_type)}, {ge_label}::bit(8), {escape(dp3)})"
             )
         course_lines.append(",\n".join(vals))
         course_lines.append("ON CONFLICT (course_code, year, semester) DO NOTHING;")

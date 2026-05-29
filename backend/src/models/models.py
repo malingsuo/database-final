@@ -11,14 +11,35 @@ from sqlalchemy import (
     ForeignKey,
     ForeignKeyConstraint,
     Integer,
-    SmallInteger,
     String,
     func,
 )
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import BIT, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.types import TypeDecorator
 
 from src.core.database import Base
+
+
+class Bit8AsInt(TypeDecorator):
+    impl = BIT(8)
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
+        return format(int(value), '08b')
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return 0
+        if isinstance(value, int):
+            return value
+        if isinstance(value, str):
+            return int(value, 2)
+        if hasattr(value, 'tobytes'):
+            return int.from_bytes(value.tobytes(), 'big')
+        return int(value)
 
 
 class Account(Base):
@@ -115,7 +136,7 @@ class Course(Base):
     )
     type: Mapped[str | None] = mapped_column(String(20), default=None)
     ge_label: Mapped[int] = mapped_column(
-        SmallInteger, nullable=False, default=0
+        Bit8AsInt, nullable=False, default=0
     )
     department_id: Mapped[str | None] = mapped_column(
         String(10), ForeignKey("department.id"), default=None
