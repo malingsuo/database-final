@@ -25,9 +25,9 @@ services:
   db:
     image: postgres:18
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=auth_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=dbfinal
     volumes:
       - ./db:/docker-entrypoint-initdb.d
       - pg_data:/var/lib/postgresql/18/docker
