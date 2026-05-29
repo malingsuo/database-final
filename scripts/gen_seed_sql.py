@@ -167,7 +167,9 @@ def get_type(kind: int, lmt_kind: str) -> str:
         return "必修"
     if kind == 3:
         return "群修"
-    if kind in (2, 4) or (kind == 0 and lmt):
+    if kind == 4:
+        return "通識"
+    if (kind == 2 or kind == 0) and lmt:
         return "通識"
     return "選修"
 
@@ -175,9 +177,9 @@ def get_type(kind: int, lmt_kind: str) -> str:
 def get_ge_label(kind: int, lmt_kind: str, core: int) -> int:
     """通識課才有 ge_label，非通識回傳 0"""
     lmt = (lmt_kind or "").strip()
-    if kind not in (0, 2, 4):
-        return 0
-    if kind == 0 and not lmt:
+    # kind=4 必是通識；kind=2/0 要有 lmtKind 才算通識
+    is_ge = (kind == 4) or ((kind in (0, 2)) and bool(lmt))
+    if not is_ge:
         return 0
     bits = LMT_TO_BITS.get(lmt, 0)
     if core == 1:
