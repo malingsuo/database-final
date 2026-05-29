@@ -97,7 +97,7 @@ function statusTag(status: string) {
               class="block-progress"
             />
             <div class="pe-stats">
-              <span>已通過 <strong class="pass">{{ result.pe_check.passed_semesters }}</strong> 學期</span>
+              <span>已透過 <strong class="pass">{{ result.pe_check.passed_semesters }}</strong> 學期</span>
               <span>應修 <strong>{{ result.pe_check.required_semesters }}</strong> 學期</span>
               <span>
                 尚缺

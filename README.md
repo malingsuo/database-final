@@ -1,6 +1,6 @@
 # Database Final
 
-> ERD 圖待更新，需修改項目：
+> ERD 圖待更新，需修改專案：
 > - `account.id` 改為 UUID（原為 SERIAL）
 > - `account.account` 欄位改為 `email`
 > - `course.id` 移除，改為複合 PK `(course_code, year, semester)`

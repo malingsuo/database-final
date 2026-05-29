@@ -154,7 +154,7 @@ class StudentCourse(Base):
         if not self.score:
             return False
         s = str(self.score).strip()
-        if s == "通過":
+        if s == "透過":
             return True
         if s in ("成績未到或無成績", ""):
             return False
@@ -175,7 +175,7 @@ class StudentCourse(Base):
 
 
 # ---------------------------------------------------------------------------
-# 建立 / 刪除所有表格的便利函數
+# 建立 / 刪除所有表格的便利函式
 # ---------------------------------------------------------------------------
 def create_all_tables(engine) -> None:
     Base.metadata.create_all(engine)

@@ -98,7 +98,7 @@ onMounted(() => {
   <main class="detail-page">
     <template v-if="student">
       <header class="detail-header">
-        <el-button :icon="ArrowLeft" text @click="goBack">返回管理員工作台</el-button>
+        <el-button :icon="ArrowLeft" text @click="goBack">返回管理員工作臺</el-button>
         <div class="header-main">
           <div>
             <p class="eyebrow">學生檢核詳情</p>
@@ -136,11 +136,11 @@ onMounted(() => {
             <strong>{{ student.completed_courses }}</strong>
           </div>
           <div>
-            <span>通過課程</span>
+            <span>透過課程</span>
             <strong class="success">{{ passedCourses.length }}</strong>
           </div>
           <div>
-            <span>未通過課程</span>
+            <span>未透過課程</span>
             <strong class="danger">{{ failedCourses.length }}</strong>
           </div>
         </div>
@@ -199,7 +199,7 @@ onMounted(() => {
               <el-table-column label="狀態" width="110" align="center">
                 <template #default="{ row }">
                   <el-tag :type="row.is_passed ? 'success' : 'danger'" effect="light">
-                    {{ row.is_passed ? '通過' : '未通過' }}
+                    {{ row.is_passed ? '透過' : '未透過' }}
                   </el-tag>
                 </template>
               </el-table-column>
@@ -309,7 +309,7 @@ onMounted(() => {
     </template>
 
     <el-empty v-else description="找不到此學生資料">
-      <el-button type="primary" @click="goBack">返回管理員工作台</el-button>
+      <el-button type="primary" @click="goBack">返回管理員工作臺</el-button>
     </el-empty>
   </main>
 </template>

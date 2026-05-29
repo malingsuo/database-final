@@ -17,7 +17,7 @@ def is_passed(score: str | None) -> bool:
     if score is None:
         return False
     s = str(score).strip()
-    if s == "通過":
+    if s == "透過":
         return True
     if not s or s == "成績未到或無成績":
         return False

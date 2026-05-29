@@ -212,7 +212,7 @@ def main():
     cur = conn.cursor()
 
     # ── 1. department ──────────────────────────────────────────────────────
-    # 從 COURSE 取出所有 dp3（系代碼），搭配 dp1 推算院
+    # 從 COURSE 取出所有 dp3（系程式碼），搭配 dp1 推算院
     cur.execute("SELECT DISTINCT dp1, dp3, unit FROM COURSE ORDER BY dp3")
     rows = cur.fetchall()
 

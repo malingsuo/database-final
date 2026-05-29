@@ -112,7 +112,7 @@ def _score_status(score: str | None) -> str:
     if score is None or str(score).strip() == "":
         return "in_progress"
     s = str(score).strip()
-    if s == "通過":
+    if s == "透過":
         return "passed"
     if s == "成績未到或無成績":
         return "in_progress"
@@ -306,7 +306,7 @@ def _match_courses_from_rules(
                     "group_label": group_label,
                     "credits": cred,
                     "score": matched.score,
-                    "note": "成績不通過",
+                    "note": "成績不透過",
                     "match_confidence": confidence,
                 })
 
@@ -631,7 +631,7 @@ def _no_data_result(dept_name: str) -> dict:
         "in_progress_courses": [],
         "missing_courses": [],
         "status": "no_data",
-        "note": "此系畢業規定暫無資料，請洽教務處確認畢業學分規定。",
+        "note": "此係畢業規定暫無資料，請洽教務處確認畢業學分規定。",
     }
 
 

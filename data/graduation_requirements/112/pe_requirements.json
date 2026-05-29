@@ -4,7 +4,7 @@
   "required_semesters": 4,
   "credits_per_semester": 1,
   "total_credits_required": 4,
-  "source": "https://aca.nccu.edu.tw/zh/最新消息/註冊組-2/5204",
+  "source": "https://aca.nccu.edu.tw/zh/最新訊息/註冊組-2/5204",
   "note": "109學年度起入學學生（含112級）體育必修課共4門（四學期），每學期採計1學分，總計4學分，列為畢業學分。108學年度以前入學學生為0學分。",
   "schedule": {
     "y1s1": {"required": true, "type": "必修", "description": "大一第一學期體育必修"},

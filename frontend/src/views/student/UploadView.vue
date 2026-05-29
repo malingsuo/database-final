@@ -81,7 +81,7 @@ async function submit() {
         class="uploader"
       >
         <el-icon class="el-icon--upload"><UploadFilled /></el-icon>
-        <div class="el-upload__text">將 <em>exportStudentData.json</em> 拖曳到此，或<em>點擊選擇檔案</em></div>
+        <div class="el-upload__text">將 <em>exportStudentData.json</em> 拖曳到此，或<em>點選選擇檔案</em></div>
         <template #tip>
           <div class="el-upload__tip">
             僅接受校務系統匯出的 .json 檔，且入學年度須為 112 學年度。
