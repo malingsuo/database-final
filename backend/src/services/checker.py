@@ -361,6 +361,8 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     passed, in_progress, missing, earned, in_prog_credits = _match_courses_from_rules(
         rule_courses, student_courses, sc_by_code
     )
+    # from pprint import pprint
+    # pprint(in_progress)
 
     total_req = rules.get("total_credits_required")
     if total_req is None and rule_courses:
