@@ -48,4 +48,6 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d
       - pg_data:/var/lib/postgresql/18/docker
-  
+
+volumes:
+  pg_data:
