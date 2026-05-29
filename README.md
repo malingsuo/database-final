@@ -64,7 +64,7 @@ fields_of_study(<ins>student_id</ins>, <ins>department_id</ins>, program_type, e
 
 ### ge_label 說明
 
-`course.ge_label` 為 SMALLINT，以 6-bit bitmask 紀錄通識課的類別，**僅 `type='通識'` 時有非零值，其餘 type 皆為 0**。
+`course.ge_label` 為 SMALLINT，以 8-bit bitmask 紀錄通識課的類別，**僅 `type='通識'` 時有非零值，其餘 type 皆為 0**。
 
 **`course.type` 值域：**
 

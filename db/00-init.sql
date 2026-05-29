@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS course (
     name          VARCHAR(200) NOT NULL,
     credits       NUMERIC(4,1) NOT NULL DEFAULT 0,
     type          VARCHAR(20),
+    -- 8-bit: core, human, social, natural, info, college, foreign, Chinese
     ge_label      SMALLINT     NOT NULL DEFAULT 0,
     department_id VARCHAR(10)  REFERENCES department(id),
     PRIMARY KEY (course_code, year, semester)

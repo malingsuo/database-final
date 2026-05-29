@@ -1,5 +1,12 @@
 import os
-from pydantic_settings import BaseSettings
+try:
+    from pydantic_settings import BaseSettings
+except Exception:
+    class BaseSettings:
+        def __init__(self, **kwargs):
+            for key, value in self.__class__.__dict__.items():
+                if key.isupper():
+                    setattr(self, key, os.getenv(key, kwargs.get(key, value)))
 
 
 class Settings(BaseSettings):
