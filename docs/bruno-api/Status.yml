@@ -5,13 +5,8 @@ info:
 
 http:
   method: GET
-  url: "{{baseURL}}/api/auth/status"
+  url: "{{baseUrl}}/api/auth/status"
   auth: inherit
-
-runtime:
-  variables:
-    - name: baseURL
-      value: http://localhost:3030
 
 settings:
   encodeUrl: true
@@ -22,7 +17,7 @@ settings:
 examples:
   - name: example (student)
     request:
-      url: "{{baseURL}}/api/auth/status"
+      url: "{{baseUrl}}/api/auth/status"
       method: GET
     response:
       status: 200
@@ -60,7 +55,7 @@ examples:
           }
   - name: example (admin)
     request:
-      url: "{{baseURL}}/api/auth/status"
+      url: "{{baseUrl}}/api/auth/status"
       method: GET
     response:
       status: 200
@@ -98,7 +93,7 @@ examples:
           }
   - name: example (invalid)
     request:
-      url: "{{baseURL}}/api/auth/status"
+      url: "{{baseUrl}}/api/auth/status"
       method: GET
     response:
       status: 401

@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{baseURL}}/api/auth/logout"
+  url: "{{baseUrl}}/api/auth/logout"
   auth: inherit
 
 settings:
@@ -17,7 +17,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/api/auth/logout"
+      url: "{{baseUrl}}/api/auth/logout"
       method: POST
     response:
       status: 200

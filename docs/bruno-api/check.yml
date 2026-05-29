@@ -5,13 +5,8 @@ info:
 
 http:
   method: GET
-  url: "{{baseURL}}/api/check/112703052"
+  url: "{{baseUrl}}/api/check/112703052"
   auth: inherit
-
-runtime:
-  variables:
-    - name: baseURL
-      value: http://localhost:3030
 
 settings:
   encodeUrl: true
@@ -22,7 +17,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/api/check/112703052"
+      url: "{{baseUrl}}/api/check/112703052"
       method: GET
     response:
       status: 200

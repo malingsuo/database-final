@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{baseURL}}/api/auth/register/student"
+  url: "{{baseUrl}}/api/auth/register/student"
   body:
     type: json
     data: |-
@@ -17,11 +17,6 @@ http:
         "admission_year": 112
       }
 
-runtime:
-  variables:
-    - name: baseURL
-      value: http://localhost:3030
-
 settings:
   encodeUrl: true
   timeout: 0
@@ -31,7 +26,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/api/auth/register/student"
+      url: "{{baseUrl}}/api/auth/register/student"
       method: POST
       body:
         type: json

@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{baseURL}}/api/check/upload"
+  url: "{{baseUrl}}/api/check/upload"
   body:
     type: multipart-form
     data:
@@ -24,7 +24,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/api/check/upload"
+      url: "{{baseUrl}}/api/check/upload"
       method: POST
       body:
         type: multipart-form

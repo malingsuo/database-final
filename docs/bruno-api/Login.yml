@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{baseURL}}/api/auth/login"
+  url: "{{baseUrl}}/api/auth/login"
   body:
     type: json
     data: |-
@@ -13,11 +13,6 @@ http:
         "email": "student@nccu.edu.tw",
         "password": "secret"
       }
-
-runtime:
-  variables:
-    - name: baseURL
-      value: http://localhost:3030
 
 settings:
   encodeUrl: true
@@ -28,7 +23,7 @@ settings:
 examples:
   - name: example (student)
     request:
-      url: "{{baseURL}}/api/auth/login"
+      url: "{{baseUrl}}/api/auth/login"
       method: POST
       body:
         type: json
@@ -67,7 +62,7 @@ examples:
           }
   - name: example (admin)
     request:
-      url: "{{baseURL}}/api/auth/login"
+      url: "{{baseUrl}}/api/auth/login"
       method: POST
       body:
         type: json

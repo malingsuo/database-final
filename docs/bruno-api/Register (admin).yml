@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{baseURL}}/api/auth/register/admin"
+  url: "{{baseUrl}}/api/auth/register/admin"
   body:
     type: json
     data: |-
@@ -24,7 +24,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/api/auth/register/admin"
+      url: "{{baseUrl}}/api/auth/register/admin"
       method: POST
       body:
         type: json
