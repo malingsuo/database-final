@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS course (
     semester      VARCHAR(5)   NOT NULL,
     name          VARCHAR(200) NOT NULL,
     credits       NUMERIC(4,1) NOT NULL DEFAULT 0,
-    type          VARCHAR(50),
-    is_core       BOOLEAN      NOT NULL DEFAULT FALSE,
+    type          VARCHAR(20),
+    ge_label      SMALLINT     NOT NULL DEFAULT 0,
     department_id VARCHAR(10)  REFERENCES department(id),
     PRIMARY KEY (course_code, year, semester)
 );
