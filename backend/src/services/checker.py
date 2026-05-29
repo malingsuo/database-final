@@ -128,8 +128,14 @@ def _build_sc_by_code(student_courses: Sequence[Enrollment]) -> dict:
     result = {}
     for sc in student_courses:
         code = (sc.course_code or "").strip()
-        if code and code not in result:
+        if not code:
+            continue
+        if code not in result:
             result[code] = sc
+        # 前8碼索引（去班次），讓 703044001 能比到 703044021
+        prefix = code[:8]
+        if prefix not in result:
+            result[prefix] = sc
     return result
 
 
