@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import difflib
 import json
 import os as _os
 import re
@@ -155,21 +154,12 @@ def _match_course(
             return sc_by_code[prefix], "exact_prefix"
 
     rule_norm = _normalize_name(rule_name)
-    best_sc = None
-    best_ratio = 0.0
 
     for sc in student_courses:
         sc_norm = _normalize_name(sc.course_name)
         if rule_norm and (rule_norm in sc_norm or sc_norm in rule_norm):
             return sc, "normalized"
-        if rule_norm and sc_norm:
-            ratio = difflib.SequenceMatcher(None, rule_norm, sc_norm).ratio()
-            if ratio > best_ratio:
-                best_ratio = ratio
-                best_sc = sc
 
-    if best_ratio >= 0.85:
-        return best_sc, "fuzzy"
     return None, "none"
 
 
