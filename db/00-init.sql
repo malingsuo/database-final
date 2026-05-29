@@ -49,12 +49,11 @@ CREATE TABLE IF NOT EXISTS department (
 );
 
 -- =============================================================
--- administrator：管理員（1:1 account，繫結一個系所）
+-- administrator：管理員（1:N account，繫結一個系所）
 -- =============================================================
 CREATE TABLE IF NOT EXISTS administrator (
     id            UUID        PRIMARY KEY REFERENCES account(id) ON DELETE CASCADE,
-    department_id VARCHAR(10) NOT NULL REFERENCES department(id),
-    CONSTRAINT uq_admin_dept UNIQUE (department_id)
+    department_id VARCHAR(10) NOT NULL REFERENCES department(id)
 );
 
 -- =============================================================
