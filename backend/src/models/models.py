@@ -9,6 +9,7 @@ from sqlalchemy import (
     Enum,
     Float,
     ForeignKey,
+    ForeignKeyConstraint,
     Integer,
     SmallInteger,
     String,
@@ -128,6 +129,12 @@ class Course(Base):
 
 class Enrollment(Base):
     __tablename__ = "enrollment"
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["course_code", "year", "semester"],
+            ["course.course_code", "course.year", "course.semester"],
+        ),
+    )
 
     student_id: Mapped[str] = mapped_column(
         String(20), ForeignKey("student.student_id", ondelete="CASCADE"), primary_key=True

@@ -896,8 +896,27 @@ def check_general_education(session: Session, student: Student) -> dict:
     return check_ge(session, student)
 
 
+def _student_program_names(session: Session, student: Student) -> dict:
+    fos_list = session.execute(
+        select(FieldOfStudy).options(joinedload(FieldOfStudy.department))
+        .where(FieldOfStudy.student_id == student.student_id)
+    ).scalars().all()
+
+    result = {"major": None, "double_major": None, "minors": []}
+    for fos in fos_list:
+        dept_name = fos.department.name if fos.department else fos.department_id
+        if fos.program_type == "主修":
+            result["major"] = dept_name
+        elif fos.program_type == "雙主修":
+            result["double_major"] = dept_name
+        elif fos.program_type == "輔系":
+            result["minors"].append(dept_name)
+    return result
+
+
 def check_required_courses(session: Session, student: Student) -> dict:
-    major = check_major(session, student, None)
+    program_names = _student_program_names(session, student)
+    major = check_major(session, student, program_names["major"])
     for key in ("passed_courses", "in_progress_courses", "missing_courses"):
         major[key] = [
             c for c in major.get(key, [])
@@ -907,7 +926,8 @@ def check_required_courses(session: Session, student: Student) -> dict:
 
 
 def check_group_courses(session: Session, student: Student) -> dict:
-    major = check_major(session, student, None)
+    program_names = _student_program_names(session, student)
+    major = check_major(session, student, program_names["major"])
     for key in ("passed_courses", "in_progress_courses", "missing_courses"):
         major[key] = [
             c for c in major.get(key, [])
@@ -917,7 +937,8 @@ def check_group_courses(session: Session, student: Student) -> dict:
 
 
 def check_total_credits(session: Session, student: Student) -> dict:
-    major_result = check_major(session, student, None)
+    program_names = _student_program_names(session, student)
+    major_result = check_major(session, student, program_names["major"])
     ge_result = check_ge(session, student)
     pe_result = check_pe(session, student)
     enrollments = session.execute(
