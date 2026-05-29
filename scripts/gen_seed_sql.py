@@ -125,10 +125,24 @@ COLLEGE_MAP = {
 KIND_MAP = {
     0: "選修",
     1: "必修",
-    2: "選修",
-    3: "選修",
-    4: "實習",
+    2: "通識",  # 細分由 lmtKind 決定
+    3: "群修",
+    4: "通識",  # 國文/外文/資訊通識，細分由 lmtKind 決定
 }
+
+
+def get_type(kind: int, lmt_kind: str) -> str:
+    """組出 type 欄位值：必修/群修/選修/人文通識/社會通識/..."""
+    lmt = (lmt_kind or "").strip()
+    if kind == 1:
+        return "必修"
+    if kind == 3:
+        return "群修"
+    if kind in (2, 4) and lmt:
+        return lmt   # 人文通識、社會通識、書院通識、中文通識、外文通識...
+    if kind == 0 and lmt:
+        return lmt   # 跨領域(人文、社會) 等
+    return "選修"
 
 
 def escape(s: str) -> str:
@@ -187,7 +201,7 @@ def main():
     # ── 2. course ──────────────────────────────────────────────────────────
     # 以 subNum（課號）+ y（學年）+ s（學期）去重，取第一筆
     cur.execute("""
-        SELECT subNum, y, s, name, point, kind, dp3
+        SELECT subNum, y, s, name, point, kind, lmtKind, core, dp3
         FROM COURSE
         GROUP BY subNum, y, s
         ORDER BY subNum, y, s
@@ -206,7 +220,7 @@ def main():
 
     batches = [course_rows[i:i+BATCH] for i in range(0, total, BATCH)]
     for batch in batches:
-        course_lines.append("INSERT INTO course (course_code, year, semester, name, credits, type, department_id) VALUES")
+        course_lines.append("INSERT INTO course (course_code, year, semester, name, credits, type, is_core, department_id) VALUES")
         vals = []
         for r in batch:
             sub_num = (r["subNum"] or "").strip()
@@ -214,11 +228,14 @@ def main():
             sem = r["s"]
             name = (r["name"] or "").strip()
             credits = float(r["point"]) if r["point"] is not None else 0.0
-            kind = KIND_MAP.get(r["kind"], "選修")
+            kind = r["kind"] or 0
+            lmt_kind = r["lmtKind"] or ""
+            course_type = get_type(kind, lmt_kind)
+            is_core = "TRUE" if r["core"] == 1 else "FALSE"
             dp3 = (r["dp3"] or "").strip()
             vals.append(
                 f"    ({escape(sub_num)}, {escape(year)}, {escape(sem)}, "
-                f"{escape(name)}, {credits}, {escape(kind)}, {escape(dp3)})"
+                f"{escape(name)}, {credits}, {escape(course_type)}, {is_core}, {escape(dp3)})"
             )
         course_lines.append(",\n".join(vals))
         course_lines.append("ON CONFLICT (course_code, year, semester) DO NOTHING;")
