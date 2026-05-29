@@ -27,7 +27,9 @@ async function onSubmit() {
   try {
     const res = await auth.login({ ...form })
     if (res.role === 'admin') {
-      ElMessage.info('管理員介面尚未開放，本系統目前提供學生端功能。')
+      ElMessage.success('管理員登入成功')
+      router.replace((route.query.redirect as string) || '/admin/dashboard')
+      return
     }
     const redirect = (route.query.redirect as string) || '/overview'
     router.replace(redirect)

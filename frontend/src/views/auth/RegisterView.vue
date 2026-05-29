@@ -1,20 +1,76 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import { User, Lock } from '@element-plus/icons-vue'
+import { Lock, OfficeBuilding, User, UserFilled } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
+import type { Role } from '@/api/types'
 
 const router = useRouter()
 const auth = useAuthStore()
 
 const formRef = ref<FormInstance>()
-const form = reactive({ account: '', password: '', confirm: '' })
 const loading = ref(false)
+const form = reactive({
+  role: 'student' as Role,
+  account: '',
+  password: '',
+  confirm: '',
+  studentId: '',
+  studentName: '',
+  admissionYear: 112,
+  departmentId: 1,
+})
+
+const departments = [
+  { id: 1, name: '資訊科學系' },
+  { id: 2, name: '資訊管理學系' },
+  { id: 3, name: '統計學系' },
+  { id: 4, name: '教務處' },
+]
+
+const isStudent = computed(() => form.role === 'student')
+
+watch(
+  () => form.studentId,
+  (value) => {
+    if (isStudent.value) form.account = value
+  }
+)
+
+watch(
+  () => form.role,
+  () => {
+    form.account = isStudent.value ? form.studentId : ''
+    formRef.value?.clearValidate()
+  }
+)
 
 const validateAccount = (_r: unknown, value: string, cb: (e?: Error) => void) => {
+  if (!value) return cb(new Error('請輸入帳號'))
+  if (isStudent.value && value !== form.studentId) return cb(new Error('學生帳號需與學號相同'))
+  if (!isStudent.value && !/^[A-Za-z][A-Za-z0-9._-]{3,31}$/.test(value)) {
+    return cb(new Error('管理員帳號需 4-32 碼，並以英文字母開頭'))
+  }
+  cb()
+}
+
+const validateStudentId = (_r: unknown, value: string, cb: (e?: Error) => void) => {
+  if (!isStudent.value) return cb()
   if (!value) return cb(new Error('請輸入學號'))
-  if (!/^112\d+$/.test(value)) return cb(new Error('目前僅開放 112 學年度入學（學號需以 112 開頭）'))
+  if (!/^112\d{6}$/.test(value)) return cb(new Error('學號需為 112 開頭的 9 碼數字'))
+  cb()
+}
+
+const validateStudentName = (_r: unknown, value: string, cb: (e?: Error) => void) => {
+  if (!isStudent.value) return cb()
+  if (!value.trim()) return cb(new Error('請輸入學生姓名'))
+  cb()
+}
+
+const validateDepartment = (_r: unknown, value: number, cb: (e?: Error) => void) => {
+  if (isStudent.value) return cb()
+  if (!departments.some((dept) => dept.id === value)) return cb(new Error('請選擇管理單位'))
   cb()
 }
 
@@ -24,12 +80,17 @@ const validateConfirm = (_r: unknown, value: string, cb: (e?: Error) => void) =>
 }
 
 const rules: FormRules = {
+  role: [{ required: true, message: '請選擇身分', trigger: 'change' }],
   account: [{ validator: validateAccount, trigger: 'blur' }],
   password: [
     { required: true, message: '請輸入密碼', trigger: 'blur' },
     { min: 8, message: '密碼至少需 8 碼', trigger: 'blur' },
   ],
   confirm: [{ validator: validateConfirm, trigger: 'blur' }],
+  studentId: [{ validator: validateStudentId, trigger: 'blur' }],
+  studentName: [{ validator: validateStudentName, trigger: 'blur' }],
+  admissionYear: [{ required: true, message: '請輸入入學年度', trigger: 'change' }],
+  departmentId: [{ validator: validateDepartment, trigger: 'change' }],
 }
 
 async function onSubmit() {
@@ -39,9 +100,21 @@ async function onSubmit() {
 
   loading.value = true
   try {
-    await auth.register({ account: form.account, password: form.password, role: 'student' })
-    ElMessage.success('註冊成功，請登入')
-    router.replace({ name: 'login' })
+    await auth.register({
+      account: form.account,
+      password: form.password,
+      role: form.role,
+      student: isStudent.value
+        ? {
+            student_id: form.studentId,
+            name: form.studentName.trim(),
+            admission_year: form.admissionYear,
+          }
+        : undefined,
+      administrator: !isStudent.value ? { department_id: form.departmentId } : undefined,
+    })
+    ElMessage.success(isStudent.value ? '學生註冊成功，請登入' : '管理員註冊成功，請登入')
+    router.replace(isStudent.value ? { name: 'login' } : { name: 'admin-login' })
   } catch (e) {
     ElMessage.error(e instanceof Error ? e.message : '註冊失敗')
   } finally {
@@ -54,8 +127,8 @@ async function onSubmit() {
   <div class="auth-page">
     <el-card class="auth-card" shadow="always">
       <div class="auth-header">
-        <h1 class="title">學生註冊</h1>
-        <p class="subtitle">使用學號建立帳號，查詢畢業學分進度</p>
+        <h1 class="title">建立系統帳號</h1>
+        <p class="subtitle">依身分填寫必要資料，前端 mock 會先完成流程驗證</p>
       </div>
 
       <el-form
@@ -66,17 +139,46 @@ async function onSubmit() {
         size="large"
         @submit.prevent="onSubmit"
       >
-        <el-form-item label="學號" prop="account">
-          <el-input v-model="form.account" :prefix-icon="User" placeholder="例如 112703043" />
-        </el-form-item>
-        <el-form-item label="密碼" prop="password">
-          <el-input
-            v-model="form.password"
-            type="password"
-            :prefix-icon="Lock"
-            show-password
-            placeholder="至少 8 碼"
+        <el-form-item label="身分" prop="role">
+          <el-segmented
+            v-model="form.role"
+            class="role-switch"
+            :options="[
+              { label: '學生', value: 'student' },
+              { label: '管理員', value: 'admin' },
+            ]"
           />
+        </el-form-item>
+
+        <template v-if="isStudent">
+          <el-form-item label="學號" prop="studentId">
+            <el-input v-model="form.studentId" :prefix-icon="User" placeholder="例如 112703043" />
+          </el-form-item>
+          <el-form-item label="姓名" prop="studentName">
+            <el-input v-model="form.studentName" :prefix-icon="UserFilled" placeholder="請輸入真實姓名" />
+          </el-form-item>
+          <el-form-item label="入學年度" prop="admissionYear">
+            <el-input-number v-model="form.admissionYear" :min="112" :max="112" controls-position="right" />
+          </el-form-item>
+        </template>
+
+        <template v-else>
+          <el-form-item label="管理員帳號" prop="account">
+            <el-input v-model="form.account" :prefix-icon="User" placeholder="例如 cs_admin" />
+          </el-form-item>
+          <el-form-item label="管理單位" prop="departmentId">
+            <el-select v-model="form.departmentId" :prefix-icon="OfficeBuilding" placeholder="選擇 department_id">
+              <el-option v-for="dept in departments" :key="dept.id" :label="`${dept.id} - ${dept.name}`" :value="dept.id" />
+            </el-select>
+          </el-form-item>
+        </template>
+
+        <el-form-item v-if="isStudent" label="帳號" prop="account">
+          <el-input v-model="form.account" disabled :prefix-icon="User" />
+        </el-form-item>
+
+        <el-form-item label="密碼" prop="password">
+          <el-input v-model="form.password" type="password" :prefix-icon="Lock" show-password placeholder="至少 8 碼" />
         </el-form-item>
         <el-form-item label="確認密碼" prop="confirm">
           <el-input
@@ -88,16 +190,15 @@ async function onSubmit() {
             @keyup.enter="onSubmit"
           />
         </el-form-item>
+
         <el-form-item>
-          <el-button type="primary" class="submit-btn" :loading="loading" @click="onSubmit">
-            註冊
-          </el-button>
+          <el-button type="primary" class="submit-btn" :loading="loading" @click="onSubmit">註冊</el-button>
         </el-form-item>
       </el-form>
 
       <div class="auth-footer">
         已經有帳號？
-        <router-link :to="{ name: 'login' }">前往登入</router-link>
+        <router-link :to="isStudent ? { name: 'login' } : { name: 'admin-login' }">前往登入</router-link>
       </div>
     </el-card>
   </div>
@@ -109,14 +210,16 @@ async function onSubmit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #e0eafc 0%, #f5f7fa 100%);
-  padding: 20px;
+  background:
+    linear-gradient(135deg, rgba(49, 130, 206, 0.12), rgba(56, 161, 105, 0.08)),
+    #f6f8fb;
+  padding: 24px;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 420px;
-  border-radius: 12px;
+  max-width: 480px;
+  border-radius: 8px;
 }
 
 .auth-header {
@@ -125,17 +228,19 @@ async function onSubmit() {
 }
 
 .title {
-  font-size: 22px;
+  font-size: 24px;
   margin: 0 0 8px;
-  color: var(--el-color-primary);
+  color: #1f2937;
 }
 
 .subtitle {
   margin: 0;
   color: var(--el-text-color-secondary);
   font-size: 14px;
+  line-height: 1.6;
 }
 
+.role-switch,
 .submit-btn {
   width: 100%;
 }

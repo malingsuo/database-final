@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { useAdminStore } from '@/stores/admin'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -75,13 +74,21 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   const auth = useAuthStore()
-  const admin = useAdminStore()
+
+  if (auth.isAuthenticated && !auth.user) {
+    await auth.fetchStatus().catch(() => undefined)
+  }
 
   // ===== 管理员身份验证 =====
-  if (to.meta.requiresAdminAuth && !admin.admin) {
-    return { name: 'admin-login', query: { redirect: to.fullPath } }
+  if (to.meta.requiresAdminAuth) {
+    if (!auth.isAuthenticated) {
+      return { name: 'admin-login', query: { redirect: to.fullPath } }
+    }
+    if (!auth.isAdmin) {
+      return { name: 'overview' }
+    }
   }
 
   // ===== 学生身份验证 =====
@@ -91,11 +98,11 @@ router.beforeEach((to) => {
 
   // ===== 已认证学生访问公共路由的重定向 =====
   if (to.meta.public && to.name === 'login' && auth.isAuthenticated) {
-    return { name: 'overview' }
+    return auth.isAdmin ? { name: 'admin-dashboard' } : { name: 'overview' }
   }
 
   // ===== 已认证管理员访问管理员登入的重定向 =====
-  if (to.name === 'admin-login' && admin.admin) {
+  if (to.name === 'admin-login' && auth.isAdmin) {
     return { name: 'admin-dashboard' }
   }
 

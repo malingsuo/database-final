@@ -9,6 +9,12 @@ export interface CurrentUser {
   account: string
   role: Role
   student_id?: number | null
+  student_number?: string | null
+  name?: string | null
+  admission_year?: number | null
+  administrator_id?: number | null
+  department_id?: number | null
+  department_name?: string | null
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -49,6 +55,12 @@ export const useAuthStore = defineStore('auth', () => {
       account: res.account,
       role: res.role,
       student_id: res.student_id ?? null,
+      student_number: res.student_number ?? null,
+      name: res.name ?? null,
+      admission_year: res.admission_year ?? null,
+      administrator_id: res.administrator_id ?? null,
+      department_id: res.department_id ?? null,
+      department_name: res.department_name ?? null,
     }
     return res
   }
