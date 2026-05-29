@@ -1,16 +1,12 @@
-import asyncio
 import os
-import sys
-from fastapi import FastAPI, Header, HTTPException
+
+from fastapi import FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
-DB_USERNAME = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
-DB_NAME = os.getenv("DB_NAME", "dbfinal")
+from src.api.router import router
+from src.core.exceptions import AppException, app_exception_handler, unhandled_exception_handler
 
-app = FastAPI()
+app = FastAPI(title="NCCU 畢業學分檢核系統")
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,12 +16,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_exception_handler(AppException, app_exception_handler)
+app.add_exception_handler(Exception, unhandled_exception_handler)
+
+app.include_router(router, prefix="/api")
+
 
 @app.get("/api/test")
 async def test_api(
     x_user_id: str | None = Header(None, alias="X-User-Id"),
 ):
-    print(f"[HTTP] test_api called by user {x_user_id}", flush=True)
     return {"status": "ok", "user_id": x_user_id}
 
 
