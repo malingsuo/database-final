@@ -973,7 +973,7 @@ def check_group_courses(session: Session, student: Student) -> dict:
     for key in ("passed_courses", "in_progress_courses", "missing_courses"):
         major[key] = [
             c for c in major.get(key, [])
-            if c.get("group_label") == "群修" or c.get("course_type") == "群修"
+            if str(c.get("group_label") or c.get("course_type") or "").startswith("群")
         ]
     return major
 
