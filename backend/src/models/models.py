@@ -5,9 +5,9 @@ DB 只存帳號層 + 學生資料層。
 畢業規定（各系課表、通識、輔系等）全部存 JSON，不進 DB。
 
 Tables:
-  user           帳號（學生 / 管理員共用）
-  student        學生基本資料（1:1 user）
-  admin          管理員（1:1 user，綁一個系所）
+  account       帳號（學生 / 管理員共用）
+  student        學生基本資料（1:1 account）
+  admin          管理員（1:1 account，綁一個系所）
   student_course 學生修課紀錄（N:1 student）
 """
 
@@ -35,8 +35,8 @@ from src.core.database import Base
 # 帳號（學生 / 管理員共用）
 # ---------------------------------------------------------------------------
 class User(Base):
-    __tablename__ = "user"
-    __table_args__ = (UniqueConstraint("account", name="uq_user_account"),)
+    __tablename__ = "account"
+    __table_args__ = (UniqueConstraint("account", name="uq_account_account"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     account: Mapped[str] = mapped_column(String(20), nullable=False)
@@ -72,7 +72,7 @@ class Student(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False
+        Integer, ForeignKey("account.id", ondelete="CASCADE"), nullable=False
     )
     student_number: Mapped[str] = mapped_column(String(20), nullable=False)
     chinese_name: Mapped[str | None] = mapped_column(String(50), default=None)
@@ -109,7 +109,7 @@ class Admin(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("user.id", ondelete="CASCADE"), nullable=False
+        Integer, ForeignKey("account.id", ondelete="CASCADE"), nullable=False
     )
     dept_code: Mapped[str] = mapped_column(String(10), nullable=False)
     dept_name: Mapped[str] = mapped_column(String(100), nullable=False)
