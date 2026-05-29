@@ -8,6 +8,7 @@ GET  /api/check/{sid}    對已上傳學生執行學分檢核
 from __future__ import annotations
 
 import json
+import uuid
 
 from fastapi import APIRouter, Depends, File, Header, HTTPException, UploadFile
 from sqlalchemy.orm import Session
@@ -41,22 +42,22 @@ async def upload_student_json(
         raise BadRequestException(f"JSON 格式錯誤：{e}")
 
     try:
-        user_id = int(x_user_id) if x_user_id else None
+        user_id = uuid.UUID(x_user_id) if x_user_id else None
         student, course_count = import_student_json_from_dict(db, data, user_id=user_id)
     except ValueError as e:
         raise BadRequestException(str(e))
 
     return {
-        "student_id": student.id,
-        "student_number": student.student_number,
-        "chinese_name": student.chinese_name,
+        "student_id": student.student_id,
+        "student_number": student.student_id,
+        "chinese_name": student.name,
         "course_count": course_count,
     }
 
 
 @router.get("/{sid}")
 def get_check_result(
-    sid: int,
+    sid: str,
     db: Session = Depends(get_db),
 ) -> dict:
     """對學生 sid 執行完整畢業學分檢核。"""
