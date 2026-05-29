@@ -1,0 +1,113 @@
+{
+  "dept_code": "504",
+  "dept_name": "斯拉夫語文學系",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-504.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.305066",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 24,
+  "total_courses": 16,
+  "courses": [
+    {
+      "name": "俄語（一）",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "俄語（二）",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "俄國史",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "俄國文學史",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "初級俄語閱讀訓練（一）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "初級俄語閱讀訓練（二）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中級俄語閱讀訓練（一）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中級俄語閱讀訓練（二）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "初級俄語視聽訓練（一）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "初級俄語視聽訓練（二）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中級俄語視聽訓練（一）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中級俄語視聽訓練（二）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "初級俄語口說訓練（一）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "初級俄語口說訓練（二）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中級俄語口說訓練（一）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中級俄語口說訓練（二）",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "俄語（二）有擋修規定。",
+  "special_rules": [],
+  "parse_warnings": []
+}

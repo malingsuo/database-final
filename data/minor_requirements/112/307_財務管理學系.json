@@ -1,0 +1,103 @@
+{
+  "dept_code": "307",
+  "dept_name": "財務管理學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-307.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.128207",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 14,
+  "courses": [
+    {
+      "name": "財務管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "投資學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "進階財務管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "衍生性金融商品",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "國際財務管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "債券市場",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "企業評價",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "證券分析",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "投資組合管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "財務管理個案",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "不動產投資",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "財務報表分析",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "不動產財務",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "資產配置",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [
+    "財務管理系：必修2門6學分 + 群修12門選5門（15學分），共21學分"
+  ],
+  "parse_warnings": []
+}

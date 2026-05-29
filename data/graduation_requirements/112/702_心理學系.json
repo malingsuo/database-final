@@ -1,0 +1,244 @@
+{
+  "dept_code": "702",
+  "dept_name": "心理學系",
+  "dept_name_full": "",
+  "college": "理學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "702",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=702",
+  "total_courses": 11,
+  "courses": [
+    {
+      "name": "心理及教育統計學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702002",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702002",
+      "note": "無"
+    },
+    {
+      "name": "普通心理學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702001",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702001",
+      "note": "無"
+    },
+    {
+      "name": "心理實驗法",
+      "type": "必修",
+      "credits": 4,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702004",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702004",
+      "note": "先修心理及教育統計學"
+    },
+    {
+      "name": "心理實驗法實驗",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702005",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702005",
+      "note": "先修心理及教育統計學"
+    },
+    {
+      "name": "心理測驗",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702007",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702007",
+      "note": "先修普通心理學、心理及教育統計學"
+    },
+    {
+      "name": "生理心理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702006",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702006",
+      "note": "先修普通心理學或人體生理學"
+    },
+    {
+      "name": "性格心理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702009",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702009",
+      "note": "先修普通心理學"
+    },
+    {
+      "name": "知覺心理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702013",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702013",
+      "note": "先修普通心理學"
+    },
+    {
+      "name": "發展心理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702010",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702010",
+      "note": "先修普通心理學"
+    },
+    {
+      "name": "人類學習與認知",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702011",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702011",
+      "note": "先修普通心理學"
+    },
+    {
+      "name": "社會心理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "702012",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "702012",
+      "note": "先修普通心理學"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "dept_code": "502",
+  "dept_name": "阿拉伯語文學系",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-502.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.279554",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 14,
+  "total_courses": 2,
+  "courses": [
+    {
+      "name": "阿拉伯語(一)",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "阿拉伯語(二)",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "全學年課程必須修滿始採計學分\n     辦公室電話：63401",
+  "special_rules": [],
+  "parse_warnings": []
+}

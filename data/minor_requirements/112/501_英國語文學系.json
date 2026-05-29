@@ -1,0 +1,59 @@
+{
+  "dept_code": "501",
+  "dept_name": "英國語文學系",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-501.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.256409",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 29,
+  "total_courses": 7,
+  "courses": [
+    {
+      "name": "英美文學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "英語語言學概論",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "英文作文(一)",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "英文作文(二)",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "閱讀指導",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "英語口語訓練",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "英語語音學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "（請仔細閱讀）：\n  a. 英文輔系學生只得修習另外開設之英文輔系課程，不得隨系修習。未依規定者，其學分\n     將不被承認（若因與該系必修課程衝堂，無法修讀本系輔系課程而需隨班附讀者，亦需\n     繳交學分費）。\n  b. 若在原屬學系「語言學概論」為必修科目者，可任選英文系下列科目兩門替代：\n   （1） 文學作品讀法\n   （2） 西洋文學概論\n   （3） 英國文學\n   （4） 美國文學\n   （5） 語言學習導論\n   （6） 英語語言發展史\n   （7） 語言與認知\n   （8） 翻譯",
+  "special_rules": [],
+  "parse_warnings": []
+}

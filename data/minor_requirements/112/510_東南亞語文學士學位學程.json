@@ -1,0 +1,41 @@
+{
+  "dept_code": "510",
+  "dept_name": "東南亞語文學士學位學程",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-510.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.437725",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 20,
+  "total_courses": 4,
+  "courses": [
+    {
+      "name": "初級越語",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "初級越語語法",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "越南文化與社會",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中級越語",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [],
+  "parse_warnings": []
+}

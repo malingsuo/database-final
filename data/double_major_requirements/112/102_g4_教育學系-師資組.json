@@ -1,0 +1,35 @@
+{
+  "dept_code": "102",
+  "dept_name": "教育學系-師資組",
+  "dept_name_full": "",
+  "college": "教育學院",
+  "entry_year": 112,
+  "gopnum": "4",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=4&depnum=102",
+  "total_required_credits": 2,
+  "total_group_credits": 0,
+  "total_courses": 1,
+  "courses": [
+    {
+      "name": "教育心理學",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102103",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102103",
+      "note": "上課4小時"
+    }
+  ]
+}

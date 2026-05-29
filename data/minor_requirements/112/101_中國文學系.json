@@ -1,0 +1,149 @@
+{
+  "dept_code": "101",
+  "dept_name": "中國文學系",
+  "college": "文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-101.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.661231",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 36,
+  "total_courses": 22,
+  "courses": [
+    {
+      "name": "詩選",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中國文學史",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中國思想史",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "文字學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國學導讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "語言學概論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "歷代文選及習作",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國現代文學史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國現代詩選讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國現代散文選讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國現代小說選讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國現代戲劇選讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "文學概論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "古典戲曲選讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "修辭學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "古典小說選讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "詩經",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "論語",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "孟子",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "易經（周易）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "老子",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "莊子",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [],
+  "parse_warnings": []
+}

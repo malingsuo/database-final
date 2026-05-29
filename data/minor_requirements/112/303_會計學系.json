@@ -1,0 +1,113 @@
+{
+  "dept_code": "303",
+  "dept_name": "會計學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-303.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.029771",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 36,
+  "total_courses": 16,
+  "courses": [
+    {
+      "name": "經濟學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "管理學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "初級會計學 (一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "初級會計學 (二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中級會計學 (一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中級會計學 (二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "成本管理會計(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "成本管理會計(二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "稅務法規",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "高級會計學(一)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "高級會計學(二)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "審計學(一)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "審計學(二)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "會計資訊系統(一)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中級會計學(三)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "財務報表分析",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1、應修總學分數共計 36 學分，含必修 15 學分、群修 9 學分及選修 12 學分。\n2、另，包含基礎科目：經濟學、管理學、初級會計學（一）及初級會計學（二）（各一學期，計 3\n   學分），共計 12 學分，不計入應修總學分數。\n3、 必修學分：共計 5 門課，合計 15 學分。\n4、群修學分：學生應自表列 7 門群修課程中任選 3 門，合計 9 學分。超過部分得計入選修學分。\n5、選修學分：學生應自本系學士班及碩士班開設課程中，任選 4 門以上，至少 12 學分。",
+  "special_rules": [],
+  "parse_warnings": []
+}

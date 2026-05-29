@@ -1,0 +1,71 @@
+{
+  "dept_code": "208",
+  "dept_name": "經濟學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-208.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.921804",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 24,
+  "total_courses": 9,
+  "courses": [
+    {
+      "name": "個體經濟學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "總體經濟學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "貨幣銀行學",
+      "credits": 6,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "經濟數學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "經濟思想史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "計量經濟學(一)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "計量經濟學(二)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "國際貿易",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "國際金融",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1. 必修 12 學分；群修 24 學分須至少修習 12 學分(含)以上。\n2. 全學年群修課程，修畢上學期且成績及格即採計為本系群修學分，僅修畢下學期不採計學分。\n3. 若欲修習外系或他校(國外)相關替代課程，均須檢附證明並經系主任核可後方能承認其學分。\n4. 先修科目經濟學及微積分亦須修習。",
+  "special_rules": [],
+  "parse_warnings": []
+}

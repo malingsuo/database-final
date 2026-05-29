@@ -1,0 +1,178 @@
+{
+  "dept_code": "209",
+  "dept_name": "民族學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-209.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.947610",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 30,
+  "total_courses": 26,
+  "courses": [
+    {
+      "name": "民族學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "民族政策",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "民族語言學概論",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "民族學研究方法與實作",
+      "credits": 6,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "中國民族史（I）",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "中國民族史（II）",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "台灣民族史",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "台灣民族誌",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "中國民族誌",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "世界民族誌",
+      "credits": 3,
+      "type": "群修",
+      "group": "核心"
+    },
+    {
+      "name": "滿語",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "蒙古語：傳統蒙文",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "蒙古語：息利爾蒙文",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "維吾爾語",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "藏語",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "台灣原住民語言-泰雅語",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "台灣原住民語言-賽德克語",
+      "credits": 4,
+      "type": "群修",
+      "group": "語言"
+    },
+    {
+      "name": "民族藝術",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "民族宗教",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "民族文學",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "民族教育",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "民族問題",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "公共人類學",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "民族經濟",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "民族地理",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    },
+    {
+      "name": "進階田野調查課程",
+      "credits": 3,
+      "type": "群修",
+      "group": "社會文化"
+    }
+  ],
+  "notes": "（1）一學年課程需上、下學期皆修畢才承認為本系輔系學分，民族語言課程修滿一學\n   年後，其他民族語言課程則不在此限。\n（2）民族核心課程之 8-9 學分，應於「民族學」、\n                         「民族史」、\n                              「民族誌」三類群中跨類\n   至少選擇 2 類。\n（3）民族社會文化課程之 6 學分，應於「人文與藝術」、「社會與公共治理」、\n                                     「環境與\n   實作」三類群中跨類至少選擇 2 類。",
+  "special_rules": [
+    "民族學系：必修6學分（民族學）+ 核心群修8-9學分（民族學/史/誌跨類至少2類）",
+    "+ 語言群修4學分（選一門）+ 社會文化群修6學分（跨類至少2類）+ 選修5-6學分，合計30學分"
+  ],
+  "parse_warnings": [
+    "sum=91 >> declared=30"
+  ]
+}

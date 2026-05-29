@@ -1,0 +1,393 @@
+{
+  "entry_year": 112,
+  "count": 43,
+  "depts": [
+    {
+      "dept_code": "101",
+      "dept_name": "中國文學系",
+      "college": "文學院",
+      "gopnum": "",
+      "total_required_credits": 36,
+      "total_group_credits": 0,
+      "file": "101_中國文學系.json"
+    },
+    {
+      "dept_code": "102",
+      "dept_name": "教育學系-師資組",
+      "college": "教育學院",
+      "gopnum": "4",
+      "total_required_credits": 2,
+      "total_group_credits": 0,
+      "file": "102_g4_教育學系-師資組.json"
+    },
+    {
+      "dept_code": "102",
+      "dept_name": "教育學系-非師資組",
+      "college": "教育學院",
+      "gopnum": "5",
+      "total_required_credits": 0,
+      "total_group_credits": 0,
+      "file": "102_g5_教育學系-非師資組.json"
+    },
+    {
+      "dept_code": "103",
+      "dept_name": "歷史學系",
+      "college": "文學院",
+      "gopnum": "",
+      "total_required_credits": 18,
+      "total_group_credits": 0,
+      "file": "103_歷史學系.json"
+    },
+    {
+      "dept_code": "104",
+      "dept_name": "哲學系",
+      "college": "文學院",
+      "gopnum": "",
+      "total_required_credits": 27,
+      "total_group_credits": 0,
+      "file": "104_哲學系.json"
+    },
+    {
+      "dept_code": "202",
+      "dept_name": "政治學系",
+      "college": "社會科學學院",
+      "gopnum": "",
+      "total_required_credits": 30,
+      "total_group_credits": 0,
+      "file": "202_政治學系.json"
+    },
+    {
+      "dept_code": "203",
+      "dept_name": "外交學系",
+      "college": "國際事務學院",
+      "gopnum": "",
+      "total_required_credits": 46,
+      "total_group_credits": 0,
+      "file": "203_外交學系.json"
+    },
+    {
+      "dept_code": "204",
+      "dept_name": "社會學系",
+      "college": "社會科學學院",
+      "gopnum": "",
+      "total_required_credits": 39,
+      "total_group_credits": 0,
+      "file": "204_社會學系.json"
+    },
+    {
+      "dept_code": "205",
+      "dept_name": "財政學系-稅務組",
+      "college": "社會科學學院",
+      "gopnum": "1",
+      "total_required_credits": 50,
+      "total_group_credits": 0,
+      "file": "205_g1_財政學系-稅務組.json"
+    },
+    {
+      "dept_code": "205",
+      "dept_name": "財政學系-公共經濟組",
+      "college": "社會科學學院",
+      "gopnum": "2",
+      "total_required_credits": 47,
+      "total_group_credits": 0,
+      "file": "205_g2_財政學系-公共經濟組.json"
+    },
+    {
+      "dept_code": "205",
+      "dept_name": "財政學系-財政管理組",
+      "college": "社會科學學院",
+      "gopnum": "3",
+      "total_required_credits": 47,
+      "total_group_credits": 0,
+      "file": "205_g3_財政學系-財政管理組.json"
+    },
+    {
+      "dept_code": "206",
+      "dept_name": "公共行政學系",
+      "college": "社會科學學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "206_公共行政學系.json"
+    },
+    {
+      "dept_code": "207",
+      "dept_name": "地政學系-土地管理組",
+      "college": "社會科學學院",
+      "gopnum": "3",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "207_g3_地政學系-土地管理組.json"
+    },
+    {
+      "dept_code": "207",
+      "dept_name": "地政學系-土地資源規劃組",
+      "college": "社會科學學院",
+      "gopnum": "4",
+      "total_required_credits": 50,
+      "total_group_credits": 0,
+      "file": "207_g4_地政學系-土地資源規劃組.json"
+    },
+    {
+      "dept_code": "207",
+      "dept_name": "地政學系-土地測量與資訊組",
+      "college": "社會科學學院",
+      "gopnum": "5",
+      "total_required_credits": 50,
+      "total_group_credits": 0,
+      "file": "207_g5_地政學系-土地測量與資訊組.json"
+    },
+    {
+      "dept_code": "208",
+      "dept_name": "經濟學系",
+      "college": "社會科學學院",
+      "gopnum": "",
+      "total_required_credits": 30,
+      "total_group_credits": 0,
+      "file": "208_經濟學系.json"
+    },
+    {
+      "dept_code": "209",
+      "dept_name": "民族學系",
+      "college": "社會科學學院",
+      "gopnum": "",
+      "total_required_credits": 37,
+      "total_group_credits": 0,
+      "file": "209_民族學系.json"
+    },
+    {
+      "dept_code": "301",
+      "dept_name": "國際經營與貿易學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 36,
+      "total_group_credits": 0,
+      "file": "301_國際經營與貿易學系.json"
+    },
+    {
+      "dept_code": "302",
+      "dept_name": "金融學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 45,
+      "total_group_credits": 0,
+      "file": "302_金融學系.json"
+    },
+    {
+      "dept_code": "303",
+      "dept_name": "會計學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 48,
+      "total_group_credits": 0,
+      "file": "303_會計學系.json"
+    },
+    {
+      "dept_code": "304",
+      "dept_name": "統計學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 42,
+      "total_group_credits": 0,
+      "file": "304_統計學系.json"
+    },
+    {
+      "dept_code": "305",
+      "dept_name": "企業管理學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "305_企業管理學系.json"
+    },
+    {
+      "dept_code": "306",
+      "dept_name": "資訊管理學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 54,
+      "total_group_credits": 0,
+      "file": "306_資訊管理學系.json"
+    },
+    {
+      "dept_code": "307",
+      "dept_name": "財務管理學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 48,
+      "total_group_credits": 0,
+      "file": "307_財務管理學系.json"
+    },
+    {
+      "dept_code": "308",
+      "dept_name": "風險管理與保險學系",
+      "college": "商學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "308_風險管理與保險學系.json"
+    },
+    {
+      "dept_code": "401",
+      "dept_name": "新聞學系",
+      "college": "傳播學院",
+      "gopnum": "",
+      "total_required_credits": 12,
+      "total_group_credits": 0,
+      "file": "401_新聞學系.json"
+    },
+    {
+      "dept_code": "402",
+      "dept_name": "廣告學系",
+      "college": "傳播學院",
+      "gopnum": "",
+      "total_required_credits": 12,
+      "total_group_credits": 0,
+      "file": "402_廣告學系.json"
+    },
+    {
+      "dept_code": "403",
+      "dept_name": "廣播電視學系",
+      "college": "傳播學院",
+      "gopnum": "",
+      "total_required_credits": 12,
+      "total_group_credits": 0,
+      "file": "403_廣播電視學系.json"
+    },
+    {
+      "dept_code": "405",
+      "dept_name": "傳播學院大一大二不分系",
+      "college": "傳播學院",
+      "gopnum": "",
+      "total_required_credits": 18,
+      "total_group_credits": 0,
+      "file": "405_傳播學院大一大二不分系.json"
+    },
+    {
+      "dept_code": "501",
+      "dept_name": "英國語文學系",
+      "college": "外國語文學院",
+      "gopnum": "",
+      "total_required_credits": 36,
+      "total_group_credits": 0,
+      "file": "501_英國語文學系.json"
+    },
+    {
+      "dept_code": "502",
+      "dept_name": "阿拉伯語文學系",
+      "college": "外國語文學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "502_阿拉伯語文學系.json"
+    },
+    {
+      "dept_code": "504",
+      "dept_name": "斯拉夫語文學系",
+      "college": "外國語文學院",
+      "gopnum": "",
+      "total_required_credits": 46,
+      "total_group_credits": 0,
+      "file": "504_斯拉夫語文學系.json"
+    },
+    {
+      "dept_code": "506",
+      "dept_name": "日本語文學系",
+      "college": "外國語文學院",
+      "gopnum": "",
+      "total_required_credits": 42,
+      "total_group_credits": 0,
+      "file": "506_日本語文學系.json"
+    },
+    {
+      "dept_code": "507",
+      "dept_name": "韓國語文學系",
+      "college": "外國語文學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "507_韓國語文學系.json"
+    },
+    {
+      "dept_code": "508",
+      "dept_name": "土耳其語文學系",
+      "college": "外國語文學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "508_土耳其語文學系.json"
+    },
+    {
+      "dept_code": "601",
+      "dept_name": "法律學系",
+      "college": "法學院",
+      "gopnum": "",
+      "total_required_credits": 30,
+      "total_group_credits": 0,
+      "file": "601_法律學系.json"
+    },
+    {
+      "dept_code": "701",
+      "dept_name": "應用數學系",
+      "college": "理學院",
+      "gopnum": "",
+      "total_required_credits": 51,
+      "total_group_credits": 0,
+      "file": "701_應用數學系.json"
+    },
+    {
+      "dept_code": "702",
+      "dept_name": "心理學系",
+      "college": "理學院",
+      "gopnum": "",
+      "total_required_credits": 39,
+      "total_group_credits": 0,
+      "file": "702_心理學系.json"
+    },
+    {
+      "dept_code": "703",
+      "dept_name": "資訊科學系",
+      "college": "資訊學院",
+      "gopnum": "",
+      "total_required_credits": 36,
+      "total_group_credits": 0,
+      "file": "703_資訊科學系.json"
+    },
+    {
+      "dept_code": "781",
+      "dept_name": "數位內容與科技學士學位學程",
+      "college": "資訊學院",
+      "gopnum": "",
+      "total_required_credits": 12,
+      "total_group_credits": 0,
+      "file": "781_數位內容與科技學士學位學程.json"
+    },
+    {
+      "dept_code": "782",
+      "dept_name": "電子物理學士學位學程",
+      "college": "理學院",
+      "gopnum": "",
+      "total_required_credits": 20,
+      "total_group_credits": 0,
+      "file": "782_電子物理學士學位學程.json"
+    },
+    {
+      "dept_code": "783",
+      "dept_name": "人工智慧應用學士學位學程",
+      "college": "資訊學院",
+      "gopnum": "",
+      "total_required_credits": 6,
+      "total_group_credits": 0,
+      "file": "783_人工智慧應用學士學位學程.json"
+    },
+    {
+      "dept_code": "ZU1",
+      "dept_name": "創新國際學院學士班",
+      "college": "創新國際學院",
+      "gopnum": "",
+      "total_required_credits": 21,
+      "total_group_credits": 0,
+      "file": "ZU1_創新國際學院學士班.json"
+    }
+  ]
+}

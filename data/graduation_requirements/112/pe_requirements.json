@@ -1,0 +1,26 @@
+{
+  "entry_year": 112,
+  "applicable_from": 109,
+  "required_semesters": 4,
+  "credits_per_semester": 1,
+  "total_credits_required": 4,
+  "source": "https://aca.nccu.edu.tw/zh/最新消息/註冊組-2/5204",
+  "note": "109學年度起入學學生（含112級）體育必修課共4門（四學期），每學期採計1學分，總計4學分，列為畢業學分。108學年度以前入學學生為0學分。",
+  "schedule": {
+    "y1s1": {"required": true, "type": "必修", "description": "大一第一學期體育必修"},
+    "y1s2": {"required": true, "type": "必修", "description": "大一第二學期體育必修"},
+    "y2s1": {"required": true, "type": "必修", "description": "大二第一學期體育必修"},
+    "y2s2": {"required": true, "type": "必修", "description": "大二第二學期體育必修"}
+  },
+  "elective_pe": {
+    "description": "體育選修課（大三、大四及以上）",
+    "credits_counted_toward_graduation": 1,
+    "note": "體育選修課只承認1學分為畢業學分（各系規定可能不同），全民國防教育軍事訓練課程不列入畢業學分"
+  },
+  "rules": [
+    "每學期限修一門必修體育",
+    "修畢4門必修體育後不得再修必修體育",
+    "必修體育課程1學期2小時",
+    "109級起每門採計1學分，列為畢業學分"
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "dept_code": "207",
+  "dept_name": "地政學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-207.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.896876",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 31,
+  "total_courses": 15,
+  "courses": [
+    {
+      "name": "測量學及實習",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "土地法(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "土地政策",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "民法(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "都市計畫",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "不動產概論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民法(二)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "土地經濟學(一)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "土地法(二)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "不動產經營管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "不動產估價理論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "土地登記",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "土地使用管制",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "土地行政",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "不動產投資與市場分析",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1.除必修 12 學分外，其餘 19 學分由群修課程中選擇修習。\n2.輔系科目學分之採認依本校必修科目表使用說明，群修科目為相對必修，故群修科目應全學年\n  修習完畢始能採認為輔系科目，採計全部學分。",
+  "special_rules": [
+    "地政學系：依組別（土地管理組/土地資源規劃組/土地測量與資訊組）課程不同",
+    "必修12學分 + 群修選修至19學分，合計31學分"
+  ],
+  "parse_warnings": []
+}

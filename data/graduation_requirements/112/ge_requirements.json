@@ -1,0 +1,84 @@
+{
+  "entry_year": 112,
+  "total_credits_required": 28,
+  "source": "https://gecenter.nccu.edu.tw/student-zone/course-rules/",
+  "source_structure": "https://gecenter.nccu.edu.tw/courses/gec-structure/",
+  "applicable_from": 109,
+  "note": "109學年度起入學學生通識課程畢業學分應修習28學分（超過不採計）。通識課程分為語文通識、一般通識、書院通識三大類。核心通識課程規定：須於人文學、社會科學、自然科學三領域中至少修讀二門不同領域核心通識課程。",
+  "categories": [
+    {
+      "name": "中國語文領域",
+      "category_type": "語文通識",
+      "credits_required_min": 3,
+      "credits_required_max": 6,
+      "remark_code": "中文通",
+      "note": "中國語文通識，需見課程查詢系統"
+    },
+    {
+      "name": "外國語文領域",
+      "category_type": "語文通識",
+      "credits_required_min": 6,
+      "credits_required_max": 6,
+      "remark_code": "外文通",
+      "note": "外國語文通識，固定6學分"
+    },
+    {
+      "name": "人文學通識",
+      "category_type": "一般通識",
+      "credits_required_min": 3,
+      "credits_required_max": 7,
+      "remark_code": "人文通",
+      "has_core_courses": true,
+      "note": "包含藝術與人文思維、西方文學經典與人文思維、生命價值與哲學思維等核心通識向度"
+    },
+    {
+      "name": "社會科學通識",
+      "category_type": "一般通識",
+      "credits_required_min": 3,
+      "credits_required_max": 7,
+      "remark_code": "社會通",
+      "has_core_courses": true,
+      "note": "包含法政制度與民主思維、社經動脈與多元思維、區域發展與全球思維等核心通識向度"
+    },
+    {
+      "name": "自然科學通識",
+      "category_type": "一般通識",
+      "credits_required_min": 3,
+      "credits_required_max": 7,
+      "remark_code": "自然通",
+      "has_core_courses": true,
+      "note": "包含數學邏輯與科學方法、物質宇宙科學、生命科學、科技與人文社會等核心通識向度"
+    },
+    {
+      "name": "資訊通識",
+      "category_type": "一般通識",
+      "credits_required_min": 2,
+      "credits_required_max": 3,
+      "remark_code": "資訊通",
+      "has_core_courses": false,
+      "exempt_departments": [
+        "統計學系",
+        "資訊管理學系",
+        "地政學系土地測量與資訊組",
+        "應用數學系",
+        "資訊科學系",
+        "創新國際學院學士班"
+      ],
+      "note": "資訊領域核心通識課程非群修，修習後不列入核心通識計算。上述學系之資訊領域應修學分數為0至3學分"
+    },
+    {
+      "name": "書院通識",
+      "category_type": "書院通識",
+      "credits_required_min": 0,
+      "credits_required_max": 3,
+      "remark_code": "書院通",
+      "note": "包含新生定位、行動實踐等向度，參加主題書院學生須依各書院相關規定選修"
+    }
+  ],
+  "core_ge_rule": {
+    "description": "核心通識課程規定（109學年度起入學學生）",
+    "required_domains_count": 2,
+    "eligible_domains": ["人文學通識", "社會科學通識", "自然科學通識"],
+    "note": "須於人文學、社會科學、自然科學三領域中至少修讀二門不同領域核心通識課程（各3學分含討論課）"
+  }
+}

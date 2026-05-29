@@ -1,0 +1,394 @@
+{
+  "entry_year": 112,
+  "generated_at": "2025-05-15",
+  "total_depts": 43,
+  "departments": [
+    {
+      "key": "101",
+      "depnum": "101",
+      "gopnum": "",
+      "dept_name": "中國文學系",
+      "college": "文學院",
+      "total_courses": 59,
+      "filename": "101_中國文學系.json"
+    },
+    {
+      "key": "103",
+      "depnum": "103",
+      "gopnum": "",
+      "dept_name": "歷史學系",
+      "college": "文學院",
+      "total_courses": 8,
+      "filename": "103_歷史學系.json"
+    },
+    {
+      "key": "104",
+      "depnum": "104",
+      "gopnum": "",
+      "dept_name": "哲學系",
+      "college": "文學院",
+      "total_courses": 10,
+      "filename": "104_哲學系.json"
+    },
+    {
+      "key": "202",
+      "depnum": "202",
+      "gopnum": "",
+      "dept_name": "政治學系",
+      "college": "社會科學學院",
+      "total_courses": 28,
+      "filename": "202_政治學系.json"
+    },
+    {
+      "key": "204",
+      "depnum": "204",
+      "gopnum": "",
+      "dept_name": "社會學系",
+      "college": "社會科學學院",
+      "total_courses": 13,
+      "filename": "204_社會學系.json"
+    },
+    {
+      "key": "205_g1",
+      "depnum": "205",
+      "gopnum": "1",
+      "dept_name": "財政學系-稅務組",
+      "college": "社會科學學院",
+      "total_courses": 15,
+      "filename": "205_g1_財政學系-稅務組.json"
+    },
+    {
+      "key": "205_g2",
+      "depnum": "205",
+      "gopnum": "2",
+      "dept_name": "財政學系-公共經濟組",
+      "college": "社會科學學院",
+      "total_courses": 16,
+      "filename": "205_g2_財政學系-公共經濟組.json"
+    },
+    {
+      "key": "205_g3",
+      "depnum": "205",
+      "gopnum": "3",
+      "dept_name": "財政學系-財政管理組",
+      "college": "社會科學學院",
+      "total_courses": 16,
+      "filename": "205_g3_財政學系-財政管理組.json"
+    },
+    {
+      "key": "206",
+      "depnum": "206",
+      "gopnum": "",
+      "dept_name": "公共行政學系",
+      "college": "社會科學學院",
+      "total_courses": 18,
+      "filename": "206_公共行政學系.json"
+    },
+    {
+      "key": "207_g3",
+      "depnum": "207",
+      "gopnum": "3",
+      "dept_name": "地政學系-土地管理組",
+      "college": "社會科學學院",
+      "total_courses": 17,
+      "filename": "207_g3_地政學系-土地管理組.json"
+    },
+    {
+      "key": "207_g4",
+      "depnum": "207",
+      "gopnum": "4",
+      "dept_name": "地政學系-土地資源規劃組",
+      "college": "社會科學學院",
+      "total_courses": 15,
+      "filename": "207_g4_地政學系-土地資源規劃組.json"
+    },
+    {
+      "key": "207_g5",
+      "depnum": "207",
+      "gopnum": "5",
+      "dept_name": "地政學系-土地測量與資訊組",
+      "college": "社會科學學院",
+      "total_courses": 17,
+      "filename": "207_g5_地政學系-土地測量與資訊組.json"
+    },
+    {
+      "key": "208",
+      "depnum": "208",
+      "gopnum": "",
+      "dept_name": "經濟學系",
+      "college": "社會科學學院",
+      "total_courses": 14,
+      "filename": "208_經濟學系.json"
+    },
+    {
+      "key": "209",
+      "depnum": "209",
+      "gopnum": "",
+      "dept_name": "民族學系",
+      "college": "社會科學學院",
+      "total_courses": 27,
+      "filename": "209_民族學系.json"
+    },
+    {
+      "key": "301",
+      "depnum": "301",
+      "gopnum": "",
+      "dept_name": "國際經營與貿易學系",
+      "college": "商學院",
+      "total_courses": 23,
+      "filename": "301_國際經營與貿易學系.json"
+    },
+    {
+      "key": "302",
+      "depnum": "302",
+      "gopnum": "",
+      "dept_name": "金融學系",
+      "college": "商學院",
+      "total_courses": 19,
+      "filename": "302_金融學系.json"
+    },
+    {
+      "key": "303",
+      "depnum": "303",
+      "gopnum": "",
+      "dept_name": "會計學系",
+      "college": "商學院",
+      "total_courses": 25,
+      "filename": "303_會計學系.json"
+    },
+    {
+      "key": "304",
+      "depnum": "304",
+      "gopnum": "",
+      "dept_name": "統計學系",
+      "college": "商學院",
+      "total_courses": 24,
+      "filename": "304_統計學系.json"
+    },
+    {
+      "key": "305",
+      "depnum": "305",
+      "gopnum": "",
+      "dept_name": "企業管理學系",
+      "college": "商學院",
+      "total_courses": 17,
+      "filename": "305_企業管理學系.json"
+    },
+    {
+      "key": "306",
+      "depnum": "306",
+      "gopnum": "",
+      "dept_name": "資訊管理學系",
+      "college": "商學院",
+      "total_courses": 20,
+      "filename": "306_資訊管理學系.json"
+    },
+    {
+      "key": "307",
+      "depnum": "307",
+      "gopnum": "",
+      "dept_name": "財務管理學系",
+      "college": "商學院",
+      "total_courses": 21,
+      "filename": "307_財務管理學系.json"
+    },
+    {
+      "key": "308",
+      "depnum": "308",
+      "gopnum": "",
+      "dept_name": "風險管理與保險學系",
+      "college": "商學院",
+      "total_courses": 16,
+      "filename": "308_風險管理與保險學系.json"
+    },
+    {
+      "key": "401",
+      "depnum": "401",
+      "gopnum": "",
+      "dept_name": "新聞學系",
+      "college": "傳播學院",
+      "total_courses": 6,
+      "filename": "401_新聞學系.json"
+    },
+    {
+      "key": "402",
+      "depnum": "402",
+      "gopnum": "",
+      "dept_name": "廣告學系",
+      "college": "傳播學院",
+      "total_courses": 6,
+      "filename": "402_廣告學系.json"
+    },
+    {
+      "key": "403",
+      "depnum": "403",
+      "gopnum": "",
+      "dept_name": "廣播電視學系",
+      "college": "傳播學院",
+      "total_courses": 6,
+      "filename": "403_廣播電視學系.json"
+    },
+    {
+      "key": "405",
+      "depnum": "405",
+      "gopnum": "",
+      "dept_name": "傳播學院大一大二不分系",
+      "college": "傳播學院",
+      "total_courses": 6,
+      "filename": "405_傳播學院大一大二不分系.json"
+    },
+    {
+      "key": "501",
+      "depnum": "501",
+      "gopnum": "",
+      "dept_name": "英國語文學系",
+      "college": "外國語文學院",
+      "total_courses": 17,
+      "filename": "501_英國語文學系.json"
+    },
+    {
+      "key": "502",
+      "depnum": "502",
+      "gopnum": "",
+      "dept_name": "阿拉伯語文學系",
+      "college": "外國語文學院",
+      "total_courses": 16,
+      "filename": "502_阿拉伯語文學系.json"
+    },
+    {
+      "key": "504",
+      "depnum": "504",
+      "gopnum": "",
+      "dept_name": "斯拉夫語文學系",
+      "college": "外國語文學院",
+      "total_courses": 15,
+      "filename": "504_斯拉夫語文學系.json"
+    },
+    {
+      "key": "506",
+      "depnum": "506",
+      "gopnum": "",
+      "dept_name": "日本語文學系",
+      "college": "外國語文學院",
+      "total_courses": 19,
+      "filename": "506_日本語文學系.json"
+    },
+    {
+      "key": "507",
+      "depnum": "507",
+      "gopnum": "",
+      "dept_name": "韓國語文學系",
+      "college": "外國語文學院",
+      "total_courses": 9,
+      "filename": "507_韓國語文學系.json"
+    },
+    {
+      "key": "508",
+      "depnum": "508",
+      "gopnum": "",
+      "dept_name": "土耳其語文學系",
+      "college": "外國語文學院",
+      "total_courses": 11,
+      "filename": "508_土耳其語文學系.json"
+    },
+    {
+      "key": "601",
+      "depnum": "601",
+      "gopnum": "",
+      "dept_name": "法律學系",
+      "college": "法學院",
+      "total_courses": 24,
+      "filename": "601_法律學系.json"
+    },
+    {
+      "key": "701",
+      "depnum": "701",
+      "gopnum": "",
+      "dept_name": "應用數學系",
+      "college": "理學院",
+      "total_courses": 12,
+      "filename": "701_應用數學系.json"
+    },
+    {
+      "key": "702",
+      "depnum": "702",
+      "gopnum": "",
+      "dept_name": "心理學系",
+      "college": "理學院",
+      "total_courses": 11,
+      "filename": "702_心理學系.json"
+    },
+    {
+      "key": "782",
+      "depnum": "782",
+      "gopnum": "",
+      "dept_name": "電子物理學士學位學程",
+      "college": "理學院",
+      "total_courses": 31,
+      "filename": "782_電子物理學士學位學程.json"
+    },
+    {
+      "key": "203",
+      "depnum": "203",
+      "gopnum": "",
+      "dept_name": "外交學系",
+      "college": "國際事務學院",
+      "total_courses": 28,
+      "filename": "203_外交學系.json"
+    },
+    {
+      "key": "102_g4",
+      "depnum": "102",
+      "gopnum": "4",
+      "dept_name": "教育學系-師資組",
+      "college": "教育學院",
+      "total_courses": 13,
+      "filename": "102_g4_教育學系-師資組.json"
+    },
+    {
+      "key": "102_g5",
+      "depnum": "102",
+      "gopnum": "5",
+      "dept_name": "教育學系-非師資組",
+      "college": "教育學院",
+      "total_courses": 0,
+      "filename": "102_g5_教育學系-非師資組.json"
+    },
+    {
+      "key": "ZU1",
+      "depnum": "ZU1",
+      "gopnum": "",
+      "dept_name": "創新國際學院學士班",
+      "college": "創新國際學院",
+      "total_courses": 32,
+      "filename": "ZU1_創新國際學院學士班.json"
+    },
+    {
+      "key": "703",
+      "depnum": "703",
+      "gopnum": "",
+      "dept_name": "資訊科學系",
+      "college": "資訊學院",
+      "total_courses": 21,
+      "filename": "703_資訊科學系.json"
+    },
+    {
+      "key": "781",
+      "depnum": "781",
+      "gopnum": "",
+      "dept_name": "數位內容與科技學士學位學程",
+      "college": "資訊學院",
+      "total_courses": 31,
+      "filename": "781_數位內容與科技學士學位學程.json"
+    },
+    {
+      "key": "783",
+      "depnum": "783",
+      "gopnum": "",
+      "dept_name": "人工智慧應用學士學位學程",
+      "college": "資訊學院",
+      "total_courses": 13,
+      "filename": "783_人工智慧應用學士學位學程.json"
+    }
+  ]
+}

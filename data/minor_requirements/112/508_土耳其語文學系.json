@@ -1,0 +1,47 @@
+{
+  "dept_code": "508",
+  "dept_name": "土耳其語文學系",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-508.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.382760",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 18,
+  "total_courses": 5,
+  "courses": [
+    {
+      "name": "大一土耳其語",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "大二土耳其語",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "土耳其通論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "土耳其文學概論",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "土耳其文史專題",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "一、合計 18 學分。\n二、若已修畢「大一土耳其語」及「大二土耳其語」者申請輔系，需加修大三以上開課\n科目至少 4 學分。\n\n\n 辦公室電話：2938-7284；校內分機：62312",
+  "special_rules": [],
+  "parse_warnings": []
+}

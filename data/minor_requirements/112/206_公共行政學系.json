@@ -1,0 +1,107 @@
+{
+  "dept_code": "206",
+  "dept_name": "公共行政學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-206.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.864932",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 20,
+  "total_courses": 15,
+  "courses": [
+    {
+      "name": "行政學",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "公共政策",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "政策分析",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "行政法",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "行政統計學",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "科技與政府",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "中華民國憲法",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "比較與發展行政",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "研究設計與方法",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "政府預算與財政",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "公部門人力資源管理",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "全球化與公共事務",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "公務倫理",
+      "credits": 2,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "第三部門",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "組織理論與管理",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "1、 必修學分數：12 學分。\n2、 選修學分數：8 學分（請自科目表內選修科目中選擇至少 8 學分）。\n3、 行政學為基礎科目，請列為最優先修習。",
+  "special_rules": [],
+  "parse_warnings": []
+}
