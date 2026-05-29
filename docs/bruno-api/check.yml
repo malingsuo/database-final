@@ -1,0 +1,458 @@
+info:
+  name: check
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: "{{baseURL}}/api/check/112703052"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: baseURL
+      value: http://localhost:3030
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/api/check/112703052"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 14:02:59 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "7369"
+        - name: connection
+          value: keep-alive
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "student": {
+              "id": "112703052",
+              "student_number": "112703052",
+              "chinese_name": "張竣喆",
+              "entry_year": 112,
+              "register_major": "資訊科學系",
+              "register_double_major": null,
+              "minor1": null,
+              "minor2": null,
+              "graduation_credit": null,
+              "total_credits": 95.0
+            },
+            "major_check": {
+              "dept_name": "資訊科學系",
+              "found": true,
+              "total_credits_required": 36.0,
+              "earned_credits": 36.0,
+              "in_progress_credits": 0.0,
+              "missing_credits": 0.0,
+              "passed_courses": [
+                {
+                  "course_name": "微積分甲",
+                  "course_code": "000713012",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "91.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "計算機程式設計（二）",
+                  "course_code": "703050001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "93.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "線性代數",
+                  "course_code": "703002001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "67.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "物件導向程式設計",
+                  "course_code": "703009001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "81.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "資料結構",
+                  "course_code": "703008001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "71.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "機率論",
+                  "course_code": "703017001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "83.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "離散數學",
+                  "course_code": "703007001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "92.87",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "演演算法",
+                  "course_code": "703022001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "73.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "數位系統實驗",
+                  "course_code": "703015001",
+                  "course_type": "必修",
+                  "credits": 0.0,
+                  "score": "90.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "數位系統導論",
+                  "course_code": "703014001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "80.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "作業系統",
+                  "course_code": "703016001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "68.00",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                },
+                {
+                  "course_name": "計算機結構與組織",
+                  "course_code": "703019001",
+                  "course_type": "必修",
+                  "credits": 3.0,
+                  "score": "76.60",
+                  "group_label": "必修",
+                  "match_confidence": "normalized"
+                }
+              ],
+              "in_progress_courses": [],
+              "missing_courses": [
+                {
+                  "course_name": "程式能力檢定",
+                  "course_code": "無",
+                  "course_type": "必修",
+                  "group_label": "必修",
+                  "credits": 0.0,
+                  "match_confidence": "none"
+                }
+              ],
+              "group_violations": [
+                {
+                  "group": "群A",
+                  "min_courses": 2,
+                  "passed_courses": 0,
+                  "in_progress_courses": 0,
+                  "note": "整合應用類核心課程至少選2門",
+                  "status": "incomplete"
+                },
+                {
+                  "group": "群B",
+                  "min_courses": 1,
+                  "passed_courses": 0,
+                  "in_progress_courses": 0,
+                  "note": "B~E至少選3門，領域不得重複",
+                  "status": "incomplete"
+                },
+                {
+                  "group": "群C",
+                  "min_courses": 1,
+                  "passed_courses": 0,
+                  "in_progress_courses": 0,
+                  "note": "B~E至少選3門，領域不得重複",
+                  "status": "incomplete"
+                },
+                {
+                  "group": "群D",
+                  "min_courses": 1,
+                  "passed_courses": 0,
+                  "in_progress_courses": 0,
+                  "note": "B~E至少選3門，領域不得重複",
+                  "status": "incomplete"
+                },
+                {
+                  "group": "群E",
+                  "min_courses": 1,
+                  "passed_courses": 0,
+                  "in_progress_courses": 0,
+                  "note": "B~E至少選3門，領域不得重複",
+                  "status": "incomplete"
+                },
+                {
+                  "group": "_shared(群B+群C+群D+群E)",
+                  "min_courses": 3,
+                  "passed_courses": 0,
+                  "in_progress_courses": 0,
+                  "note": "B~E至少選3門，領域不得重複",
+                  "status": "incomplete"
+                }
+              ],
+              "status": "incomplete"
+            },
+            "double_major_check": null,
+            "minor_checks": [],
+            "ge_check": {
+              "categories": [
+                {
+                  "category_name": "中國語文領域",
+                  "remark_code": "中文通",
+                  "credits_required_min": 3.0,
+                  "credits_required_max": 6.0,
+                  "earned_credits": 3.0,
+                  "missing_credits": 0.0,
+                  "courses": [
+                    {
+                      "course_name": "國文－古典詩選讀",
+                      "course_code": "031004051",
+                      "credits": 3.0,
+                      "score": "83.00",
+                      "ge_label": 1,
+                      "allocated_category": "中文通"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "category_name": "外國語文領域",
+                  "remark_code": "外文通",
+                  "credits_required_min": 6.0,
+                  "credits_required_max": 6.0,
+                  "earned_credits": 6.0,
+                  "missing_credits": 0.0,
+                  "courses": [
+                    {
+                      "course_name": "大學英文（二）",
+                      "course_code": "032002501",
+                      "credits": 3.0,
+                      "score": "86.00",
+                      "ge_label": 2,
+                      "allocated_category": "外文通"
+                    },
+                    {
+                      "course_name": "大學英文（一）",
+                      "course_code": "032001061",
+                      "credits": 3.0,
+                      "score": "87.00",
+                      "ge_label": 2,
+                      "allocated_category": "外文通"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "category_name": "人文學通識",
+                  "remark_code": "人文通",
+                  "credits_required_min": 3.0,
+                  "credits_required_max": 7.0,
+                  "earned_credits": 4.0,
+                  "missing_credits": 0.0,
+                  "courses": [
+                    {
+                      "course_name": "近代臺灣人物",
+                      "course_code": "041089001",
+                      "credits": 2.0,
+                      "score": "80.00",
+                      "ge_label": 64,
+                      "allocated_category": "人文通"
+                    },
+                    {
+                      "course_name": "關於藝術的話題",
+                      "course_code": "090108001",
+                      "credits": 2.0,
+                      "score": "92.00",
+                      "ge_label": 96,
+                      "candidate_categories": [
+                        "人文通",
+                        "社會通"
+                      ],
+                      "allocated_category": "人文通"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "category_name": "社會科學通識",
+                  "remark_code": "社會通",
+                  "credits_required_min": 3.0,
+                  "credits_required_max": 7.0,
+                  "earned_credits": 5.0,
+                  "missing_credits": 0.0,
+                  "courses": [
+                    {
+                      "course_name": "環視全球－挑戰國際視野",
+                      "course_code": "042142001",
+                      "credits": 3.0,
+                      "score": "84.52",
+                      "ge_label": 160,
+                      "allocated_category": "社會通"
+                    },
+                    {
+                      "course_name": "全球網路治理",
+                      "course_code": "042206001",
+                      "credits": 2.0,
+                      "score": "92.00",
+                      "ge_label": 32,
+                      "allocated_category": "社會通"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "category_name": "自然科學通識",
+                  "remark_code": "自然通",
+                  "credits_required_min": 3.0,
+                  "credits_required_max": 7.0,
+                  "earned_credits": 3.0,
+                  "missing_credits": 0.0,
+                  "courses": [
+                    {
+                      "course_name": "數學、邏輯與人生",
+                      "course_code": "043030001",
+                      "credits": 3.0,
+                      "score": "93.00",
+                      "ge_label": 144,
+                      "allocated_category": "自然通"
+                    }
+                  ],
+                  "status": "complete"
+                },
+                {
+                  "category_name": "資訊通識",
+                  "remark_code": "資訊通",
+                  "credits_required_min": 0.0,
+                  "credits_required_max": 3.0,
+                  "earned_credits": 0,
+                  "missing_credits": 0.0,
+                  "courses": [],
+                  "status": "complete"
+                },
+                {
+                  "category_name": "書院通識",
+                  "remark_code": "書院通",
+                  "credits_required_min": 0.0,
+                  "credits_required_max": 3.0,
+                  "earned_credits": 0,
+                  "missing_credits": 0.0,
+                  "courses": [],
+                  "status": "complete"
+                }
+              ],
+              "total_required_credits": 28,
+              "earned_credits": 21.0,
+              "missing_credits": 7.0,
+              "core_domains": [
+                "社會通",
+                "自然通"
+              ],
+              "core_domains_required": 2,
+              "cross_domain_courses": [
+                {
+                  "course_name": "關於藝術的話題",
+                  "course_code": "090108001",
+                  "credits": 2.0,
+                  "score": "92.00",
+                  "ge_label": 96,
+                  "candidate_categories": [
+                    "人文通",
+                    "社會通"
+                  ]
+                }
+              ],
+              "status": "incomplete"
+            },
+            "pe_check": {
+              "required_semesters": 4,
+              "passed_semesters": 2,
+              "missing_semesters": 2,
+              "passed_courses": [
+                {
+                  "course_name": "體育[男]—籃球初級",
+                  "course_code": "002021011",
+                  "academic_year_semester": "1131",
+                  "score": "87.00"
+                },
+                {
+                  "course_name": "體育[男女合班]—羽球初級",
+                  "course_code": "002366031",
+                  "academic_year_semester": "1121",
+                  "score": "83.00"
+                }
+              ],
+              "in_progress_courses": [],
+              "failed_courses": [],
+              "status": "incomplete"
+            },
+            "summary": {
+              "all_complete": false,
+              "incomplete_items": [
+                "主系必修",
+                "通識",
+                "體育必修"
+              ],
+              "elective_credits": {
+                "graduation_total": 128,
+                "major_required": 33.0,
+                "ge_required": 28,
+                "pe_required": 4,
+                "elective_required": 63.0,
+                "total_credits_earned": 95.0,
+                "major_earned": 33.0,
+                "ge_earned": 21.0,
+                "pe_earned": 2.0,
+                "elective_earned": 39.0,
+                "elective_gap": 24.0,
+                "note": "選修應修 = 128 - 必修33.0 - 通識28 - 體育4 = 63.0 學分"
+              }
+            }
+          }

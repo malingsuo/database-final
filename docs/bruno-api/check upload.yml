@@ -1,0 +1,63 @@
+info:
+  name: check upload
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{baseURL}}/api/check/upload"
+  body:
+    type: multipart-form
+    data:
+      - name: file
+        type: file
+        value:
+          - C:\Users\user\Downloads\exportStudentData.json
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/api/check/upload"
+      method: POST
+      body:
+        type: multipart-form
+        data:
+          - name: file
+            type: file
+            value: "[Circular]"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 14:08:37 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "100"
+        - name: connection
+          value: keep-alive
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "student_id": "112703052",
+            "student_number": "112703052",
+            "chinese_name": "張竣喆",
+            "course_count": 47
+          }

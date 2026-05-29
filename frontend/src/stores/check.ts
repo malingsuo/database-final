@@ -5,12 +5,6 @@ import { ApiError } from '@/api/http'
 import { useAuthStore } from './auth'
 import type { CheckResult } from '@/api/types'
 
-const STUDENT_ID_PREFIX = 'gradcheck_student_id:'
-
-function storedStudentIdKey(account: string) {
-  return `${STUDENT_ID_PREFIX}${account}`
-}
-
 export const useCheckStore = defineStore('check', () => {
   const studentId = ref<string | null>(null)
   const result = ref<CheckResult | null>(null)
@@ -18,21 +12,10 @@ export const useCheckStore = defineStore('check', () => {
   const error = ref<string | null>(null)
   const hasData = ref<boolean | null>(null)
 
-  function rememberStudentId(id: string) {
+  // 學號取自登入身分（/api/auth/status 的 student_number），不再使用 localStorage。
+  function currentStudentId(): string | null {
     const auth = useAuthStore()
-    studentId.value = id
-    if (auth.user?.account) {
-      localStorage.setItem(storedStudentIdKey(auth.user.account), id)
-    }
-  }
-
-  function candidateStudentId(): string | null {
-    const auth = useAuthStore()
-    if (auth.user?.student_id != null) return auth.user.student_id
-    if (auth.user?.account) {
-      return localStorage.getItem(storedStudentIdKey(auth.user.account))
-    }
-    return null
+    return auth.user?.student_number ?? null
   }
 
   async function loadById(id: string) {
@@ -43,18 +26,18 @@ export const useCheckStore = defineStore('check', () => {
     return data
   }
 
-  // 解析目前登入學生的檢核資料：student_id → localStorage 後備 → /me。
+  // 進入學生頁時自動載入本人的檢核資料：學號直接取自登入身分。
   async function resolveMyCheck() {
     loading.value = true
     error.value = null
     try {
-      const candidate = candidateStudentId()
-      if (candidate != null) {
+      const sid = currentStudentId()
+      if (sid != null) {
         try {
-          await loadById(candidate)
+          await loadById(sid)
           return
         } catch (e) {
-          // 資料可能已被刪除，往下嘗試其他途徑
+          // 後端回 404 代表本人尚未上傳資料，視為無資料而非錯誤
           if (!(e instanceof ApiError && e.status === 404)) throw e
         }
       }
@@ -74,7 +57,6 @@ export const useCheckStore = defineStore('check', () => {
     error.value = null
     try {
       const res = await checkApi.uploadStudentJson(file)
-      rememberStudentId(res.student_id)
       await loadById(res.student_id)
       return res
     } catch (e) {

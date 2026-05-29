@@ -8,6 +8,11 @@ http:
   url: "{{baseURL}}/api/auth/status"
   auth: inherit
 
+runtime:
+  variables:
+    - name: baseURL
+      value: http://localhost:3030
+
 settings:
   encodeUrl: true
   timeout: 0

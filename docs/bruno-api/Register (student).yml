@@ -17,6 +17,11 @@ http:
         "admission_year": 112
       }
 
+runtime:
+  variables:
+    - name: baseURL
+      value: http://localhost:3030
+
 settings:
   encodeUrl: true
   timeout: 0

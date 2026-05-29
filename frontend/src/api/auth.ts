@@ -18,6 +18,12 @@ interface ApiAccountInfo {
   id: string
   email: string
   role: 'student' | 'admin'
+  student_number?: string | null
+  name?: string | null
+  admission_year?: number | null
+  administrator_id?: string | null
+  department_id?: string | null
+  department_name?: string | null
 }
 
 export function login(body: LoginRequest): Promise<LoginResponse> {
@@ -75,5 +81,11 @@ export function status(): Promise<StatusResponse> {
     user_id: r.data.id,
     account: r.data.email,
     role: r.data.role,
+    student_number: r.data.student_number ?? null,
+    name: r.data.name ?? null,
+    admission_year: r.data.admission_year ?? null,
+    administrator_id: r.data.administrator_id ?? null,
+    department_id: r.data.department_id ?? null,
+    department_name: r.data.department_name ?? null,
   } satisfies StatusResponse))
 }

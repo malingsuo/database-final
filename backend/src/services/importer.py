@@ -206,23 +206,10 @@ def _find_or_create_department(session: Session, name: str, student_id: str, off
     return dept
 
 
-def upsert_student(session: Session, student_info: dict, user_id: uuid.UUID | None = None) -> Student:
-    student_id = student_info["student_id"]
-    account = _find_or_create_account(session, student_id, user_id)
-
-    student = session.get(Student, student_id)
-    if student is None:
-        student = Student(
-            student_id=student_id,
-            user_id=account.id,
-            name=student_info.get("name"),
-            admission_year=student_info["admission_year"],
-        )
-        session.add(student)
-    else:
-        student.user_id = account.id
-        student.name = student_info.get("name")
-        student.admission_year = student_info["admission_year"]
+def update_student_from_parsed(session: Session, student: Student, student_info: dict) -> Student:
+    """更新既有 student 的基本資料與修讀領域，不會建立或變更帳號。"""
+    student.name = student_info.get("name")
+    student.admission_year = student_info["admission_year"]
     session.flush()
 
     session.query(FieldOfStudy).filter_by(student_id=student.student_id).delete()
@@ -234,7 +221,7 @@ def upsert_student(session: Session, student_info: dict, user_id: uuid.UUID | No
     ], start=1):
         if not dept_name:
             continue
-        dept = _find_or_create_department(session, dept_name, student_id, idx)
+        dept = _find_or_create_department(session, dept_name, student.student_id, idx)
         session.add(FieldOfStudy(
             student_id=student.student_id,
             department_id=dept.id,
@@ -243,6 +230,23 @@ def upsert_student(session: Session, student_info: dict, user_id: uuid.UUID | No
         ))
     session.flush()
     return student
+
+
+def upsert_student(session: Session, student_info: dict, user_id: uuid.UUID | None = None) -> Student:
+    student_id = student_info["student_id"]
+    account = _find_or_create_account(session, student_id, user_id)
+
+    student = session.get(Student, student_id)
+    if student is None:
+        student = Student(
+            student_id=student_id,
+            user_id=account.id,
+            admission_year=student_info["admission_year"],
+        )
+        session.add(student)
+    else:
+        student.user_id = account.id
+    return update_student_from_parsed(session, student, student_info)
 
 
 def upsert_student_courses(session: Session, student: Student, courses: list[dict]) -> int:
@@ -281,16 +285,31 @@ def upsert_student_courses(session: Session, student: Student, courses: list[dic
     return len(courses)
 
 
-def import_student_json_from_dict(
-    session: Session, data: dict, user_id: uuid.UUID | None = None
-) -> tuple[Student, int]:
-    parsed = parse_student_data(data)
-    admission_year = parsed["student_info"].get("admission_year")
+def _require_supported_admission_year(student_info: dict) -> None:
+    admission_year = student_info.get("admission_year")
     if admission_year != 112:
         raise ValueError(
             f"目前系統僅支援 112 學年度入學學生（偵測到入學年：{admission_year}），"
             "請確認上傳的是正確的 exportStudentData.json。"
         )
+
+
+def import_parsed_for_student(
+    session: Session, parsed: dict, student: Student
+) -> tuple[Student, int]:
+    """將已解析的資料匯入給既有學生：更新基本資料與課程，不建立任何帳號。"""
+    _require_supported_admission_year(parsed["student_info"])
+    update_student_from_parsed(session, student, parsed["student_info"])
+    count = upsert_student_courses(session, student, parsed["courses"])
+    session.commit()
+    return student, count
+
+
+def import_student_json_from_dict(
+    session: Session, data: dict, user_id: uuid.UUID | None = None
+) -> tuple[Student, int]:
+    parsed = parse_student_data(data)
+    _require_supported_admission_year(parsed["student_info"])
     student = upsert_student(session, parsed["student_info"], user_id)
     count = upsert_student_courses(session, student, parsed["courses"])
     session.commit()
