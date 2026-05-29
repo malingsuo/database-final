@@ -72,3 +72,32 @@ examples:
             "department_id": null,
             "department_name": null
           }
+
+docs: |
+  Register a new student account.
+
+  **Request**
+  ```json
+  {
+    "email": "student@nccu.edu.tw",
+    "password": "secret",
+    "student_id": "109703001",
+    "name": "王小明",
+    "admission_year": 109
+  }
+  ```
+  > `name` is optional.
+
+  **Response `201`**
+  ```json
+  {
+    "id": "uuid",
+    "email": "student@nccu.edu.tw",
+    "role": "student"
+  }
+  ```
+
+  **Response `400`**
+  ```json
+  { "detail": "Email or student ID already exists" }
+  ```

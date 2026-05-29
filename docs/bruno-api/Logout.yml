@@ -45,3 +45,16 @@ examples:
           {
             "message": "Logged out"
           }
+
+docs: |
+  Revoke the current token.
+
+  **Headers**
+  ```
+  Authorization: Bearer <token>
+  ```
+
+  **Response `200`**
+  ```json
+  { "message": "Logged out" }
+  ```

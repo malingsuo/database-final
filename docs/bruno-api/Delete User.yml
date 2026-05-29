@@ -1,19 +1,17 @@
 info:
-  name: check upload
+  name: Delete User
   type: http
-  seq: 7
+  seq: 5
 
 http:
-  method: POST
-  url: "{{baseUrl}}/api/check/upload"
-  body:
-    type: multipart-form
-    data:
-      - name: file
-        type: file
-        value:
-          - C:\Users\user\Downloads\exportStudentData.json
+  method: DELETE
+  url: "{{baseUrl}}/api/auth/user/{{account_id}}"
   auth: inherit
+
+runtime:
+  variables:
+    - name: account_id
+      value: 0792eedc-3e1e-4444-a825-bb6628c1dd3b
 
 settings:
   encodeUrl: true
@@ -24,14 +22,8 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseUrl}}/api/check/upload"
-      method: POST
-      body:
-        type: multipart-form
-        data:
-          - name: file
-            type: file
-            value: "[Circular]"
+      url: "{{baseUrl}}/api/auth/user/{{account_id}}"
+      method: DELETE
     response:
       status: 200
       statusText: OK
@@ -39,11 +31,11 @@ examples:
         - name: server
           value: nginx
         - name: date
-          value: Fri, 29 May 2026 14:08:37 GMT
+          value: Fri, 29 May 2026 16:22:06 GMT
         - name: content-type
           value: application/json
         - name: content-length
-          value: "100"
+          value: "29"
         - name: connection
           value: keep-alive
         - name: access-control-allow-origin
@@ -56,8 +48,18 @@ examples:
         type: json
         data: |-
           {
-            "student_id": "112703052",
-            "student_number": "112703052",
-            "chinese_name": "張竣喆",
-            "course_count": 47
+            "message": "Account deleted"
           }
+
+docs: |
+  Revoke the current token.
+
+  **Headers**
+  ```
+  Authorization: Bearer <token>
+  ```
+
+  **Response `200`**
+  ```json
+  { "message": "Logged out" }
+  ```

@@ -68,3 +68,29 @@ examples:
             "department_id": null,
             "department_name": null
           }
+
+docs: |-
+  Register a new admin account bound to a department.
+
+  **Request**
+  ```json
+  {
+    "email": "admin@nccu.edu.tw",
+    "password": "secret",
+    "department_id": "703"
+  }
+  ```
+
+  **Response `201`**
+  ```json
+  {
+    "id": "uuid",
+    "email": "admin@nccu.edu.tw",
+    "role": "admin"
+  }
+  ```
+
+  **Response `400`**
+  ```json
+  { "detail": "Email already exists or department not found" }
+  ```

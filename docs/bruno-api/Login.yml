@@ -99,3 +99,30 @@ examples:
             "token_type": "bearer",
             "role": "admin"
           }
+
+docs: |-
+  Login with an existing account. Returns a bearer token.
+
+  > Password verification is skipped in prototype — any password accepted if account exists.
+
+  **Request**
+  ```json
+  {
+    "email": "student@nccu.edu.tw",
+    "password": "any"
+  }
+  ```
+
+  **Response `200`**
+  ```json
+  {
+    "access_token": "<token>",
+    "token_type": "bearer",
+    "role": "student"
+  }
+  ```
+
+  **Response `401`**
+  ```json
+  { "detail": "Invalid credentials" }
+  ```
