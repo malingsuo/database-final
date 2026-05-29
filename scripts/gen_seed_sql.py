@@ -245,6 +245,7 @@ def main():
     cur.execute("""
         SELECT subNum, y, s, name, point, kind, lmtKind, core, dp3
         FROM COURSE
+        WHERE CAST(y AS INTEGER) BETWEEN 109 AND 114
         GROUP BY subNum, y, s
         ORDER BY subNum, y, s
     """)
