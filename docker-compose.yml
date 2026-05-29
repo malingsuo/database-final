@@ -21,8 +21,8 @@ services:
       - DB_HOST=${DB_HOST}
     depends_on:
       - db
-  fe-nginx:
-    build: ./fe-nginx
+  frontend:
+    build: ./frontend
     ports:
       - "3000:3000"
     depends_on:
