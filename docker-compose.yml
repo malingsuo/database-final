@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
       args:
         NONROOT_USERNAME: ubuntu
+        PROJECT_PATH: /project/database-final/auth
     ports:
       - "8000:8000"
     environment:
@@ -21,6 +22,7 @@ services:
       dockerfile: Dockerfile
       args:
         NONROOT_USERNAME: ubuntu
+        PROJECT_PATH: /project/database-final/backend
     ports:
       - "8080:8080"
     environment:
