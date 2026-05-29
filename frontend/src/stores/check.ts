@@ -12,35 +12,30 @@ function storedStudentIdKey(account: string) {
 }
 
 export const useCheckStore = defineStore('check', () => {
-  const studentId = ref<number | null>(null)
+  const studentId = ref<string | null>(null)
   const result = ref<CheckResult | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
-  // null = 尚未解析；true = 有資料；false = 確認無資料（引導上傳）
   const hasData = ref<boolean | null>(null)
 
-  function rememberStudentId(id: number) {
+  function rememberStudentId(id: string) {
     const auth = useAuthStore()
     studentId.value = id
     if (auth.user?.account) {
-      localStorage.setItem(storedStudentIdKey(auth.user.account), String(id))
+      localStorage.setItem(storedStudentIdKey(auth.user.account), id)
     }
   }
 
-  function candidateStudentId(): number | null {
+  function candidateStudentId(): string | null {
     const auth = useAuthStore()
     if (auth.user?.student_id != null) return auth.user.student_id
     if (auth.user?.account) {
-      const raw = localStorage.getItem(storedStudentIdKey(auth.user.account))
-      if (raw) {
-        const n = Number(raw)
-        if (Number.isFinite(n)) return n
-      }
+      return localStorage.getItem(storedStudentIdKey(auth.user.account))
     }
     return null
   }
 
-  async function loadById(id: number) {
+  async function loadById(id: string) {
     const data = await checkApi.getCheck(id)
     result.value = data
     studentId.value = data.student.id

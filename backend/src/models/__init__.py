@@ -1,18 +1,24 @@
 from src.models.models import (
-    Admin,
+    Administrator,
     Base,
+    Course,
+    Department,
+    Enrollment,
+    FieldOfStudy,
     Student,
-    StudentCourse,
     User,
     create_all_tables,
     drop_all_tables,
 )
 
 __all__ = [
-    "Admin",
+    "Administrator",
     "Base",
+    "Course",
+    "Department",
+    "Enrollment",
+    "FieldOfStudy",
     "Student",
-    "StudentCourse",
     "User",
     "create_all_tables",
     "drop_all_tables",

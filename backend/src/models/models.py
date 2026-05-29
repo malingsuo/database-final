@@ -1,160 +1,181 @@
-"""
-src/models/models.py - SQLAlchemy 2.x ORM Models
-
-DB 只存帳號層 + 學生資料層。
-畢業規定（各系課表、通識、輔系等）全部存 JSON，不進 DB。
-
-Tables:
-  account       帳號（學生 / 管理員共用）
-  student        學生基本資料（1:1 account）
-  admin          管理員（1:1 account，綁一個系所）
-  student_course 學生修課紀錄（N:1 student）
-"""
-
 from __future__ import annotations
 
+import uuid
 from datetime import datetime
 
 from sqlalchemy import (
-    DECIMAL,
+    Boolean,
     DateTime,
     Enum,
+    Float,
     ForeignKey,
-    Index,
     Integer,
+    SmallInteger,
     String,
-    UniqueConstraint,
     func,
 )
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.core.database import Base
 
 
-# ---------------------------------------------------------------------------
-# 帳號（學生 / 管理員共用）
-# ---------------------------------------------------------------------------
 class User(Base):
     __tablename__ = "account"
-    __table_args__ = (UniqueConstraint("account", name="uq_account_account"),)
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    account: Mapped[str] = mapped_column(String(20), nullable=False)
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    email: Mapped[str] = mapped_column(String(255), nullable=False)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     role: Mapped[str] = mapped_column(
-        Enum("student", "admin", name="user_role_enum"),
+        Enum("student", "admin", name="user_role_enum", create_type=False),
         nullable=False,
     )
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, server_default=func.now()
+        DateTime(timezone=True), nullable=False, server_default=func.now()
     )
 
     student: Mapped[Student | None] = relationship(
         "Student", back_populates="user", uselist=False
     )
-    admin: Mapped[Admin | None] = relationship(
-        "Admin", back_populates="user", uselist=False
+    administrator: Mapped[Administrator | None] = relationship(
+        "Administrator", back_populates="user", uselist=False
     )
 
     def __repr__(self) -> str:
-        return f"<User {self.account} ({self.role})>"
+        return f"<User {self.email} ({self.role})>"
 
 
-# ---------------------------------------------------------------------------
-# 學生基本資料
-# ---------------------------------------------------------------------------
+class Department(Base):
+    __tablename__ = "department"
+
+    id: Mapped[str] = mapped_column(String(10), primary_key=True)
+    college: Mapped[str] = mapped_column(String(100), nullable=False)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+
+    def __repr__(self) -> str:
+        return f"<Department {self.id} {self.name}>"
+
+
+class Administrator(Base):
+    __tablename__ = "administrator"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("account.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    department_id: Mapped[str] = mapped_column(
+        String(10), ForeignKey("department.id"), nullable=False
+    )
+
+    user: Mapped[User] = relationship("User", back_populates="administrator")
+    department: Mapped[Department] = relationship("Department")
+
+    def __repr__(self) -> str:
+        return f"<Administrator {self.id} dept={self.department_id}>"
+
+
 class Student(Base):
     __tablename__ = "student"
-    __table_args__ = (
-        UniqueConstraint("user_id", name="uq_student_user"),
-        UniqueConstraint("student_number", name="uq_student_number"),
-    )
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("account.id", ondelete="CASCADE"), nullable=False
+    student_id: Mapped[str] = mapped_column(String(20), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("account.id", ondelete="CASCADE"),
+        nullable=False,
+        unique=True,
     )
-    student_number: Mapped[str] = mapped_column(String(20), nullable=False)
-    chinese_name: Mapped[str | None] = mapped_column(String(50), default=None)
-    entry_year: Mapped[int] = mapped_column(Integer, nullable=False)
-    register_major: Mapped[str] = mapped_column(String(100), nullable=False)
-    register_double_major: Mapped[str | None] = mapped_column(String(100), default=None)
-    minor1: Mapped[str | None] = mapped_column(String(100), default=None)
-    minor2: Mapped[str | None] = mapped_column(String(100), default=None)
-
-    graduation_credit: Mapped[float | None] = mapped_column(DECIMAL(5, 1), default=None)
-    total_credits: Mapped[float | None] = mapped_column(DECIMAL(5, 1), default=None)
-    required_point: Mapped[float | None] = mapped_column(DECIMAL(5, 1), default=None)
-    group_point: Mapped[float | None] = mapped_column(DECIMAL(5, 1), default=None)
-
-    uploaded_at: Mapped[datetime] = mapped_column(
-        DateTime, nullable=False, server_default=func.now()
-    )
+    name: Mapped[str | None] = mapped_column(String(50), default=None)
+    admission_year: Mapped[int] = mapped_column(Integer, nullable=False)
 
     user: Mapped[User] = relationship("User", back_populates="student")
-    courses: Mapped[list[StudentCourse]] = relationship(
-        "StudentCourse", back_populates="student", cascade="all, delete-orphan"
+    enrollments: Mapped[list[Enrollment]] = relationship(
+        "Enrollment", back_populates="student", cascade="all, delete-orphan"
+    )
+    fields_of_study: Mapped[list[FieldOfStudy]] = relationship(
+        "FieldOfStudy", back_populates="student", cascade="all, delete-orphan"
     )
 
     def __repr__(self) -> str:
-        return f"<Student {self.student_number} {self.chinese_name}>"
+        return f"<Student {self.student_id} {self.name}>"
 
 
-# ---------------------------------------------------------------------------
-# 管理員（一系一人）
-# ---------------------------------------------------------------------------
-class Admin(Base):
-    __tablename__ = "admin"
-    __table_args__ = (UniqueConstraint("user_id", name="uq_admin_user"),)
+class Course(Base):
+    __tablename__ = "course"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("account.id", ondelete="CASCADE"), nullable=False
+    course_code: Mapped[str] = mapped_column(String(20), primary_key=True)
+    year: Mapped[str] = mapped_column(String(10), primary_key=True)
+    semester: Mapped[str] = mapped_column(String(5), primary_key=True)
+    name: Mapped[str] = mapped_column(String(200), nullable=False)
+    credits: Mapped[float] = mapped_column(
+        Float, nullable=False, default=0
     )
-    dept_code: Mapped[str] = mapped_column(String(10), nullable=False)
-    dept_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    type: Mapped[str | None] = mapped_column(String(20), default=None)
+    ge_label: Mapped[int] = mapped_column(
+        SmallInteger, nullable=False, default=0
+    )
+    department_id: Mapped[str | None] = mapped_column(
+        String(10), ForeignKey("department.id"), default=None
+    )
 
-    user: Mapped[User] = relationship("User", back_populates="admin")
+    department: Mapped[Department | None] = relationship("Department")
 
     def __repr__(self) -> str:
-        return f"<Admin {self.dept_code} {self.dept_name}>"
+        return f"<Course {self.course_code} {self.name}>"
 
 
-# ---------------------------------------------------------------------------
-# 學生修課紀錄
-# ---------------------------------------------------------------------------
-class StudentCourse(Base):
-    __tablename__ = "student_course"
-    __table_args__ = (
-        Index("idx_student_course_student", "student_id"),
-        Index("idx_student_course_code", "course_code"),
+class Enrollment(Base):
+    __tablename__ = "enrollment"
+
+    student_id: Mapped[str] = mapped_column(
+        String(20), ForeignKey("student.student_id", ondelete="CASCADE"), primary_key=True
     )
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    student_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("student.id", ondelete="CASCADE"), nullable=False
+    course_code: Mapped[str] = mapped_column(String(20), primary_key=True)
+    year: Mapped[str] = mapped_column(String(10), primary_key=True)
+    semester: Mapped[str] = mapped_column(String(5), primary_key=True)
+    grade: Mapped[str | None] = mapped_column(String(20), default=None)
+    is_passed: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False
     )
-    course_code: Mapped[str] = mapped_column(String(20), nullable=False)
-    course_name: Mapped[str] = mapped_column(String(200), nullable=False)
-    credit: Mapped[float] = mapped_column(DECIMAL(4, 1), nullable=False)
-    score: Mapped[str | None] = mapped_column(String(20), default=None)
-    required_or_elective: Mapped[str] = mapped_column(
-        Enum("必", "群", "選", name="req_or_elective_enum"), nullable=False
+    required_or_elective: Mapped[str | None] = mapped_column(
+        String(10), default=None
     )
     remark: Mapped[str | None] = mapped_column(String(50), default=None)
 
-    academic_year: Mapped[int] = mapped_column(Integer, nullable=False)
-    semester: Mapped[int] = mapped_column(Integer, nullable=False)
-    academic_year_semester: Mapped[str] = mapped_column(String(10), nullable=False)
-
-    student: Mapped[Student] = relationship("Student", back_populates="courses")
+    student: Mapped[Student] = relationship("Student", back_populates="enrollments")
+    course: Mapped[Course] = relationship("Course")
 
     @property
-    def is_passed(self) -> bool:
-        if not self.score:
+    def course_name(self) -> str:
+        return self.course.name if self.course else ""
+
+    @property
+    def credit(self) -> float:
+        return float(self.course.credits) if self.course else 0.0
+
+    @property
+    def score(self) -> str | None:
+        return self.grade
+
+    @property
+    def academic_year_semester(self) -> str:
+        return f"{self.year}{self.semester}"
+
+    @property
+    def is_in_progress(self) -> bool:
+        if not self.grade:
+            return True
+        s = str(self.grade).strip()
+        return s in ("成績未到或無成績", "")
+
+    @property
+    def is_passed_prop(self) -> bool:
+        if not self.grade:
             return False
-        s = str(self.score).strip()
-        if s == "透過":
+        s = str(self.grade).strip()
+        if s == "通過":
             return True
         if s in ("成績未到或無成績", ""):
             return False
@@ -163,20 +184,31 @@ class StudentCourse(Base):
         except ValueError:
             return False
 
-    @property
-    def is_in_progress(self) -> bool:
-        if not self.score:
-            return True
-        s = str(self.score).strip()
-        return s in ("成績未到或無成績", "")
+    def __repr__(self) -> str:
+        return f"<Enrollment {self.student_id} {self.course_code}>"
+
+
+class FieldOfStudy(Base):
+    __tablename__ = "fields_of_study"
+
+    student_id: Mapped[str] = mapped_column(
+        String(20), ForeignKey("student.student_id", ondelete="CASCADE"), primary_key=True
+    )
+    department_id: Mapped[str] = mapped_column(
+        String(10), ForeignKey("department.id"), primary_key=True
+    )
+    program_type: Mapped[str] = mapped_column(
+        Enum("主修", "雙主修", "輔系", name="program_type_enum", create_type=False),
+        primary_key=True,
+    )
+    enrollment_year: Mapped[int | None] = mapped_column(Integer, default=None)
+
+    student: Mapped[Student] = relationship("Student", back_populates="fields_of_study")
+    department: Mapped[Department] = relationship("Department")
 
     def __repr__(self) -> str:
-        return f"<StudentCourse {self.course_code} {self.course_name} ({self.score})>"
+        return f"<FieldOfStudy {self.student_id} {self.department_id} ({self.program_type})>"
 
-
-# ---------------------------------------------------------------------------
-# 建立 / 刪除所有表格的便利函式
-# ---------------------------------------------------------------------------
 def create_all_tables(engine) -> None:
     Base.metadata.create_all(engine)
 

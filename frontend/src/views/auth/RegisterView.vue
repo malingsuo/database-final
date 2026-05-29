@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { Lock, OfficeBuilding, User, UserFilled } from '@element-plus/icons-vue'
 import { useAuthStore } from '@/stores/auth'
-import type { Role } from '@/api/types'
+import { listDepartments } from '@/api/department'
+import type { Department, Role } from '@/api/types'
 
 const router = useRouter()
 const auth = useAuthStore()
 
 const formRef = ref<FormInstance>()
 const loading = ref(false)
+const departments = ref<Department[]>([])
 const form = reactive({
   role: 'student' as Role,
   email: '',
@@ -19,15 +21,16 @@ const form = reactive({
   studentId: '',
   studentName: '',
   admissionYear: 112,
-  departmentId: '703',
+  departmentId: '',
 })
 
-const departments = [
-  { id: '703', name: '資訊科學系' },
-  { id: '306', name: '資訊管理學系' },
-  { id: '304', name: '統計學系' },
-  { id: '2S3', name: '教務處通識教育中心' },
-]
+onMounted(async () => {
+  try {
+    departments.value = await listDepartments()
+  } catch {
+    // fallback: keep empty list
+  }
+})
 
 const isStudent = computed(() => form.role === 'student')
 
@@ -52,7 +55,7 @@ const validateStudentName = (_r: unknown, value: string, cb: (e?: Error) => void
 
 const validateDepartment = (_r: unknown, value: string, cb: (e?: Error) => void) => {
   if (isStudent.value) return cb()
-  if (!departments.some((dept) => dept.id === value)) return cb(new Error('請選擇管理單位'))
+  if (!departments.value.some((dept) => dept.id === value)) return cb(new Error('請選擇管理單位'))
   cb()
 }
 
@@ -151,7 +154,7 @@ async function onSubmit() {
         <template v-else>
           <el-form-item label="管理單位" prop="departmentId">
             <el-select v-model="form.departmentId" :prefix-icon="OfficeBuilding" placeholder="選擇管理單位">
-              <el-option v-for="dept in departments" :key="dept.id" :label="`${dept.id} - ${dept.name}`" :value="dept.id" />
+              <el-option v-for="dept in departments" :key="dept.id" :label="`${dept.id} - ${dept.name}`" :value="dept.id" :disabled="!dept.id" />
             </el-select>
           </el-form-item>
         </template>
