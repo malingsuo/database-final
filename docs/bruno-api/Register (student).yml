@@ -1,0 +1,74 @@
+info:
+  name: Register (student)
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseURL}}/api/auth/register/student"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "student@nccu.edu.tw",
+        "password": "secret",
+        "student_id": "112703001",
+        "name": "王小明",
+        "admission_year": 112
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/api/auth/register/student"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "email": "student@nccu.edu.tw",
+            "password": "secret",
+            "student_id": "112703001",
+            "name": "王小明",
+            "admission_year": 112
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 12:53:10 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "216"
+        - name: connection
+          value: keep-alive
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "id": "a87b68ae-5ff5-46ba-894c-60a19cd698ab",
+            "email": "student@nccu.edu.tw",
+            "role": "student",
+            "student_number": null,
+            "name": null,
+            "admission_year": null,
+            "administrator_id": null,
+            "department_id": null,
+            "department_name": null
+          }

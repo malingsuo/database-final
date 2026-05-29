@@ -1,0 +1,26 @@
+opencollection: 1.0.0
+
+info:
+  name: Database-final
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: wQdo4md4MAfrMISz-JfO2-VFL7fecnwvhqt9d0dvSMc
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

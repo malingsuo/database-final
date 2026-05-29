@@ -1,0 +1,70 @@
+info:
+  name: Register (admin)
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{baseURL}}/api/auth/register/admin"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "admin@cs.nccu.edu.tw",
+        "password": "secret",
+        "department_id": "703"
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/api/auth/register/admin"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "email": "admin@cs.nccu.edu.tw",
+            "password": "secret",
+            "department_id": "703"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 12:58:23 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "215"
+        - name: connection
+          value: keep-alive
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "id": "6e32e7c3-3233-4546-8ee6-4703d7910cba",
+            "email": "admin@cs.nccu.edu.tw",
+            "role": "admin",
+            "student_number": null,
+            "name": null,
+            "admission_year": null,
+            "administrator_id": null,
+            "department_id": null,
+            "department_name": null
+          }

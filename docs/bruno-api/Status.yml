@@ -1,0 +1,125 @@
+info:
+  name: Status
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{baseURL}}/api/auth/status"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example (student)
+    request:
+      url: "{{baseURL}}/api/auth/status"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 13:05:46 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "229"
+        - name: connection
+          value: keep-alive
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "id": "ce08397b-cbbc-4301-8bcd-eed805dc0df7",
+            "email": "student@nccu.edu.tw",
+            "role": "student",
+            "student_number": "112703001",
+            "name": "王小明",
+            "admission_year": 112,
+            "administrator_id": null,
+            "department_id": null,
+            "department_name": null
+          }
+  - name: example (admin)
+    request:
+      url: "{{baseURL}}/api/auth/status"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 13:07:17 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "263"
+        - name: connection
+          value: keep-alive
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "id": "6e32e7c3-3233-4546-8ee6-4703d7910cba",
+            "email": "admin@cs.nccu.edu.tw",
+            "role": "admin",
+            "student_number": null,
+            "name": null,
+            "admission_year": null,
+            "administrator_id": "6e32e7c3-3233-4546-8ee6-4703d7910cba",
+            "department_id": "703",
+            "department_name": "資訊科學系"
+          }
+  - name: example (invalid)
+    request:
+      url: "{{baseURL}}/api/auth/status"
+      method: GET
+    response:
+      status: 401
+      statusText: Unauthorized
+      headers:
+        - name: server
+          value: nginx
+        - name: date
+          value: Fri, 29 May 2026 13:05:06 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "37"
+        - name: connection
+          value: keep-alive
+        - name: www-authenticate
+          value: Bearer
+        - name: access-control-allow-origin
+          value: "*"
+        - name: access-control-allow-headers
+          value: Authorization, Content-Type, X-Requested-With
+        - name: access-control-allow-methods
+          value: GET, POST, PUT, DELETE, OPTIONS
+      body:
+        type: json
+        data: |-
+          {
+            "detail": "Invalid or expired token"
+          }
