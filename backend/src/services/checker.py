@@ -142,6 +142,11 @@ def _match_course(
     code = (rule_code or "").strip()
     if code and code in sc_by_code:
         return sc_by_code[code], "exact"
+    # 前綴比對：rule_code 較短時（如 000713），找第一個以它為前綴的選課
+    if code and len(code) < 9:
+        for sc_code, sc in sc_by_code.items():
+            if sc_code.startswith(code):
+                return sc, "exact_prefix"
 
     rule_norm = _normalize_name(rule_name)
     best_sc = None
