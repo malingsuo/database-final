@@ -9,7 +9,7 @@ from collections.abc import Sequence
 from functools import lru_cache
 from pathlib import Path
 
-from sqlalchemy import and_, select
+from sqlalchemy import select
 from sqlalchemy.orm import joinedload, Session
 
 from src.models import Course, Enrollment, FieldOfStudy, Student
@@ -259,6 +259,7 @@ def _match_courses_from_rules(
             entry = {
                 "course_name": matched.course_name,
                 "course_code": matched.course_code,
+                "course_type": dc.get("type"),
                 "credits": float(matched.credit),
                 "score": matched.score,
                 "group_label": group_label,
@@ -662,7 +663,6 @@ def check_pe(session: Session, student: Student) -> dict:
     pe_courses = (
         session.execute(
             select(Enrollment).options(joinedload(Enrollment.course))
-            .join(Enrollment.course)
             .where(Enrollment.student_id == student.student_id)
         )
         .scalars()
