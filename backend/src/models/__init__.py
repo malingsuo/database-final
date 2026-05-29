@@ -1,6 +1,11 @@
 from src.models.models import (
     Admin,
+    Account,
     Base,
+    Course,
+    Department,
+    Enrollment,
+    FieldOfStudy,
     Student,
     StudentCourse,
     User,
@@ -10,7 +15,12 @@ from src.models.models import (
 
 __all__ = [
     "Admin",
+    "Account",
     "Base",
+    "Course",
+    "Department",
+    "Enrollment",
+    "FieldOfStudy",
     "Student",
     "StudentCourse",
     "User",

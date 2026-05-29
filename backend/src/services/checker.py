@@ -27,6 +27,15 @@ from sqlalchemy.orm import Session
 
 from src.models import Student, StudentCourse
 
+GE_CORE = 1 << 7
+GE_HUMAN = 1 << 6
+GE_SOCIAL = 1 << 5
+GE_NATURAL = 1 << 4
+GE_INFO = 1 << 3
+GE_COLLEGE = 1 << 2
+GE_FOREIGN = 1 << 1
+GE_CHINESE = 1 << 0
+
 # ---------------------------------------------------------------------------
 # JSON 規定載入
 # 優先讀 DATA_DIR 環境變數（container 內用 volume mount）
@@ -494,59 +503,191 @@ def check_minor(session: Session, student: Student, minor_name: str) -> dict:
 # ---------------------------------------------------------------------------
 
 def check_ge(session: Session, student: Student) -> dict:
-    ge_categories = _load_ge_rules(student.entry_year)
-
     student_courses = (
         session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
         .scalars()
         .all()
     )
 
-    remark_credits: dict[str, float] = {}
-    remark_courses: dict[str, list] = {}
+    category_defs = {
+        "中文通": {"name": "中國語文領域", "min": 3.0, "max": 6.0},
+        "外文通": {"name": "外國語文領域", "min": 6.0, "max": 6.0},
+        "人文通": {"name": "人文學通識", "min": 3.0, "max": 7.0},
+        "社會通": {"name": "社會科學通識", "min": 3.0, "max": 7.0},
+        "自然通": {"name": "自然科學通識", "min": 3.0, "max": 7.0},
+        "資訊通": {"name": "資訊通識", "min": 2.0, "max": 3.0},
+        "書院通": {"name": "書院通識", "min": 0.0, "max": 3.0},
+    }
+    if student.register_major in {
+        "統計學系",
+        "資訊管理學系",
+        "地政學系土地測量與資訊組",
+        "應用數學系",
+        "資訊科學系",
+        "創新國際學院學士班",
+    }:
+        category_defs["資訊通"]["min"] = 0.0
+
+    bit_to_category = {
+        GE_HUMAN: "人文通",
+        GE_SOCIAL: "社會通",
+        GE_NATURAL: "自然通",
+        GE_INFO: "資訊通",
+        GE_COLLEGE: "書院通",
+    }
+    domain_bits = tuple(bit_to_category)
+
+    fixed: dict[str, list[dict]] = {k: [] for k in category_defs}
+    cross_courses: list[dict] = []
+
     for sc in student_courses:
-        remark = (sc.remark or "").strip()
-        if not remark:
-            continue
         if _score_status(sc.score) != "passed":
             continue
         cred = float(sc.credit or 0)
-        remark_credits[remark] = remark_credits.get(remark, 0.0) + cred
-        remark_courses.setdefault(remark, []).append({
+        ge_label = int(getattr(sc.course, "ge_label", 0) or 0)
+        if not ge_label:
+            ge_label = _ge_label_from_legacy_remark(sc)
+        if not ge_label:
+            continue
+
+        entry = {
             "course_name": sc.course_name,
             "course_code": sc.course_code,
             "credits": cred,
             "score": sc.score,
-            "remark": remark,
-        })
+            "ge_label": ge_label,
+        }
 
+        if ge_label & GE_CHINESE:
+            fixed["中文通"].append({**entry, "allocated_category": "中文通"})
+            continue
+        if ge_label & GE_FOREIGN:
+            fixed["外文通"].append({**entry, "allocated_category": "外文通"})
+            continue
+
+        categories = [
+            bit_to_category[bit] for bit in domain_bits if ge_label & bit
+        ]
+        if not categories:
+            continue
+        if len(categories) == 1:
+            fixed[categories[0]].append({**entry, "allocated_category": categories[0]})
+        else:
+            cross_courses.append({**entry, "candidate_categories": categories})
+
+    allocation = _best_ge_allocation(category_defs, fixed, cross_courses)
     category_results = []
-    all_complete = True
-
-    for cat in ge_categories:
-        rc = (cat.get("remark_code") or "").strip()
-        required = cat.get("credits_required", 0)
-        earned = remark_credits.get(rc, 0.0)
-        complete = earned >= required
-        if not complete:
-            all_complete = False
+    for key, cfg in category_defs.items():
+        courses = allocation["courses"].get(key, [])
+        earned = min(sum(c["credits"] for c in courses), cfg["max"])
+        complete = earned >= cfg["min"]
         category_results.append({
-            "category_name": cat.get("category_name", rc),
-            "remark_code": rc,
-            "credits_required": required,
+            "category_name": cfg["name"],
+            "remark_code": key,
+            "credits_required_min": cfg["min"],
+            "credits_required_max": cfg["max"],
             "earned_credits": round(earned, 1),
-            "missing_credits": round(max(0.0, required - earned), 1),
-            "courses": remark_courses.get(rc, []),
+            "missing_credits": round(max(0.0, cfg["min"] - earned), 1),
+            "courses": courses,
             "status": "complete" if complete else "incomplete",
         })
 
-    if not ge_categories:
-        all_complete = False
+    total_earned = min(sum(c["earned_credits"] for c in category_results), GE_REQUIRED_CREDITS)
+    core_domains = allocation["core_domains"]
+    all_complete = (
+        total_earned >= GE_REQUIRED_CREDITS
+        and all(c["status"] == "complete" for c in category_results)
+        and len(core_domains) >= 2
+    )
 
     return {
         "categories": category_results,
+        "total_required_credits": GE_REQUIRED_CREDITS,
+        "earned_credits": round(total_earned, 1),
+        "missing_credits": round(max(0.0, GE_REQUIRED_CREDITS - total_earned), 1),
+        "core_domains": sorted(core_domains),
+        "core_domains_required": 2,
+        "cross_domain_courses": cross_courses,
         "status": "complete" if all_complete else "incomplete",
     }
+
+
+def _ge_label_from_legacy_remark(sc: StudentCourse) -> int:
+    remark_text = sc.remark or ""
+    name_text = sc.course_name or ""
+    code = sc.course_code or ""
+    label = 0
+    if code.startswith("031") or "中文通" in remark_text or name_text.startswith("國文"):
+        label |= GE_CHINESE
+    if code.startswith("032") or "外文通" in remark_text or "大學英文" in name_text:
+        label |= GE_FOREIGN
+    if code.startswith("045") or "書院通" in remark_text:
+        label |= GE_COLLEGE
+    if "人文" in remark_text:
+        label |= GE_HUMAN
+    if "社會" in remark_text:
+        label |= GE_SOCIAL
+    if "自然" in remark_text:
+        label |= GE_NATURAL
+    if "資訊" in remark_text:
+        label |= GE_INFO
+    if "核心" in remark_text:
+        label |= GE_CORE
+    return label
+
+
+def _best_ge_allocation(
+    category_defs: dict[str, dict],
+    fixed: dict[str, list[dict]],
+    cross_courses: list[dict],
+) -> dict:
+    best = None
+
+    def evaluate(choice_map: dict[int, str]) -> dict:
+        courses = {key: [dict(c) for c in vals] for key, vals in fixed.items()}
+        for idx, course in enumerate(cross_courses):
+            key = choice_map[idx]
+            courses[key].append({**course, "allocated_category": key})
+
+        earned = {
+            key: min(sum(c["credits"] for c in vals), category_defs[key]["max"])
+            for key, vals in courses.items()
+        }
+        missing = sum(max(0.0, category_defs[key]["min"] - earned[key]) for key in earned)
+        total = min(sum(earned.values()), GE_REQUIRED_CREDITS)
+        core_domains = set()
+        for key in ("人文通", "社會通", "自然通"):
+            for course in courses[key]:
+                if int(course.get("ge_label", 0) or 0) & GE_CORE:
+                    core_domains.add(key)
+        return {
+            "courses": courses,
+            "earned": earned,
+            "missing": missing,
+            "total": total,
+            "core_domains": core_domains,
+            "score": (
+                total,
+                -missing,
+                len(core_domains),
+                -sum(len(v) for v in courses.values()),
+            ),
+        }
+
+    def dfs(idx: int, choice_map: dict[int, str]) -> None:
+        nonlocal best
+        if idx == len(cross_courses):
+            result = evaluate(choice_map)
+            if best is None or result["score"] > best["score"]:
+                best = result
+            return
+        for key in cross_courses[idx]["candidate_categories"]:
+            choice_map[idx] = key
+            dfs(idx + 1, choice_map)
+        choice_map.pop(idx, None)
+
+    dfs(0, {})
+    return best or evaluate({})
 
 
 # ---------------------------------------------------------------------------
@@ -555,16 +696,18 @@ def check_ge(session: Session, student: Student) -> dict:
 
 def check_pe(session: Session, student: Student) -> dict:
     pe_courses = (
-        session.execute(
-            select(StudentCourse).where(
-                StudentCourse.student_id == student.id,
-                StudentCourse.course_name.like("%體育%"),
-                StudentCourse.required_or_elective == "必",
-            )
-        )
+        session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
         .scalars()
         .all()
     )
+    pe_courses = [
+        sc for sc in pe_courses
+        if (
+            (getattr(sc.course, "type", None) == "體育")
+            or (sc.course_code or "").startswith("002")
+            or ("體育" in (sc.course_name or ""))
+        )
+    ]
 
     passed, in_progress, failed = [], [], []
     for sc in pe_courses:
@@ -651,11 +794,29 @@ def _calc_elective_gap(
     pe_result: dict,
 ) -> dict:
     TOTAL = GRADUATION_TOTAL_CREDITS
-    major_required = major_result.get("total_credits_required") or 0
-    major_earned = major_result.get("earned_credits") or 0.0
+    required_lists = (
+        major_result.get("passed_courses", [])
+        + major_result.get("in_progress_courses", [])
+        + major_result.get("missing_courses", [])
+    )
+    major_required = sum(
+        float(c.get("credits", 0) or 0)
+        for c in required_lists
+        if c.get("group_label") == "必修" or c.get("course_type") == "必修"
+    )
+    major_earned = sum(
+        float(c.get("credits", 0) or 0)
+        for c in major_result.get("passed_courses", [])
+        if c.get("group_label") == "必修" or c.get("course_type") == "必修"
+    )
+    if major_required == 0:
+        major_required = major_result.get("total_credits_required") or 0
+        major_earned = major_result.get("earned_credits") or 0.0
 
-    ge_earned = sum(cat.get("earned_credits", 0.0) for cat in ge_result.get("categories", []))
-    ge_earned = min(ge_earned, float(GE_REQUIRED_CREDITS))
+    ge_earned = ge_result.get("earned_credits")
+    if ge_earned is None:
+        ge_earned = sum(cat.get("earned_credits", 0.0) for cat in ge_result.get("categories", []))
+        ge_earned = min(ge_earned, float(GE_REQUIRED_CREDITS))
 
     pe_passed = len(pe_result.get("passed_courses", []))
     pe_earned = float(min(pe_passed, PE_REQUIRED_CREDITS))
@@ -666,7 +827,7 @@ def _calc_elective_gap(
     elective_gap = max(0.0, elective_required - elective_earned)
 
     note = (
-        f"選修應修 = {TOTAL} - 主系{major_required} - 通識{GE_REQUIRED_CREDITS}"
+        f"選修應修 = {TOTAL} - 必修{major_required} - 通識{GE_REQUIRED_CREDITS}"
         f" - 體育{PE_REQUIRED_CREDITS} = {elective_required} 學分"
     )
     if major_result.get("found") is False or major_result.get("no_data"):
@@ -688,7 +849,7 @@ def _calc_elective_gap(
     }
 
 
-def check_graduation(session: Session, student_id: int) -> dict:
+def check_graduation(session: Session, student_id: str) -> dict:
     student = session.get(Student, student_id)
     if student is None:
         raise ValueError(f"Student id={student_id} 不存在")
@@ -743,3 +904,38 @@ def check_graduation(session: Session, student_id: int) -> dict:
             "elective_credits": elective_gap_info,
         },
     }
+
+
+def check_physical_education(session: Session, student: Student) -> dict:
+    return check_pe(session, student)
+
+
+def check_general_education(session: Session, student: Student) -> dict:
+    return check_ge(session, student)
+
+
+def check_required_courses(session: Session, student: Student) -> dict:
+    major = check_major(session, student)
+    for key in ("passed_courses", "in_progress_courses", "missing_courses"):
+        major[key] = [
+            c for c in major.get(key, [])
+            if c.get("group_label") == "必修" or c.get("course_type") == "必修"
+        ]
+    return major
+
+
+def check_group_courses(session: Session, student: Student) -> dict:
+    major = check_major(session, student)
+    for key in ("passed_courses", "in_progress_courses", "missing_courses"):
+        major[key] = [
+            c for c in major.get(key, [])
+            if c.get("group_label") == "群修" or c.get("course_type") == "群修"
+        ]
+    return major
+
+
+def check_total_credits(session: Session, student: Student) -> dict:
+    major_result = check_major(session, student)
+    ge_result = check_ge(session, student)
+    pe_result = check_pe(session, student)
+    return _calc_elective_gap(student, major_result, ge_result, pe_result)

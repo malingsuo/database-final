@@ -131,14 +131,16 @@ KIND_MAP = {
 }
 
 # ge_label bit 定義（高位到低位）
-# bit5=核心 bit4=人文 bit3=社會 bit2=自然 bit1=資訊 bit0=書院
+# bit7=核心 bit6=人文 bit5=社會 bit4=自然 bit3=資訊 bit2=書院 bit1=外文 bit0=中文
 GE_BIT = {
-    "核心": 1 << 5,  # 32
-    "人文": 1 << 4,  # 16
-    "社會": 1 << 3,  # 8
-    "自然": 1 << 2,  # 4
-    "資訊": 1 << 1,  # 2
-    "書院": 1 << 0,  # 1
+    "核心": 1 << 7,  # 128
+    "人文": 1 << 6,  # 64
+    "社會": 1 << 5,  # 32
+    "自然": 1 << 4,  # 16
+    "資訊": 1 << 3,  # 8
+    "書院": 1 << 2,  # 4
+    "外文": 1 << 1,  # 2
+    "中文": 1 << 0,  # 1
 }
 
 LMT_TO_BITS = {
@@ -147,8 +149,8 @@ LMT_TO_BITS = {
     "自然通識":            GE_BIT["自然"],
     "資訊通識":            GE_BIT["資訊"],
     "書院通識":            GE_BIT["書院"],
-    "中文通識":            GE_BIT["人文"],
-    "外文通識":            GE_BIT["人文"],
+    "中文通識":            GE_BIT["中文"],
+    "外文通識":            GE_BIT["外文"],
     "跨領域(人文、社會)":        GE_BIT["人文"] | GE_BIT["社會"],
     "跨領域(人文、自然)":        GE_BIT["人文"] | GE_BIT["自然"],
     "跨領域(人文、資訊)":        GE_BIT["人文"] | GE_BIT["資訊"],
@@ -171,10 +173,6 @@ def get_type(kind: int, lmt_kind: str, unit: str) -> str:
     if kind == 3:
         return "群修"
     if kind == 4:
-        if lmt == "中文通識":
-            return "中文通識"
-        if lmt == "外文通識":
-            return "外文通識"
         return "通識"
     if (kind == 2 or kind == 0) and lmt:
         return "通識"
@@ -184,9 +182,6 @@ def get_type(kind: int, lmt_kind: str, unit: str) -> str:
 def get_ge_label(kind: int, lmt_kind: str, core: int) -> int:
     """通識課才有 ge_label，非通識回傳 0"""
     lmt = (lmt_kind or "").strip()
-    # 中文/外文通識已用 type 獨立表示，ge_label 無意義
-    if lmt in ("中文通識", "外文通識"):
-        return 0
     # kind=4 必是通識；kind=2/0 要有 lmtKind 才算通識
     is_ge = (kind == 4) or ((kind in (0, 2)) and bool(lmt))
     if not is_ge:

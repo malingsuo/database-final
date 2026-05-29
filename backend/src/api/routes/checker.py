@@ -41,8 +41,7 @@ async def upload_student_json(
         raise BadRequestException(f"JSON 格式錯誤：{e}")
 
     try:
-        user_id = int(x_user_id) if x_user_id else None
-        student, course_count = import_student_json_from_dict(db, data, user_id=user_id)
+        student, course_count = import_student_json_from_dict(db, data, user_id=x_user_id)
     except ValueError as e:
         raise BadRequestException(str(e))
 
@@ -56,7 +55,7 @@ async def upload_student_json(
 
 @router.get("/{sid}")
 def get_check_result(
-    sid: int,
+    sid: str,
     db: Session = Depends(get_db),
 ) -> dict:
     """對學生 sid 執行完整畢業學分檢核。"""
