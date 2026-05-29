@@ -4,29 +4,63 @@ Base path: `/api/auth` (proxied through nginx → auth service)
 
 ---
 
-## POST /api/auth/register
+## POST /api/auth/register/student
 
-Create a new account.
+Register a new student account.
 
 **Request**
 ```json
 {
-  "email": "user@example.com",
-  "password": "secret"
+  "email": "student@nccu.edu.tw",
+  "password": "secret",
+  "student_id": "109703001",
+  "name": "王小明",
+  "admission_year": 109
+}
+```
+> `name` is optional.
+
+**Response `201`**
+```json
+{
+  "id": "uuid",
+  "email": "student@nccu.edu.tw",
+  "role": "student"
+}
+```
+
+**Response `400`**
+```json
+{ "detail": "Email or student ID already exists" }
+```
+
+---
+
+## POST /api/auth/register/admin
+
+Register a new admin account bound to a department.
+
+**Request**
+```json
+{
+  "email": "admin@nccu.edu.tw",
+  "password": "secret",
+  "department_id": "703"
 }
 ```
 
 **Response `201`**
 ```json
 {
-  "id": 1,
-  "email": "user@example.com"
+  "id": "uuid",
+  "email": "admin@nccu.edu.tw",
+  "role": "admin"
 }
 ```
 
 **Response `400`**
 ```json
-{ "detail": "Account already exists" }
+{ "detail": "Email already exists or department not found" }
 ```
 
 ---
@@ -40,7 +74,7 @@ Login with an existing account. Returns a bearer token.
 **Request**
 ```json
 {
-  "email": "user@example.com",
+  "email": "student@nccu.edu.tw",
   "password": "any"
 }
 ```
@@ -49,7 +83,8 @@ Login with an existing account. Returns a bearer token.
 ```json
 {
   "access_token": "<token>",
-  "token_type": "bearer"
+  "token_type": "bearer",
+  "role": "student"
 }
 ```
 
@@ -88,8 +123,9 @@ Authorization: Bearer <token>
 **Response `200`**
 ```json
 {
-  "id": 1,
-  "email": "user@example.com"
+  "id": "uuid",
+  "email": "student@nccu.edu.tw",
+  "role": "student"
 }
 ```
 
@@ -109,7 +145,7 @@ Delete an account. Only the owner can delete their own account.
 Authorization: Bearer <token>
 ```
 
-**Path param**: `account_id` — integer ID of the account to delete.
+**Path param**: `account_id` — UUID of the account to delete.
 
 **Response `200`**
 ```json
@@ -133,6 +169,6 @@ Not intended to be called directly by clients.
 Authorization: Bearer <token>
 ```
 
-**Response `200`** — token valid; nginx reads `X-Account-ID` from response headers and forwards it to the backend as `X-Account-ID`.
+**Response `200`** — token valid; nginx reads `X-Account-ID` (UUID) from response headers and forwards it to the backend.
 
 **Response `401`** — token invalid; nginx returns `{"status":"error","message":"Unauthorized"}` to the client.
