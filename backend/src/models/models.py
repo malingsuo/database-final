@@ -22,6 +22,8 @@ from src.core.database import Base
 
 
 class Bit8AsInt(TypeDecorator):
+    """Store BIT(8) in PostgreSQL; expose as int in Python."""
+
     impl = BIT(8)
     cache_ok = True
 
@@ -37,9 +39,11 @@ class Bit8AsInt(TypeDecorator):
             return value
         if isinstance(value, str):
             return int(value, 2)
-        if hasattr(value, 'tobytes'):
-            return int.from_bytes(value.tobytes(), 'big')
-        return int(value)
+        # Fallback: psycopg2 Bits object has .tobytes()
+        try:
+            return int.from_bytes(value.tobytes(), "big")
+        except Exception:
+            return int(str(value), 2)
 
 
 class Account(Base):

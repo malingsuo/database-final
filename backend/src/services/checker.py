@@ -295,7 +295,7 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
         return _not_found_result(major_name)
 
     all_courses = rules.get("courses", [])
-    rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修")]
+    rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修") or str(c.get("type") or "").startswith("群")]
 
     if not rule_courses and rules.get("total_credits_required") is None:
         return _no_data_result(rules.get("dept_name", major_name))
@@ -359,7 +359,7 @@ def check_double_major(session: Session, student: Student, dm_name: str | None, 
                 c.setdefault("group_label", cat.get("name"))
             all_courses.extend(cat.get("courses", []))
 
-    rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修")]
+    rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修") or str(c.get("type") or "").startswith("群")]
 
     student_courses = (
         session.execute(
