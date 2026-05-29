@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/auth/RegisterView.vue'),
     meta: { public: true },
   },
-  // ==================== 管理员路由 ====================
+  // ==================== 管理員路由 ====================
   {
     path: '/admin/login',
     name: 'admin-login',
@@ -43,7 +43,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/admin/StudentDetail.vue'),
     meta: { requiresAdminAuth: true },
   },
-  // ==================== 学生路由 ====================
+  // ==================== 學生路由 ====================
   {
     path: '/',
     component: () => import('@/layouts/StudentLayout.vue'),
@@ -81,7 +81,7 @@ router.beforeEach(async (to) => {
     await auth.fetchStatus().catch(() => undefined)
   }
 
-  // ===== 管理员身份验证 =====
+  // ===== 管理員身份驗證 =====
   if (to.meta.requiresAdminAuth) {
     if (!auth.isAuthenticated) {
       return { name: 'admin-login', query: { redirect: to.fullPath } }
@@ -91,17 +91,17 @@ router.beforeEach(async (to) => {
     }
   }
 
-  // ===== 学生身份验证 =====
+  // ===== 學生身份驗證 =====
   if (!to.meta.public && !to.meta.requiresAdminAuth && !auth.isAuthenticated) {
     return { name: 'login', query: { redirect: to.fullPath } }
   }
 
-  // ===== 已认证学生访问公共路由的重定向 =====
+  // ===== 已認證學生訪問公共路由的重定向 =====
   if (to.meta.public && to.name === 'login' && auth.isAuthenticated) {
     return auth.isAdmin ? { name: 'admin-dashboard' } : { name: 'overview' }
   }
 
-  // ===== 已认证管理员访问管理员登入的重定向 =====
+  // ===== 已認證管理員訪問管理員登入的重定向 =====
   if (to.name === 'admin-login' && auth.isAdmin) {
     return { name: 'admin-dashboard' }
   }

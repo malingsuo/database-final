@@ -1,18 +1,12 @@
-"""
-src/services/importer.py - 解析 exportStudentData.json 並寫入目前 DB schema。
-
-上傳 JSON 只負責格式化資料；課程分類以 course.type / course.ge_label 儲存，
-檢核時再從 DB 讀取。
-"""
-
 from __future__ import annotations
 
 import json
 import re
+import uuid
 from pathlib import Path
 from typing import Any
-from uuid import uuid4
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from src.models import Account, Course, Department, Enrollment, FieldOfStudy, Student
@@ -104,13 +98,7 @@ def infer_ge_label(course_code: str, course_name: str, remark: str | None) -> in
     if course_code.startswith("045") or "書院通" in remark_text:
         label |= GE_COLLEGE
 
-    domain_map = {
-        "人文": GE_HUMAN,
-        "社會": GE_SOCIAL,
-        "自然": GE_NATURAL,
-        "資訊": GE_INFO,
-    }
-    for keyword, bit in domain_map.items():
+    for keyword, bit in {"人文": GE_HUMAN, "社會": GE_SOCIAL, "自然": GE_NATURAL, "資訊": GE_INFO}.items():
         if keyword in remark_text:
             label |= bit
 
@@ -130,19 +118,14 @@ def parse_student_data(json_data: dict) -> dict:
     acad = raw.get("課業學習", {})
     about_me = acad.get("aboutMe", {})
 
-    student_number = str(about_me.get("studentNumber", "")).strip()
+    student_id = str(about_me.get("studentNumber", "")).strip()
     register_major = about_me.get("registerMajor", "") or ""
     register_double_major = about_me.get("registerDoubleMajor") or None
     minor1 = about_me.get("minor1") or None
     minor2 = about_me.get("minor2") or None
-    chinese_name = about_me.get("chineseName", "") or None
-    entry_year = _entry_year_from_student_number(student_number)
+    name = about_me.get("chineseName", "") or None
 
-    course_plan = acad.get("coursePlan", {})
-    graduation_credit = _to_decimal(course_plan.get("graduationCredit"))
-    required_point = _to_decimal(course_plan.get("requiredPoint"))
-    group_point = _to_decimal(course_plan.get("groupPoint"))
-    total_credits = _to_decimal(acad.get("totalCredits"))
+    admission_year = _entry_year_from_student_number(student_id)
 
     courses = []
     for year_block in acad.get("gradeRecordList", []) or []:
@@ -157,47 +140,43 @@ def parse_student_data(json_data: dict) -> dict:
             remark = rec.get("remark") or None
             ge_label = infer_ge_label(course_code, course_name, remark)
 
-            courses.append(
-                {
-                    "course_code": course_code,
-                    "course_name": course_name,
-                    "credit": _to_decimal(rec.get("credit")) or 0,
-                    "score": score_str,
-                    "required_or_elective": req_norm,
-                    "remark": remark,
-                    "academic_year": str(acad_year_raw or "0"),
-                    "semester": str(semester_raw or "0"),
-                    "course_type": _course_type(course_code, course_name, req_norm, ge_label),
-                    "ge_label": ge_label,
-                }
-            )
+            courses.append({
+                "course_code": course_code,
+                "course_name": course_name,
+                "credit": _to_decimal(rec.get("credit")) or 0,
+                "score": score_str,
+                "required_or_elective": req_norm,
+                "remark": remark,
+                "academic_year": str(acad_year_raw or "0"),
+                "semester": str(semester_raw or "0"),
+                "course_type": _course_type(course_code, course_name, req_norm, ge_label),
+                "ge_label": ge_label,
+            })
 
     return {
         "student_info": {
-            "student_number": student_number,
-            "chinese_name": chinese_name,
-            "entry_year": entry_year,
+            "student_id": student_id,
+            "name": name,
+            "admission_year": admission_year,
             "register_major": register_major,
             "register_double_major": register_double_major,
             "minor1": minor1,
             "minor2": minor2,
-            "graduation_credit": graduation_credit,
-            "total_credits": total_credits,
-            "required_point": required_point,
-            "group_point": group_point,
         },
         "courses": courses,
     }
 
 
-def _find_or_create_account(session: Session, student_number: str, user_id: str | None) -> Account:
+def _find_or_create_account(session: Session, student_id: str, user_id: uuid.UUID | None) -> Account:
     account = session.get(Account, user_id) if user_id else None
     if account is None:
-        account = session.query(Account).filter_by(email=f"{student_number}@student.local").first()
+        account = session.execute(
+            select(Account).where(Account.email == f"{student_id}@student.local")
+        ).scalar_one_or_none()
     if account is None:
         account = Account(
-            id=user_id or str(uuid4()),
-            email=f"{student_number}@student.local",
+            id=user_id or uuid.uuid4(),
+            email=f"{student_id}@student.local",
             password_hash="imported",
             role="student",
         )
@@ -206,24 +185,19 @@ def _find_or_create_account(session: Session, student_number: str, user_id: str 
     return account
 
 
-def _fallback_department_id(name: str, student_number: str, offset: int) -> str:
-    dep = student_number[3:6] if len(student_number) >= 6 else ""
+def _fallback_department_id(name: str, student_id: str, offset: int) -> str:
+    dep = student_id[3:6] if len(student_id) >= 6 else ""
     if dep and dep.isdigit():
         return dep
     token = re.sub(r"\W+", "", name or "")[:6]
     return token or f"UNK{offset}"
 
 
-def _find_or_create_department(
-    session: Session,
-    name: str,
-    student_number: str,
-    offset: int,
-) -> Department:
-    dept = session.query(Department).filter_by(name=name).first()
+def _find_or_create_department(session: Session, name: str, student_id: str, offset: int) -> Department:
+    dept = session.execute(select(Department).where(Department.name == name)).scalar_one_or_none()
     if dept:
         return dept
-    dept_id = _fallback_department_id(name, student_number, offset)
+    dept_id = _fallback_department_id(name, student_id, offset)
     dept = session.get(Department, dept_id)
     if dept is None:
         dept = Department(id=dept_id, college="未知", name=name)
@@ -232,44 +206,41 @@ def _find_or_create_department(
     return dept
 
 
-def upsert_student(session: Session, student_info: dict, user_id: str | None = None) -> Student:
-    student_number = student_info["student_number"]
-    account = _find_or_create_account(session, student_number, user_id)
+def upsert_student(session: Session, student_info: dict, user_id: uuid.UUID | None = None) -> Student:
+    student_id = student_info["student_id"]
+    account = _find_or_create_account(session, student_id, user_id)
 
-    student = session.get(Student, student_number)
+    student = session.get(Student, student_id)
     if student is None:
         student = Student(
-            student_id=student_number,
+            student_id=student_id,
             user_id=account.id,
-            name=student_info.get("chinese_name"),
-            admission_year=student_info["entry_year"],
+            name=student_info.get("name"),
+            admission_year=student_info["admission_year"],
         )
         session.add(student)
     else:
         student.user_id = account.id
-        student.name = student_info.get("chinese_name")
-        student.admission_year = student_info["entry_year"]
+        student.name = student_info.get("name")
+        student.admission_year = student_info["admission_year"]
     session.flush()
 
     session.query(FieldOfStudy).filter_by(student_id=student.student_id).delete()
-    fields = [
+    for idx, (program_type, dept_name) in enumerate([
         ("主修", student_info.get("register_major")),
         ("雙主修", student_info.get("register_double_major")),
         ("輔系", student_info.get("minor1")),
         ("輔系", student_info.get("minor2")),
-    ]
-    for idx, (program_type, dept_name) in enumerate(fields, start=1):
+    ], start=1):
         if not dept_name:
             continue
-        dept = _find_or_create_department(session, dept_name, student_number, idx)
-        session.add(
-            FieldOfStudy(
-                student_id=student.student_id,
-                department_id=dept.id,
-                program_type=program_type,
-                enrollment_year=student.admission_year,
-            )
-        )
+        dept = _find_or_create_department(session, dept_name, student_id, idx)
+        session.add(FieldOfStudy(
+            student_id=student.student_id,
+            department_id=dept.id,
+            program_type=program_type,
+            enrollment_year=student.admission_year,
+        ))
     session.flush()
     return student
 
@@ -289,7 +260,6 @@ def upsert_student_courses(session: Session, student: Student, courses: list[dic
                 credits=c["credit"],
                 type=c["course_type"],
                 ge_label=c["ge_label"],
-                department_id=None,
             )
             session.add(course)
         else:
@@ -298,40 +268,38 @@ def upsert_student_courses(session: Session, student: Student, courses: list[dic
             if not course.type or course.type == "選修":
                 course.type = c["course_type"]
 
-        session.add(
-            Enrollment(
-                student_id=student.student_id,
-                course_code=c["course_code"],
-                year=c["academic_year"],
-                semester=c["semester"],
-                grade=c["score"],
-                is_passed=is_passed(c["score"]),
-                required_or_elective=c["required_or_elective"],
-                remark=c["remark"],
-            )
-        )
+        session.add(Enrollment(
+            student_id=student.student_id,
+            course_code=c["course_code"],
+            year=c["academic_year"],
+            semester=c["semester"],
+            grade=c["score"],
+            is_passed=is_passed(c["score"]),
+            required_or_elective=c["required_or_elective"],
+            remark=c["remark"],
+        ))
     return len(courses)
 
 
 def import_student_json_from_dict(
-    session: Session,
-    data: dict,
-    user_id: str | None = None,
+    session: Session, data: dict, user_id: uuid.UUID | None = None
 ) -> tuple[Student, int]:
     parsed = parse_student_data(data)
-    entry_year = parsed["student_info"].get("entry_year")
-    if entry_year != 112:
+    admission_year = parsed["student_info"].get("admission_year")
+    if admission_year != 112:
         raise ValueError(
-            f"目前系統僅支援 112 學年度入學學生（偵測到入學年：{entry_year}），"
+            f"目前系統僅支援 112 學年度入學學生（偵測到入學年：{admission_year}），"
             "請確認上傳的是正確的 exportStudentData.json。"
         )
-    student = upsert_student(session, parsed["student_info"], user_id=user_id)
+    student = upsert_student(session, parsed["student_info"], user_id)
     count = upsert_student_courses(session, student, parsed["courses"])
     session.commit()
     return student, count
 
 
-def import_student_json(session: Session, json_path: str | Path) -> tuple[Student, int]:
+def import_student_json(
+    session: Session, json_path: str | Path
+) -> tuple[Student, int]:
     with open(json_path, encoding="utf-8") as f:
         data = json.load(f)
     return import_student_json_from_dict(session, data)

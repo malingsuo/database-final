@@ -130,7 +130,7 @@ KIND_MAP = {
     4: "通識",
 }
 
-# ge_label bit 定義（高位到低位）
+# ge_label bit 定義（8-bit）
 # bit7=核心 bit6=人文 bit5=社會 bit4=自然 bit3=資訊 bit2=書院 bit1=外文 bit0=中文
 GE_BIT = {
     "核心": 1 << 7,  # 128
@@ -144,22 +144,22 @@ GE_BIT = {
 }
 
 LMT_TO_BITS = {
-    "人文通識":            GE_BIT["人文"],
-    "社會通識":            GE_BIT["社會"],
-    "自然通識":            GE_BIT["自然"],
-    "資訊通識":            GE_BIT["資訊"],
-    "書院通識":            GE_BIT["書院"],
-    "中文通識":            GE_BIT["中文"],
-    "外文通識":            GE_BIT["外文"],
+    "人文通識":                  GE_BIT["人文"],
+    "社會通識":                  GE_BIT["社會"],
+    "自然通識":                  GE_BIT["自然"],
+    "資訊通識":                  GE_BIT["資訊"],
+    "書院通識":                  GE_BIT["書院"],
+    "中文通識":                  GE_BIT["中文"],
+    "外文通識":                  GE_BIT["外文"],
     "跨領域(人文、社會)":        GE_BIT["人文"] | GE_BIT["社會"],
     "跨領域(人文、自然)":        GE_BIT["人文"] | GE_BIT["自然"],
     "跨領域(人文、資訊)":        GE_BIT["人文"] | GE_BIT["資訊"],
     "跨領域(社會、自然)":        GE_BIT["社會"] | GE_BIT["自然"],
     "跨領域(社會、資訊)":        GE_BIT["社會"] | GE_BIT["資訊"],
     "跨領域(自然、資訊)":        GE_BIT["自然"] | GE_BIT["資訊"],
-    "跨領域(人文、社會、自然)":    GE_BIT["人文"] | GE_BIT["社會"] | GE_BIT["自然"],
-    "跨領域(人文、社會、資訊)":    GE_BIT["人文"] | GE_BIT["社會"] | GE_BIT["資訊"],
-    "跨領域(社會、自然、資訊)":    GE_BIT["社會"] | GE_BIT["自然"] | GE_BIT["資訊"],
+    "跨領域(人文、社會、自然)":  GE_BIT["人文"] | GE_BIT["社會"] | GE_BIT["自然"],
+    "跨領域(人文、社會、資訊)":  GE_BIT["人文"] | GE_BIT["社會"] | GE_BIT["資訊"],
+    "跨領域(社會、自然、資訊)":  GE_BIT["社會"] | GE_BIT["自然"] | GE_BIT["資訊"],
 }
 
 
@@ -212,7 +212,7 @@ def main():
     cur = conn.cursor()
 
     # ── 1. department ──────────────────────────────────────────────────────
-    # 從 COURSE 取出所有 dp3（系代碼），搭配 dp1 推算院
+    # 從 COURSE 取出所有 dp3（系程式碼），搭配 dp1 推算院
     cur.execute("SELECT DISTINCT dp1, dp3, unit FROM COURSE ORDER BY dp3")
     rows = cur.fetchall()
 

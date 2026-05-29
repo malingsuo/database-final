@@ -52,7 +52,7 @@ const progressStatus = computed(() => {
 
     <el-alert
       v-if="!hasRules"
-      :title="check.note || '此項目暫無可比對的畢業規定資料。'"
+      :title="check.note || '此專案暫無可比對的畢業規定資料。'"
       type="info"
       :closable="false"
       show-icon

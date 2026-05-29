@@ -16,14 +16,14 @@
 |---|---|
 | `user` | 帳號層，學生 / 管理員共用，存 account / password_hash / role |
 | `student` | 學生資料，1:1 對應 user，存學號、主修、雙主修、輔系、學分統計 |
-| `admin` | 管理員，1:1 對應 user，綁定系所 dept_code |
+| `admin` | 管理員，1:1 對應 user，繫結系所 dept_code |
 | `student_course` | 修課紀錄 N:1 student，存課號、課名、學分、成績、必/群/選 |
 
 畢業規則**不進 DB**，全部存 JSON，checker 啟動時 `lru_cache` 讀入。
 
 ### 畢業規則 JSON
 
-| 類型 | 路徑 | 數量 |
+| 型別 | 路徑 | 數量 |
 |---|---|---|
 | 主系畢業規定 | `data/graduation_requirements/112/` | 48 個系所 |
 | 雙主修規定 | `data/double_major_requirements/112/` | 46 個（含 783_AI學程_cs / non_cs）|
@@ -39,7 +39,7 @@
 | `check_double_major` | 雙主修；AI 學程依主修是否資訊系自動選 cs/non_cs JSON |
 | `check_minor` | 輔系檢核 |
 | `check_ge` | 通識，依 remark_code 對應類別學分 |
-| `check_pe` | 體育必修（需 4 學期通過）|
+| `check_pe` | 體育必修（需 4 學期透過）|
 | `check_graduation` | 主入口，整合全部結果 + 計算選修學分缺口 |
 
 課程比對策略（依序）：
@@ -66,7 +66,7 @@
 | `app/models/models.py` | `src/models/models.py` | 無異動 |
 | `app/services/checker.py` | `src/services/checker.py` | `_DATA_DIR` 改讀 `DATA_DIR` 環境變數，fallback 相對路徑 |
 | `app/services/importer.py` | `src/services/importer.py` | 無異動 |
-| `app/core/config.py` | `src/core/config.py` | DATABASE_URL 改從環境變數組裝（PostgreSQL）|
+| `app/core/config.py` | `src/core/config.py` | DATABASE_URL 改從環境變陣列裝（PostgreSQL）|
 | `app/core/database.py` | `src/core/database.py` | 無異動 |
 | `app/core/exceptions.py` | `src/core/exceptions.py` | 無異動 |
 | `app/api/routes/checker.py` | `src/api/routes/checker.py` | 加 `X-User-Id` header（nginx 傳入）|
@@ -109,5 +109,5 @@ database-final/
 
 - auth service 的 `user` 與 backend 的 `user` table 對接（user_id FK 流程）
 - 上傳前需先登入（auth guard on upload endpoint）
-- 管理員 CRUD API（查看 / 刪除特定系所學生）
+- 管理員 CRUD API（檢視 / 刪除特定系所學生）
 - 前端頁面

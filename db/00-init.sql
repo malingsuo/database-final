@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS account (
 
 -- =============================================================
 -- department：系所
--- PK: id = 系所代碼（如 "703"、"303"），天然唯一
+-- PK: id = 系所程式碼（如 "703"、"303"），天然唯一
 -- =============================================================
 CREATE TABLE IF NOT EXISTS department (
     id      VARCHAR(10)  PRIMARY KEY,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS department (
 );
 
 -- =============================================================
--- administrator：管理員（1:1 account，綁定一個系所）
+-- administrator：管理員（1:1 account，繫結一個系所）
 -- =============================================================
 CREATE TABLE IF NOT EXISTS administrator (
     id            UUID        PRIMARY KEY REFERENCES account(id) ON DELETE CASCADE,

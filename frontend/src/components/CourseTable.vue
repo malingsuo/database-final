@@ -22,7 +22,7 @@ withDefaults(
 )
 
 const confidenceMeta: Record<MatchConfidence, { label: string; type: 'success' | 'warning' | 'info' }> = {
-  exact: { label: '代碼比對', type: 'success' },
+  exact: { label: '程式碼比對', type: 'success' },
   normalized: { label: '課名比對', type: 'success' },
   fuzzy: { label: '模糊比對', type: 'warning' },
   none: { label: '未比對', type: 'info' },
@@ -32,7 +32,7 @@ const confidenceMeta: Record<MatchConfidence, { label: string; type: 'success' |
 <template>
   <el-table :data="courses" stripe size="small" :empty-text="emptyText" class="course-table">
     <el-table-column prop="course_name" label="課程名稱" min-width="180" show-overflow-tooltip />
-    <el-table-column prop="course_code" label="課程代碼" width="110" />
+    <el-table-column prop="course_code" label="課程程式碼" width="110" />
     <el-table-column label="學分" width="70" align="center">
       <template #default="{ row }">{{ row.credits ?? '-' }}</template>
     </el-table-column>
@@ -44,7 +44,7 @@ const confidenceMeta: Record<MatchConfidence, { label: string; type: 'success' |
         <span v-else>-</span>
       </template>
     </el-table-column>
-    <el-table-column v-if="showType" prop="course_type" label="類型" width="90" align="center">
+    <el-table-column v-if="showType" prop="course_type" label="型別" width="90" align="center">
       <template #default="{ row }">{{ row.course_type ?? '-' }}</template>
     </el-table-column>
     <el-table-column v-if="showScore" label="成績" width="120" align="center">

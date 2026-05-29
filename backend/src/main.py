@@ -19,10 +19,10 @@ app.add_middleware(
 app.add_exception_handler(AppException, app_exception_handler)
 app.add_exception_handler(Exception, unhandled_exception_handler)
 
-app.include_router(router, prefix="/api")
+app.include_router(router)
 
 
-@app.get("/api/test")
+@app.get("/test")
 async def test_api(
     x_user_id: str | None = Header(None, alias="X-User-Id"),
 ):

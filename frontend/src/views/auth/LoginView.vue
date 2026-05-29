@@ -49,7 +49,7 @@ async function onSubmit() {
     <el-card class="auth-card" shadow="always">
       <div class="auth-header">
         <h1 class="title">學生畢業學分審核器</h1>
-        <p class="subtitle">請登入以查看你的畢業進度</p>
+        <p class="subtitle">請登入以檢視你的畢業進度</p>
       </div>
 
       <el-form

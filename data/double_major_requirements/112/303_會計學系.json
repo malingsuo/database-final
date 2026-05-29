@@ -263,7 +263,7 @@
       "note": "成本管理會計（一）"
     },
     {
-      "name": "高級會計學（一）",
+      "name": "高階會計學（一）",
       "type": "必修",
       "credits": 3,
       "semesters": 1,
@@ -326,7 +326,7 @@
       "note": "無"
     },
     {
-      "name": "高級會計學（二）",
+      "name": "高階會計學（二）",
       "type": "必修",
       "credits": 3,
       "semesters": 1,
@@ -344,7 +344,7 @@
       "course_code_required": "無",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
-      "note": "高級會計學（一）"
+      "note": "高階會計學（一）"
     },
     {
       "name": "審計學（一）",

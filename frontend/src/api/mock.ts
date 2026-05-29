@@ -4,6 +4,7 @@
 
 import type {
   CheckResult,
+  Department,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
@@ -24,7 +25,7 @@ type MockUser = {
   account: string
   password: string
   role: Role
-  student_id?: number | null
+  student_id?: string | null
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
@@ -48,7 +49,7 @@ const mockUsers = new Map<string, MockUser>([
       account: '112703043@example.com',
       password: 'password123',
       role: 'student',
-      student_id: 3,
+      student_id: '112703043',
       student_number: '112703043',
       name: '彭啟則',
       admission_year: 112,
@@ -81,7 +82,7 @@ let currentAccount = readMockAccount()
 
 export const mockCheckResult: CheckResult = {
   student: {
-    id: 3,
+    id: '112703043',
     student_number: '112703043',
     chinese_name: '彭啟則',
     entry_year: 112,
@@ -101,18 +102,18 @@ export const mockCheckResult: CheckResult = {
     missing_credits: 6,
     status: 'incomplete',
     passed_courses: [
-      { course_name: '計算機概論', course_code: 'CS101', credits: 3, score: '通過', match_confidence: 'exact' },
+      { course_name: '計算機概論', course_code: 'CS101', credits: 3, score: '透過', match_confidence: 'exact' },
       { course_name: '程式設計（一）', course_code: 'CS102', credits: 3, score: '95', match_confidence: 'exact' },
       { course_name: '資料結構', course_code: 'CS201', credits: 3, score: '88', match_confidence: 'exact' },
       { course_name: '離散數學', course_code: 'CS210', credits: 3, score: '76', match_confidence: 'exact' },
-      { course_name: '數位邏輯設計', course_code: 'CS220', credits: 3, score: '通過', match_confidence: 'normalized' },
+      { course_name: '數位邏輯設計', course_code: 'CS220', credits: 3, score: '透過', match_confidence: 'normalized' },
       { course_name: '機率論', course_code: 'CS231', credits: 3, score: '82', group_label: '群A', match_confidence: 'exact' },
       { course_name: '線性代數', course_code: 'CS232', credits: 3, score: '90', group_label: '群A', match_confidence: 'exact' },
       { course_name: '計算機組織', course_code: 'CS240', credits: 3, score: '70', group_label: '群B', match_confidence: 'fuzzy' },
       { course_name: '物件導向程式設計', course_code: 'CS250', credits: 3, score: '85', match_confidence: 'exact' },
     ],
     in_progress_courses: [
-      { course_name: '演算法', course_code: 'CS301', credits: 3, score: null, group_label: '群B', match_confidence: 'exact' },
+      { course_name: '演演算法', course_code: 'CS301', credits: 3, score: null, group_label: '群B', match_confidence: 'exact' },
     ],
     missing_courses: [
       { course_name: '作業系統', course_code: 'CS310', credits: 3, course_type: '必修', match_confidence: 'none' },
@@ -124,7 +125,7 @@ export const mockCheckResult: CheckResult = {
         min_courses: 2,
         passed_courses: 1,
         in_progress_courses: 1,
-        note: '群B（系統類）至少需通過 2 門',
+        note: '群B（系統類）至少需透過 2 門',
         status: 'incomplete',
       },
     ],
@@ -146,7 +147,7 @@ export const mockCheckResult: CheckResult = {
       { course_name: '管理學', course_code: 'MIS101', credits: 3, score: '80', group_label: '管理核心', match_confidence: 'exact' },
       { course_name: '會計學', course_code: 'MIS110', credits: 3, score: '78', group_label: '管理核心', match_confidence: 'exact' },
       { course_name: '資料庫管理', course_code: 'MIS220', credits: 3, score: '92', group_label: '資管應用', match_confidence: 'exact' },
-      { course_name: '系統分析與設計', course_code: 'MIS230', credits: 3, score: '通過', group_label: '資管應用', match_confidence: 'normalized' },
+      { course_name: '系統分析與設計', course_code: 'MIS230', credits: 3, score: '透過', group_label: '資管應用', match_confidence: 'normalized' },
     ],
     in_progress_courses: [],
     missing_courses: [
@@ -196,7 +197,7 @@ export const mockCheckResult: CheckResult = {
         earned_credits: 2,
         missing_credits: 2,
         status: 'incomplete',
-        courses: [{ course_name: '音樂與生活', course_code: 'GE210', credits: 2, score: '通過' }],
+        courses: [{ course_name: '音樂與生活', course_code: 'GE210', credits: 2, score: '透過' }],
       },
       {
         category_name: '社會科學',
@@ -224,9 +225,9 @@ export const mockCheckResult: CheckResult = {
     missing_semesters: 1,
     status: 'incomplete',
     passed_courses: [
-      { course_name: '體育（一）羽球', course_code: 'PE101', academic_year_semester: '1121', score: '通過' },
-      { course_name: '體育（二）桌球', course_code: 'PE102', academic_year_semester: '1122', score: '通過' },
-      { course_name: '體育（三）籃球', course_code: 'PE201', academic_year_semester: '1131', score: '通過' },
+      { course_name: '體育（一）羽球', course_code: 'PE101', academic_year_semester: '1121', score: '透過' },
+      { course_name: '體育（二）桌球', course_code: 'PE102', academic_year_semester: '1122', score: '透過' },
+      { course_name: '體育（三）籃球', course_code: 'PE201', academic_year_semester: '1131', score: '透過' },
     ],
     in_progress_courses: [],
     failed_courses: [],
@@ -362,9 +363,13 @@ export function mockGetCheck(): Promise<CheckResult> {
   return delay(mockCheckResult)
 }
 
+export function mockListDepartments(): Promise<Department[]> {
+  return delay(Array.from(departments, ([id, name]) => ({ id, name, college: '' })))
+}
+
 export function mockUpload(): Promise<UploadResponse> {
   return delay({
-    student_id: 3,
+    student_id: '112703043',
     student_number: '112703043',
     chinese_name: '彭啟則',
     course_count: 48,

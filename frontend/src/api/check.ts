@@ -2,7 +2,7 @@ import http from './http'
 import { USE_MOCK, mockGetCheck, mockUpload } from './mock'
 import type { CheckResult, UploadResponse } from './types'
 
-export function getCheck(studentId: number) {
+export function getCheck(studentId: string) {
   if (USE_MOCK) return mockGetCheck()
   return http.get<CheckResult>(`/api/check/${studentId}`).then((r) => r.data)
 }

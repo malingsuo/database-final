@@ -34,7 +34,7 @@ const allComplete = computed(() => props.summary.all_complete)
           </template>
         </div>
         <div v-if="!allComplete && summary.incomplete_items.length" class="incomplete">
-          <span class="incomplete-label">待完成項目：</span>
+          <span class="incomplete-label">待完成專案：</span>
           <el-tag
             v-for="item in summary.incomplete_items"
             :key="item"

@@ -1,31 +1,18 @@
-"""
-src/services/checker.py - 畢業學分檢核核心邏輯
-
-畢業規定從 JSON 檔載入（不查 DB）。
-DB 只存學生資料（student, student_course）。
-
-JSON 規定目錄：data/（repo 根目錄）
-  graduation_requirements/<entry_year>/<key>.json    主系規定
-  double_major_requirements/<entry_year>/<key>.json  雙主修規定
-  minor_requirements/<entry_year>/<key>.json         輔系規定
-
-主要入口：check_graduation(session, student_id) → dict
-"""
-
 from __future__ import annotations
 
 import difflib
 import json
+import os as _os
 import re
 import unicodedata
 from collections.abc import Sequence
 from functools import lru_cache
 from pathlib import Path
 
-from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy import and_, select
+from sqlalchemy.orm import joinedload, Session
 
-from src.models import Student, StudentCourse
+from src.models import Course, Enrollment, FieldOfStudy, Student
 
 GE_CORE = 1 << 7
 GE_HUMAN = 1 << 6
@@ -36,12 +23,6 @@ GE_COLLEGE = 1 << 2
 GE_FOREIGN = 1 << 1
 GE_CHINESE = 1 << 0
 
-# ---------------------------------------------------------------------------
-# JSON 規定載入
-# 優先讀 DATA_DIR 環境變數（container 內用 volume mount）
-# fallback：往上 4 層到 repo 根 / data/（本機開發）
-# ---------------------------------------------------------------------------
-import os as _os
 _DATA_DIR = Path(_os.environ.get("DATA_DIR", "")) if _os.environ.get("DATA_DIR") else (
     Path(__file__).parent.parent.parent.parent / "data"
 )
@@ -75,7 +56,6 @@ def _find_double_major_rules(entry_year: int, dm_name: str, is_cs: bool) -> dict
     if not dir_path.exists():
         return None
 
-    # AI 學程：優先找 variant 檔
     for f in sorted(dir_path.glob("783_*.json")):
         data = _load_json(f)
         if not isinstance(data, dict):
@@ -90,7 +70,6 @@ def _find_double_major_rules(entry_year: int, dm_name: str, is_cs: bool) -> dict
         if not is_cs and variant == "non_cs":
             return data
 
-    # 一般雙主修
     for f in sorted(dir_path.glob("*.json")):
         if f.name.startswith("_") or "783_" in f.name:
             continue
@@ -113,10 +92,6 @@ def _load_ge_rules(entry_year: int) -> list[dict]:
     return []
 
 
-# ---------------------------------------------------------------------------
-# 工具：成績狀態
-# ---------------------------------------------------------------------------
-
 def _score_status(score: str | None) -> str:
     if score is None or str(score).strip() == "":
         return "in_progress"
@@ -131,10 +106,6 @@ def _score_status(score: str | None) -> str:
     except ValueError:
         return "failed"
 
-
-# ---------------------------------------------------------------------------
-# 工具：課程比對
-# ---------------------------------------------------------------------------
 
 _FULLWIDTH_TO_HALF = str.maketrans(
     "".join(chr(0xFF01 + i) for i in range(94)),
@@ -152,7 +123,7 @@ def _normalize_name(name: str) -> str:
     return s.strip()
 
 
-def _build_sc_by_code(student_courses: Sequence[StudentCourse]) -> dict:
+def _build_sc_by_code(student_courses: Sequence[Enrollment]) -> dict:
     result = {}
     for sc in student_courses:
         code = (sc.course_code or "").strip()
@@ -165,7 +136,7 @@ def _match_course(
     rule_code: str | None,
     rule_name: str,
     sc_by_code: dict,
-    student_courses: Sequence[StudentCourse],
+    student_courses: Sequence[Enrollment],
 ) -> tuple:
     code = (rule_code or "").strip()
     if code and code in sc_by_code:
@@ -189,10 +160,6 @@ def _match_course(
         return best_sc, "fuzzy"
     return None, "none"
 
-
-# ---------------------------------------------------------------------------
-# 工具：群修分組門數驗證
-# ---------------------------------------------------------------------------
 
 def _check_group_rules(
     group_rules: dict | None,
@@ -254,13 +221,9 @@ def _check_group_rules(
     return violations
 
 
-# ---------------------------------------------------------------------------
-# 工具：從 JSON 規定課表跑比對（主系 / 雙主修 / 輔系共用核心）
-# ---------------------------------------------------------------------------
-
 def _match_courses_from_rules(
     rule_courses: list[dict],
-    student_courses: Sequence[StudentCourse],
+    student_courses: Sequence[Enrollment],
     sc_by_code: dict,
     alt_code_key: str | None = None,
 ) -> tuple[list, list, list, float, float]:
@@ -322,23 +285,25 @@ def _match_courses_from_rules(
     return passed, in_progress, missing, earned, in_prog_credits
 
 
-# ---------------------------------------------------------------------------
-# check_major
-# ---------------------------------------------------------------------------
+def check_major(session: Session, student: Student, major_name: str | None) -> dict:
+    if not major_name:
+        return _not_found_result("未設定主修")
 
-def check_major(session: Session, student: Student) -> dict:
-    rules = _find_rules("graduation", student.entry_year, student.register_major)
+    rules = _find_rules("graduation", student.admission_year, major_name)
     if rules is None:
-        return _not_found_result(student.register_major)
+        return _not_found_result(major_name)
 
     all_courses = rules.get("courses", [])
     rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修")]
 
     if not rule_courses and rules.get("total_credits_required") is None:
-        return _no_data_result(rules.get("dept_name", student.register_major))
+        return _no_data_result(rules.get("dept_name", major_name))
 
     student_courses = (
-        session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
+        session.execute(
+            select(Enrollment).options(joinedload(Enrollment.course))
+            .where(Enrollment.student_id == student.student_id)
+        )
         .scalars()
         .all()
     )
@@ -357,7 +322,7 @@ def check_major(session: Session, student: Student) -> dict:
     group_violations = _check_group_rules(group_rules, passed, in_progress)
 
     return {
-        "dept_name": rules.get("dept_name", student.register_major),
+        "dept_name": rules.get("dept_name", major_name),
         "found": True,
         "total_credits_required": total_req,
         "earned_credits": round(earned, 1),
@@ -373,18 +338,14 @@ def check_major(session: Session, student: Student) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# check_double_major
-# ---------------------------------------------------------------------------
-
-def check_double_major(session: Session, student: Student) -> dict | None:
-    if not student.register_double_major:
+def check_double_major(session: Session, student: Student, dm_name: str | None, major_name: str | None) -> dict | None:
+    if not dm_name:
         return None
 
-    dm_name = student.register_double_major.strip()
-    is_cs = "資訊科學" in (student.register_major or "")
+    dm_name = dm_name.strip()
+    is_cs = "資訊科學" in (major_name or "")
 
-    rules = _find_double_major_rules(student.entry_year, dm_name, is_cs)
+    rules = _find_double_major_rules(student.admission_year, dm_name, is_cs)
     if rules is None:
         result = _not_found_result(dm_name)
         result["type"] = "double_major"
@@ -400,7 +361,10 @@ def check_double_major(session: Session, student: Student) -> dict | None:
     rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修")]
 
     student_courses = (
-        session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
+        session.execute(
+            select(Enrollment).options(joinedload(Enrollment.course))
+            .where(Enrollment.student_id == student.student_id)
+        )
         .scalars()
         .all()
     )
@@ -458,18 +422,17 @@ def check_double_major(session: Session, student: Student) -> dict | None:
     }
 
 
-# ---------------------------------------------------------------------------
-# check_minor
-# ---------------------------------------------------------------------------
-
 def check_minor(session: Session, student: Student, minor_name: str) -> dict:
-    rules = _find_rules("minor", student.entry_year, minor_name)
+    rules = _find_rules("minor", student.admission_year, minor_name)
     if rules is None:
         return _not_found_result(minor_name)
 
     rule_courses = rules.get("courses", [])
     student_courses = (
-        session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
+        session.execute(
+            select(Enrollment).options(joinedload(Enrollment.course))
+            .where(Enrollment.student_id == student.student_id)
+        )
         .scalars()
         .all()
     )
@@ -498,13 +461,12 @@ def check_minor(session: Session, student: Student, minor_name: str) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# check_ge
-# ---------------------------------------------------------------------------
-
 def check_ge(session: Session, student: Student) -> dict:
     student_courses = (
-        session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
+        session.execute(
+            select(Enrollment).options(joinedload(Enrollment.course))
+            .where(Enrollment.student_id == student.student_id)
+        )
         .scalars()
         .all()
     )
@@ -518,15 +480,21 @@ def check_ge(session: Session, student: Student) -> dict:
         "資訊通": {"name": "資訊通識", "min": 2.0, "max": 3.0},
         "書院通": {"name": "書院通識", "min": 0.0, "max": 3.0},
     }
-    if student.register_major in {
-        "統計學系",
-        "資訊管理學系",
-        "地政學系土地測量與資訊組",
-        "應用數學系",
-        "資訊科學系",
-        "創新國際學院學士班",
-    }:
-        category_defs["資訊通"]["min"] = 0.0
+
+    fos_list = session.execute(
+        select(FieldOfStudy).options(joinedload(FieldOfStudy.department))
+        .where(FieldOfStudy.student_id == student.student_id, FieldOfStudy.program_type == "主修")
+    ).scalars().all()
+
+    cs_like_majors = {
+        "統計學系", "資訊管理學系", "地政學系土地測量與資訊組",
+        "應用數學系", "資訊科學系", "創新國際學院學士班",
+    }
+    for fos in fos_list:
+        dept_name = fos.department.name if fos.department else ""
+        if dept_name in cs_like_majors:
+            category_defs["資訊通"]["min"] = 0.0
+            break
 
     bit_to_category = {
         GE_HUMAN: "人文通",
@@ -612,7 +580,7 @@ def check_ge(session: Session, student: Student) -> dict:
     }
 
 
-def _ge_label_from_legacy_remark(sc: StudentCourse) -> int:
+def _ge_label_from_legacy_remark(sc: Enrollment) -> int:
     remark_text = sc.remark or ""
     name_text = sc.course_name or ""
     code = sc.course_code or ""
@@ -690,13 +658,13 @@ def _best_ge_allocation(
     return best or evaluate({})
 
 
-# ---------------------------------------------------------------------------
-# check_pe
-# ---------------------------------------------------------------------------
-
 def check_pe(session: Session, student: Student) -> dict:
     pe_courses = (
-        session.execute(select(StudentCourse).where(StudentCourse.student_id == student.id))
+        session.execute(
+            select(Enrollment).options(joinedload(Enrollment.course))
+            .join(Enrollment.course)
+            .where(Enrollment.student_id == student.student_id)
+        )
         .scalars()
         .all()
     )
@@ -740,10 +708,6 @@ def check_pe(session: Session, student: Student) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# 輔助函式
-# ---------------------------------------------------------------------------
-
 def _not_found_result(dept_name: str) -> dict:
     return {
         "dept_name": dept_name,
@@ -778,17 +742,13 @@ def _no_data_result(dept_name: str) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# check_graduation — 主入口
-# ---------------------------------------------------------------------------
-
 GRADUATION_TOTAL_CREDITS = 128
 GE_REQUIRED_CREDITS = 28
 PE_REQUIRED_CREDITS = 4
 
 
 def _calc_elective_gap(
-    student: Student,
+    total_credits: float,
     major_result: dict,
     ge_result: dict,
     pe_result: dict,
@@ -822,7 +782,7 @@ def _calc_elective_gap(
     pe_earned = float(min(pe_passed, PE_REQUIRED_CREDITS))
 
     elective_required = max(0, TOTAL - major_required - GE_REQUIRED_CREDITS - PE_REQUIRED_CREDITS)
-    total_earned = float(student.total_credits or 0)
+    total_earned = total_credits
     elective_earned = max(0.0, total_earned - major_earned - ge_earned - pe_earned)
     elective_gap = max(0.0, elective_required - elective_earned)
 
@@ -854,15 +814,37 @@ def check_graduation(session: Session, student_id: str) -> dict:
     if student is None:
         raise ValueError(f"Student id={student_id} 不存在")
 
-    major_result = check_major(session, student)
-    double_major_result = check_double_major(session, student)
-    minor_results = [
-        check_minor(session, student, m)
-        for m in [student.minor1, student.minor2]
-        if m and m.strip()
-    ]
+    fos_list = session.execute(
+        select(FieldOfStudy).options(joinedload(FieldOfStudy.department))
+        .where(FieldOfStudy.student_id == student.student_id)
+    ).scalars().all()
+
+    register_major = None
+    register_double_major = None
+    minors = []
+    for fos in fos_list:
+        dept_name = fos.department.name if fos.department else fos.department_id
+        if fos.program_type == "主修":
+            register_major = dept_name
+        elif fos.program_type == "雙主修":
+            register_double_major = dept_name
+        elif fos.program_type == "輔系":
+            minors.append(dept_name)
+
+    major_result = check_major(session, student, register_major)
+    double_major_result = check_double_major(session, student, register_double_major, register_major)
+    minor_results = [check_minor(session, student, m) for m in minors]
     ge_result = check_ge(session, student)
     pe_result = check_pe(session, student)
+
+    enrollments = session.execute(
+        select(Enrollment).options(joinedload(Enrollment.course))
+        .where(Enrollment.student_id == student.student_id)
+    ).scalars().all()
+    total_credits = sum(
+        float(e.course.credits) for e in enrollments
+        if e.is_passed and e.course
+    )
 
     incomplete_items = []
     if major_result.get("status") not in ("complete",):
@@ -878,20 +860,20 @@ def check_graduation(session: Session, student_id: str) -> dict:
         incomplete_items.append("體育必修")
 
     all_complete = len(incomplete_items) == 0
-    elective_gap_info = _calc_elective_gap(student, major_result, ge_result, pe_result)
+    elective_gap_info = _calc_elective_gap(total_credits, major_result, ge_result, pe_result)
 
     return {
         "student": {
-            "id": student.id,
-            "student_number": student.student_number,
-            "chinese_name": student.chinese_name,
-            "entry_year": student.entry_year,
-            "register_major": student.register_major,
-            "register_double_major": student.register_double_major,
-            "minor1": student.minor1,
-            "minor2": student.minor2,
-            "graduation_credit": float(student.graduation_credit) if student.graduation_credit else None,
-            "total_credits": float(student.total_credits) if student.total_credits else None,
+            "id": student.student_id,
+            "student_number": student.student_id,
+            "chinese_name": student.name,
+            "entry_year": student.admission_year,
+            "register_major": register_major,
+            "register_double_major": register_double_major,
+            "minor1": minors[0] if len(minors) > 0 else None,
+            "minor2": minors[1] if len(minors) > 1 else None,
+            "graduation_credit": None,
+            "total_credits": round(total_credits, 1),
         },
         "major_check": major_result,
         "double_major_check": double_major_result,
@@ -915,7 +897,7 @@ def check_general_education(session: Session, student: Student) -> dict:
 
 
 def check_required_courses(session: Session, student: Student) -> dict:
-    major = check_major(session, student)
+    major = check_major(session, student, None)
     for key in ("passed_courses", "in_progress_courses", "missing_courses"):
         major[key] = [
             c for c in major.get(key, [])
@@ -925,7 +907,7 @@ def check_required_courses(session: Session, student: Student) -> dict:
 
 
 def check_group_courses(session: Session, student: Student) -> dict:
-    major = check_major(session, student)
+    major = check_major(session, student, None)
     for key in ("passed_courses", "in_progress_courses", "missing_courses"):
         major[key] = [
             c for c in major.get(key, [])
@@ -935,7 +917,15 @@ def check_group_courses(session: Session, student: Student) -> dict:
 
 
 def check_total_credits(session: Session, student: Student) -> dict:
-    major_result = check_major(session, student)
+    major_result = check_major(session, student, None)
     ge_result = check_ge(session, student)
     pe_result = check_pe(session, student)
-    return _calc_elective_gap(student, major_result, ge_result, pe_result)
+    enrollments = session.execute(
+        select(Enrollment).options(joinedload(Enrollment.course))
+        .where(Enrollment.student_id == student.student_id)
+    ).scalars().all()
+    total_credits = sum(
+        float(e.course.credits) for e in enrollments
+        if e.is_passed and e.course
+    )
+    return _calc_elective_gap(total_credits, major_result, ge_result, pe_result)
