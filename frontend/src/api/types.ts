@@ -1,5 +1,5 @@
 // 與後端契約對齊的型別定義。
-// 認證部分對齊 DB-based account/role 契約；檢核部分以 backend/src/services/checker.py 實際輸出為準。
+// 認證 API 依 docs/API_SPEC.md 使用 email/password；檢核部分以 backend/src/services/checker.py 實際輸出為準。
 
 export type Role = 'student' | 'admin'
 
@@ -8,12 +8,12 @@ export type CheckStatus = 'complete' | 'incomplete' | 'dept_not_found' | 'no_dat
 // ---------------- Auth ----------------
 
 export interface LoginRequest {
-  account: string
+  email: string
   password: string
 }
 
 export interface RegisterRequest {
-  account: string
+  email: string
   password: string
   role: Role
   student?: {
@@ -22,28 +22,29 @@ export interface RegisterRequest {
     admission_year: number
   }
   administrator?: {
-    department_id: number
+    department_id: string
   }
 }
 
 export interface LoginResponse {
   access_token: string
   token_type: string
+  account: string
   role: Role
-  user_id: number
+  user_id: string
 }
 
 export interface RegisterResponse {
-  user_id: number
+  user_id: string
   account: string
   role: Role
   student_number?: string | null
-  administrator_id?: number | null
-  department_id?: number | null
+  administrator_id?: string | null
+  department_id?: string | null
 }
 
 export interface StatusResponse {
-  user_id: number
+  user_id: string
   account: string
   role: Role
   // 後端就緒後於學生已上傳時帶上；用於免上傳直接解析檢核
@@ -51,8 +52,8 @@ export interface StatusResponse {
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
-  administrator_id?: number | null
-  department_id?: number | null
+  administrator_id?: string | null
+  department_id?: string | null
   department_name?: string | null
 }
 

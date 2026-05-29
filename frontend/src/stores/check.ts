@@ -64,21 +64,8 @@ export const useCheckStore = defineStore('check', () => {
         }
       }
 
-      // 後端若提供 /api/check/me 則用它解析；未實作會 404 → 視為無資料
-      try {
-        const data = await checkApi.getMyCheck()
-        result.value = data
-        rememberStudentId(data.student.id)
-        hasData.value = true
-        return
-      } catch (e) {
-        if (e instanceof ApiError && (e.status === 404 || e.status === 405)) {
-          result.value = null
-          hasData.value = false
-          return
-        }
-        throw e
-      }
+      result.value = null
+      hasData.value = false
     } catch (e) {
       error.value = e instanceof Error ? e.message : '載入檢核資料失敗'
       hasData.value = null

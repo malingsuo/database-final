@@ -32,5 +32,11 @@ class AccountInfo(BaseModel):
     id: uuid.UUID
     email: str
     role: str
+    student_number: str | None = None
+    name: str | None = None
+    admission_year: int | None = None
+    administrator_id: uuid.UUID | None = None
+    department_id: str | None = None
+    department_name: str | None = None
 
     model_config = ConfigDict(from_attributes=True)

@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..dependencies import get_current_account, get_session, oauth2_scheme
 from ..models import AccountInfo, AdminRegisterRequest, LoginRequest, StudentRegisterRequest, TokenResponse
-from ..tables import Account, Administrator, Student, Token
+from ..tables import Account, Administrator, Department, Student, Token
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
@@ -82,8 +82,33 @@ async def register_admin(body: AdminRegisterRequest, session: AsyncSession = Dep
 
 
 @router.get("/status", response_model=AccountInfo)
-async def get_status(current: Account = Depends(get_current_account)):
-    return AccountInfo.model_validate(current)
+async def get_status(
+    current: Account = Depends(get_current_account),
+    session: AsyncSession = Depends(get_session),
+):
+    info = AccountInfo.model_validate(current)
+    if current.role == "student":
+        result = await session.execute(select(Student).where(Student.user_id == current.id))
+        student = result.scalar_one_or_none()
+        if student:
+            info.student_number = student.student_id
+            info.name = student.name
+            info.admission_year = student.admission_year
+    elif current.role == "admin":
+        result = await session.execute(
+            select(Administrator).where(Administrator.id == current.id)
+        )
+        admin = result.scalar_one_or_none()
+        if admin:
+            info.administrator_id = admin.id
+            info.department_id = admin.department_id
+            dept_result = await session.execute(
+                select(Department).where(Department.id == admin.department_id)
+            )
+            dept = dept_result.scalar_one_or_none()
+            if dept:
+                info.department_name = dept.name
+    return info
 
 
 @router.delete("/user/{account_id}")

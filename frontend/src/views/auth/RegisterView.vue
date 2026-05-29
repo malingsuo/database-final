@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { Lock, OfficeBuilding, User, UserFilled } from '@element-plus/icons-vue'
@@ -13,52 +13,34 @@ const formRef = ref<FormInstance>()
 const loading = ref(false)
 const form = reactive({
   role: 'student' as Role,
-  account: '',
+  email: '',
   password: '',
   confirm: '',
   studentId: '',
   studentName: '',
   admissionYear: 112,
-  departmentId: 1,
+  departmentId: '703',
 })
 
 const departments = [
-  { id: 1, name: '資訊科學系' },
-  { id: 2, name: '資訊管理學系' },
-  { id: 3, name: '統計學系' },
-  { id: 4, name: '教務處' },
+  { id: '703', name: '資訊科學系' },
+  { id: '306', name: '資訊管理學系' },
+  { id: '304', name: '統計學系' },
+  { id: '2S3', name: '教務處通識教育中心' },
 ]
 
 const isStudent = computed(() => form.role === 'student')
 
-watch(
-  () => form.studentId,
-  (value) => {
-    if (isStudent.value) form.account = value
-  }
-)
-
-watch(
-  () => form.role,
-  () => {
-    form.account = isStudent.value ? form.studentId : ''
-    formRef.value?.clearValidate()
-  }
-)
-
-const validateAccount = (_r: unknown, value: string, cb: (e?: Error) => void) => {
-  if (!value) return cb(new Error('請輸入帳號'))
-  if (isStudent.value && value !== form.studentId) return cb(new Error('學生帳號需與學號相同'))
-  if (!isStudent.value && !/^[A-Za-z][A-Za-z0-9._-]{3,31}$/.test(value)) {
-    return cb(new Error('管理員帳號需 4-32 碼，並以英文字母開頭'))
-  }
+const validateEmail = (_r: unknown, value: string, cb: (e?: Error) => void) => {
+  if (!value) return cb(new Error('請輸入電子信箱'))
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return cb(new Error('請輸入有效的電子信箱'))
   cb()
 }
 
 const validateStudentId = (_r: unknown, value: string, cb: (e?: Error) => void) => {
   if (!isStudent.value) return cb()
   if (!value) return cb(new Error('請輸入學號'))
-  if (!/^112\d{6}$/.test(value)) return cb(new Error('學號需為 112 開頭的 9 碼數字'))
+  if (!/^\d{9}$/.test(value)) return cb(new Error('學號需為 9 碼數字'))
   cb()
 }
 
@@ -68,7 +50,7 @@ const validateStudentName = (_r: unknown, value: string, cb: (e?: Error) => void
   cb()
 }
 
-const validateDepartment = (_r: unknown, value: number, cb: (e?: Error) => void) => {
+const validateDepartment = (_r: unknown, value: string, cb: (e?: Error) => void) => {
   if (isStudent.value) return cb()
   if (!departments.some((dept) => dept.id === value)) return cb(new Error('請選擇管理單位'))
   cb()
@@ -81,7 +63,7 @@ const validateConfirm = (_r: unknown, value: string, cb: (e?: Error) => void) =>
 
 const rules: FormRules = {
   role: [{ required: true, message: '請選擇身分', trigger: 'change' }],
-  account: [{ validator: validateAccount, trigger: 'blur' }],
+  email: [{ validator: validateEmail, trigger: 'blur' }],
   password: [
     { required: true, message: '請輸入密碼', trigger: 'blur' },
     { min: 8, message: '密碼至少需 8 碼', trigger: 'blur' },
@@ -101,7 +83,7 @@ async function onSubmit() {
   loading.value = true
   try {
     await auth.register({
-      account: form.account,
+      email: form.email,
       password: form.password,
       role: form.role,
       student: isStudent.value
@@ -150,6 +132,10 @@ async function onSubmit() {
           />
         </el-form-item>
 
+        <el-form-item label="電子信箱" prop="email">
+          <el-input v-model="form.email" :prefix-icon="User" placeholder="例如 user@example.com" />
+        </el-form-item>
+
         <template v-if="isStudent">
           <el-form-item label="學號" prop="studentId">
             <el-input v-model="form.studentId" :prefix-icon="User" placeholder="例如 112703043" />
@@ -158,24 +144,17 @@ async function onSubmit() {
             <el-input v-model="form.studentName" :prefix-icon="UserFilled" placeholder="請輸入真實姓名" />
           </el-form-item>
           <el-form-item label="入學年度" prop="admissionYear">
-            <el-input-number v-model="form.admissionYear" :min="112" :max="112" controls-position="right" />
+            <el-input-number v-model="form.admissionYear" :min="109" :max="114" controls-position="right" />
           </el-form-item>
         </template>
 
         <template v-else>
-          <el-form-item label="管理員帳號" prop="account">
-            <el-input v-model="form.account" :prefix-icon="User" placeholder="例如 cs_admin" />
-          </el-form-item>
           <el-form-item label="管理單位" prop="departmentId">
             <el-select v-model="form.departmentId" :prefix-icon="OfficeBuilding" placeholder="選擇管理單位">
               <el-option v-for="dept in departments" :key="dept.id" :label="`${dept.id} - ${dept.name}`" :value="dept.id" />
             </el-select>
           </el-form-item>
         </template>
-
-        <el-form-item v-if="isStudent" label="帳號" prop="account">
-          <el-input v-model="form.account" disabled :prefix-icon="User" />
-        </el-form-item>
 
         <el-form-item label="密碼" prop="password">
           <el-input v-model="form.password" type="password" :prefix-icon="Lock" show-password placeholder="至少 8 碼" />

@@ -10,11 +10,14 @@ const route = useRoute()
 const auth = useAuthStore()
 
 const formRef = ref<FormInstance>()
-const form = reactive({ account: '', password: '' })
+const form = reactive({ email: '', password: '' })
 const loading = ref(false)
 
 const rules: FormRules = {
-  account: [{ required: true, message: '請輸入帳號（學號）', trigger: 'blur' }],
+  email: [
+    { required: true, message: '請輸入電子信箱', trigger: 'blur' },
+    { type: 'email', message: '請輸入有效的電子信箱', trigger: 'blur' },
+  ],
   password: [{ required: true, message: '請輸入密碼', trigger: 'blur' }],
 }
 
@@ -57,8 +60,8 @@ async function onSubmit() {
         size="large"
         @submit.prevent="onSubmit"
       >
-        <el-form-item label="帳號（學號）" prop="account">
-          <el-input v-model="form.account" :prefix-icon="User" placeholder="例如 112703043" />
+        <el-form-item label="電子信箱" prop="email">
+          <el-input v-model="form.email" :prefix-icon="User" placeholder="例如 112703043@example.com" />
         </el-form-item>
         <el-form-item label="密碼" prop="password">
           <el-input

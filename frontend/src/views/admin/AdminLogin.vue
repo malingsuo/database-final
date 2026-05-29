@@ -12,12 +12,15 @@ const auth = useAuthStore()
 const formRef = ref<FormInstance>()
 const loading = ref(false)
 const form = reactive({
-  account: 'admin',
+  email: 'admin@example.com',
   password: '12345678',
 })
 
 const rules: FormRules = {
-  account: [{ required: true, message: '請輸入管理員帳號', trigger: 'blur' }],
+  email: [
+    { required: true, message: '請輸入管理員電子信箱', trigger: 'blur' },
+    { type: 'email', message: '請輸入有效的電子信箱', trigger: 'blur' },
+  ],
   password: [{ required: true, message: '請輸入密碼', trigger: 'blur' }],
 }
 
@@ -63,8 +66,8 @@ async function handleLogin() {
         size="large"
         @submit.prevent="handleLogin"
       >
-        <el-form-item label="帳號" prop="account">
-          <el-input v-model="form.account" :prefix-icon="User" placeholder="admin" />
+        <el-form-item label="電子信箱" prop="email">
+          <el-input v-model="form.email" :prefix-icon="User" placeholder="admin@example.com" />
         </el-form-item>
         <el-form-item label="密碼" prop="password">
           <el-input

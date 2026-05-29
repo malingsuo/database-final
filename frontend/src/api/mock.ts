@@ -20,7 +20,7 @@ function delay<T>(value: T, ms = 350): Promise<T> {
 }
 
 type MockUser = {
-  user_id: number
+  user_id: string
   account: string
   password: string
   role: Role
@@ -28,24 +28,24 @@ type MockUser = {
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
-  administrator_id?: number | null
-  department_id?: number | null
+  administrator_id?: string | null
+  department_id?: string | null
   department_name?: string | null
 }
 
-const departments = new Map<number, string>([
-  [1, '資訊科學系'],
-  [2, '資訊管理學系'],
-  [3, '統計學系'],
-  [4, '教務處'],
+const departments = new Map<string, string>([
+  ['703', '資訊科學系'],
+  ['306', '資訊管理學系'],
+  ['304', '統計學系'],
+  ['2S3', '教務處通識教育中心'],
 ])
 
 const mockUsers = new Map<string, MockUser>([
   [
-    '112703043',
+    '112703043@example.com',
     {
-      user_id: 1,
-      account: '112703043',
+      user_id: 'mock-student-account-id',
+      account: '112703043@example.com',
       password: 'password123',
       role: 'student',
       student_id: 3,
@@ -55,14 +55,14 @@ const mockUsers = new Map<string, MockUser>([
     },
   ],
   [
-    'admin',
+    'admin@example.com',
     {
-      user_id: 2,
-      account: 'admin',
+      user_id: 'mock-admin-account-id',
+      account: 'admin@example.com',
       password: '12345678',
       role: 'admin',
-      administrator_id: 1,
-      department_id: 1,
+      administrator_id: 'mock-admin-account-id',
+      department_id: '703',
       department_name: '資訊科學系',
       name: '系辦管理員',
     },
@@ -70,12 +70,11 @@ const mockUsers = new Map<string, MockUser>([
 ])
 
 let nextUserId = 3
-let nextAdministratorId = 2
 const MOCK_ACCOUNT_KEY = 'gradcheck_mock_account'
 
 function readMockAccount() {
-  if (typeof localStorage === 'undefined') return '112703043'
-  return localStorage.getItem(MOCK_ACCOUNT_KEY) || '112703043'
+  if (typeof localStorage === 'undefined') return '112703043@example.com'
+  return localStorage.getItem(MOCK_ACCOUNT_KEY) || '112703043@example.com'
 }
 
 let currentAccount = readMockAccount()
@@ -253,9 +252,9 @@ export const mockCheckResult: CheckResult = {
 }
 
 export function mockLogin(body: LoginRequest): Promise<LoginResponse> {
-  const user = mockUsers.get(body.account)
+  const user = mockUsers.get(body.email)
   if (!user || user.password !== body.password) {
-    return Promise.reject(new Error('帳號或密碼錯誤'))
+    return Promise.reject(new Error('電子信箱或密碼錯誤'))
   }
   currentAccount = user.account
   if (typeof localStorage !== 'undefined') {
@@ -264,22 +263,23 @@ export function mockLogin(body: LoginRequest): Promise<LoginResponse> {
   return delay({
     access_token: `mock-token-${user.role}-${user.user_id}`,
     token_type: 'bearer',
+    account: user.account,
     role: user.role,
     user_id: user.user_id,
   })
 }
 
 export function mockRegister(body: RegisterRequest): Promise<RegisterResponse> {
-  if (mockUsers.has(body.account)) {
-    return Promise.reject(new Error('帳號已存在'))
+  if (mockUsers.has(body.email)) {
+    return Promise.reject(new Error('電子信箱已存在'))
   }
   if (body.password.length < 8) {
     return Promise.reject(new Error('密碼至少需 8 碼'))
   }
 
   const base = {
-    user_id: nextUserId++,
-    account: body.account,
+    user_id: `mock-account-${nextUserId++}`,
+    account: body.email,
     password: body.password,
     role: body.role,
   }
@@ -289,17 +289,14 @@ export function mockRegister(body: RegisterRequest): Promise<RegisterResponse> {
     if (!student?.student_id || !student.name || !student.admission_year) {
       return Promise.reject(new Error('請完整填寫學生資料'))
     }
-    if (!/^112\d{6}$/.test(student.student_id)) {
-      return Promise.reject(new Error('學生學號需為 112 開頭的 9 碼數字'))
+    if (!/^\d{9}$/.test(student.student_id)) {
+      return Promise.reject(new Error('學生學號需為 9 碼數字'))
     }
-    if (body.account !== student.student_id) {
-      return Promise.reject(new Error('學生帳號需與學號相同'))
-    }
-    if (student.admission_year !== 112) {
-      return Promise.reject(new Error('目前僅開放 112 學年度入學學生註冊'))
+    if (!Number.isInteger(student.admission_year)) {
+      return Promise.reject(new Error('請輸入有效的入學年度'))
     }
 
-    mockUsers.set(body.account, {
+    mockUsers.set(body.email, {
       ...base,
       role: 'student',
       student_id: null,
@@ -309,7 +306,7 @@ export function mockRegister(body: RegisterRequest): Promise<RegisterResponse> {
     })
     return delay({
       user_id: base.user_id,
-      account: body.account,
+      account: body.email,
       role: 'student',
       student_number: student.student_id,
     })
@@ -320,26 +317,25 @@ export function mockRegister(body: RegisterRequest): Promise<RegisterResponse> {
     return Promise.reject(new Error('請選擇有效的管理單位'))
   }
 
-  const administratorId = nextAdministratorId++
-  mockUsers.set(body.account, {
+  mockUsers.set(body.email, {
     ...base,
     role: 'admin',
-    administrator_id: administratorId,
+    administrator_id: base.user_id,
     department_id: administrator.department_id,
     department_name: departments.get(administrator.department_id) ?? null,
-    name: body.account,
+    name: body.email,
   })
   return delay({
     user_id: base.user_id,
-    account: body.account,
+    account: body.email,
     role: 'admin',
-    administrator_id: administratorId,
+    administrator_id: base.user_id,
     department_id: administrator.department_id,
   })
 }
 
 export function mockStatus(): Promise<StatusResponse> {
-  const user = mockUsers.get(currentAccount) ?? mockUsers.get('112703043')!
+  const user = mockUsers.get(currentAccount) ?? mockUsers.get('112703043@example.com')!
   return delay({
     user_id: user.user_id,
     account: user.account,
@@ -358,7 +354,7 @@ export function mockLogout(): Promise<{ message: string }> {
   if (typeof localStorage !== 'undefined') {
     localStorage.removeItem(MOCK_ACCOUNT_KEY)
   }
-  currentAccount = '112703043'
+  currentAccount = '112703043@example.com'
   return delay({ message: 'Successfully logged out' })
 }
 

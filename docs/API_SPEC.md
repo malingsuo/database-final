@@ -115,17 +115,41 @@ Authorization: Bearer <token>
 
 Return info about the currently authenticated account.
 
+For student accounts, also returns `student_number`, `name`, `admission_year`.
+For admin accounts, also returns `administrator_id`, `department_id`, `department_name`.
+
 **Headers**
 ```
 Authorization: Bearer <token>
 ```
 
-**Response `200`**
+**Response `200`** (student)
 ```json
 {
   "id": "uuid",
   "email": "student@nccu.edu.tw",
-  "role": "student"
+  "role": "student",
+  "student_number": "109703001",
+  "name": "王小明",
+  "admission_year": 109,
+  "administrator_id": null,
+  "department_id": null,
+  "department_name": null
+}
+```
+
+**Response `200`** (admin)
+```json
+{
+  "id": "uuid",
+  "email": "admin@nccu.edu.tw",
+  "role": "admin",
+  "student_number": null,
+  "name": null,
+  "admission_year": null,
+  "administrator_id": "uuid",
+  "department_id": "703",
+  "department_name": "資訊科學系"
 }
 ```
 

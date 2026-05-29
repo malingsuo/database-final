@@ -5,15 +5,15 @@ import { TOKEN_KEY } from '@/api/http'
 import type { LoginRequest, RegisterRequest, Role, StatusResponse } from '@/api/types'
 
 export interface CurrentUser {
-  user_id: number
+  user_id: string
   account: string
   role: Role
   student_id?: number | null
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
-  administrator_id?: number | null
-  department_id?: number | null
+  administrator_id?: string | null
+  department_id?: string | null
   department_name?: string | null
 }
 
@@ -37,7 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function login(body: LoginRequest) {
     const res = await authApi.login(body)
     setToken(res.access_token)
-    user.value = { user_id: res.user_id, account: body.account, role: res.role }
+    user.value = { user_id: res.user_id, account: res.account, role: res.role }
     // 登入後嘗試補齊完整身分（含 student_id）
     await fetchStatus().catch(() => undefined)
     return res
