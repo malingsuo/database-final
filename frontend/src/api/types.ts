@@ -16,6 +16,14 @@ export interface RegisterRequest {
   account: string
   password: string
   role: Role
+  student?: {
+    student_id: string
+    name: string
+    admission_year: number
+  }
+  administrator?: {
+    department_id: number
+  }
 }
 
 export interface LoginResponse {
@@ -29,6 +37,9 @@ export interface RegisterResponse {
   user_id: number
   account: string
   role: Role
+  student_number?: string | null
+  administrator_id?: number | null
+  department_id?: number | null
 }
 
 export interface StatusResponse {
@@ -37,6 +48,12 @@ export interface StatusResponse {
   role: Role
   // 後端就緒後於學生已上傳時帶上；用於免上傳直接解析檢核
   student_id?: number | null
+  student_number?: string | null
+  name?: string | null
+  admission_year?: number | null
+  administrator_id?: number | null
+  department_id?: number | null
+  department_name?: string | null
 }
 
 // ---------------- Check / 課程 ----------------

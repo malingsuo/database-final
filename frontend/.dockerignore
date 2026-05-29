@@ -43,6 +43,17 @@
 **/*.egg-info/
 .installed.cfg
 *.egg
+
+### Node.js / 前端 ###
+# 必須排除：避免把本機 (linux-gnu) 的 node_modules 蓋進 alpine (musl) 映像，
+# 導致 npm run build 因原生套件平台不符而失敗。
+**/node_modules/
+**/.vite/
+**/*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 MANIFEST
 
 # PyInstaller

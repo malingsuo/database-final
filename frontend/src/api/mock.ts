@@ -8,6 +8,7 @@ import type {
   LoginResponse,
   RegisterRequest,
   RegisterResponse,
+  Role,
   StatusResponse,
   UploadResponse,
 } from './types'
@@ -18,8 +19,66 @@ function delay<T>(value: T, ms = 350): Promise<T> {
   return new Promise((resolve) => setTimeout(() => resolve(value), ms))
 }
 
-// 記住目前 mock 登入的帳號，讓 status 回傳一致
-let mockAccount = '112703043'
+type MockUser = {
+  user_id: number
+  account: string
+  password: string
+  role: Role
+  student_id?: number | null
+  student_number?: string | null
+  name?: string | null
+  admission_year?: number | null
+  administrator_id?: number | null
+  department_id?: number | null
+  department_name?: string | null
+}
+
+const departments = new Map<number, string>([
+  [1, '資訊科學系'],
+  [2, '資訊管理學系'],
+  [3, '統計學系'],
+  [4, '教務處'],
+])
+
+const mockUsers = new Map<string, MockUser>([
+  [
+    '112703043',
+    {
+      user_id: 1,
+      account: '112703043',
+      password: 'password123',
+      role: 'student',
+      student_id: 3,
+      student_number: '112703043',
+      name: '彭啟則',
+      admission_year: 112,
+    },
+  ],
+  [
+    'admin',
+    {
+      user_id: 2,
+      account: 'admin',
+      password: '12345678',
+      role: 'admin',
+      administrator_id: 1,
+      department_id: 1,
+      department_name: '資訊科學系',
+      name: '系辦管理員',
+    },
+  ],
+])
+
+let nextUserId = 3
+let nextAdministratorId = 2
+const MOCK_ACCOUNT_KEY = 'gradcheck_mock_account'
+
+function readMockAccount() {
+  if (typeof localStorage === 'undefined') return '112703043'
+  return localStorage.getItem(MOCK_ACCOUNT_KEY) || '112703043'
+}
+
+let currentAccount = readMockAccount()
 
 export const mockCheckResult: CheckResult = {
   student: {
@@ -194,19 +253,112 @@ export const mockCheckResult: CheckResult = {
 }
 
 export function mockLogin(body: LoginRequest): Promise<LoginResponse> {
-  mockAccount = body.account || mockAccount
-  return delay({ access_token: 'mock-token', token_type: 'bearer', role: 'student', user_id: 1 })
+  const user = mockUsers.get(body.account)
+  if (!user || user.password !== body.password) {
+    return Promise.reject(new Error('帳號或密碼錯誤'))
+  }
+  currentAccount = user.account
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(MOCK_ACCOUNT_KEY, user.account)
+  }
+  return delay({
+    access_token: `mock-token-${user.role}-${user.user_id}`,
+    token_type: 'bearer',
+    role: user.role,
+    user_id: user.user_id,
+  })
 }
 
 export function mockRegister(body: RegisterRequest): Promise<RegisterResponse> {
-  return delay({ user_id: 1, account: body.account, role: body.role })
+  if (mockUsers.has(body.account)) {
+    return Promise.reject(new Error('帳號已存在'))
+  }
+  if (body.password.length < 8) {
+    return Promise.reject(new Error('密碼至少需 8 碼'))
+  }
+
+  const base = {
+    user_id: nextUserId++,
+    account: body.account,
+    password: body.password,
+    role: body.role,
+  }
+
+  if (body.role === 'student') {
+    const student = body.student
+    if (!student?.student_id || !student.name || !student.admission_year) {
+      return Promise.reject(new Error('請完整填寫學生資料'))
+    }
+    if (!/^112\d{6}$/.test(student.student_id)) {
+      return Promise.reject(new Error('學生學號需為 112 開頭的 9 碼數字'))
+    }
+    if (body.account !== student.student_id) {
+      return Promise.reject(new Error('學生帳號需與學號相同'))
+    }
+    if (student.admission_year !== 112) {
+      return Promise.reject(new Error('目前僅開放 112 學年度入學學生註冊'))
+    }
+
+    mockUsers.set(body.account, {
+      ...base,
+      role: 'student',
+      student_id: null,
+      student_number: student.student_id,
+      name: student.name,
+      admission_year: student.admission_year,
+    })
+    return delay({
+      user_id: base.user_id,
+      account: body.account,
+      role: 'student',
+      student_number: student.student_id,
+    })
+  }
+
+  const administrator = body.administrator
+  if (!administrator?.department_id || !departments.has(administrator.department_id)) {
+    return Promise.reject(new Error('請選擇有效的管理單位'))
+  }
+
+  const administratorId = nextAdministratorId++
+  mockUsers.set(body.account, {
+    ...base,
+    role: 'admin',
+    administrator_id: administratorId,
+    department_id: administrator.department_id,
+    department_name: departments.get(administrator.department_id) ?? null,
+    name: body.account,
+  })
+  return delay({
+    user_id: base.user_id,
+    account: body.account,
+    role: 'admin',
+    administrator_id: administratorId,
+    department_id: administrator.department_id,
+  })
 }
 
 export function mockStatus(): Promise<StatusResponse> {
-  return delay({ user_id: 1, account: mockAccount, role: 'student', student_id: 3 })
+  const user = mockUsers.get(currentAccount) ?? mockUsers.get('112703043')!
+  return delay({
+    user_id: user.user_id,
+    account: user.account,
+    role: user.role,
+    student_id: user.student_id ?? null,
+    student_number: user.student_number ?? null,
+    name: user.name ?? null,
+    admission_year: user.admission_year ?? null,
+    administrator_id: user.administrator_id ?? null,
+    department_id: user.department_id ?? null,
+    department_name: user.department_name ?? null,
+  })
 }
 
 export function mockLogout(): Promise<{ message: string }> {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.removeItem(MOCK_ACCOUNT_KEY)
+  }
+  currentAccount = '112703043'
   return delay({ message: 'Successfully logged out' })
 }
 
