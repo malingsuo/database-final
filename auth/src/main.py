@@ -19,6 +19,7 @@ DB_PORT = os.getenv("DB_PORT", "5432")
 DB_USER = os.getenv("DB_USERNAME")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 # --- Password Hashing & Token URL ---
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
