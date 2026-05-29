@@ -58,7 +58,7 @@ export interface StatusResponse {
 
 // ---------------- Check / 課程 ----------------
 
-export type MatchConfidence = 'exact' | 'normalized' | 'fuzzy' | 'none'
+export type MatchConfidence = 'exact' | 'normalized' | 'none'
 
 export interface CourseEntry {
   course_name: string

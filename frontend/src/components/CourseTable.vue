@@ -24,7 +24,6 @@ withDefaults(
 const confidenceMeta: Record<MatchConfidence, { label: string; type: 'success' | 'warning' | 'info' }> = {
   exact: { label: '程式碼比對', type: 'success' },
   normalized: { label: '課名比對', type: 'success' },
-  fuzzy: { label: '模糊比對', type: 'warning' },
   none: { label: '未比對', type: 'info' },
 }
 </script>
