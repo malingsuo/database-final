@@ -37,7 +37,7 @@ const groups = computed(() => {
 const violations = computed(() => props.check.group_violations ?? [])
 
 const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'danger' }> = {
-  passed: { label: '已透過', type: 'success' },
+  passed: { label: '已通過', type: 'success' },
   in_progress: { label: '修課中', type: 'warning' },
   missing: { label: '未修', type: 'danger' },
 }
@@ -64,7 +64,7 @@ const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'dan
       <template #title>群修門數尚未達標</template>
       <ul class="violation-list">
         <li v-for="(gv, idx) in violations" :key="idx">
-          <strong>{{ gv.group }}</strong>：已透過 {{ gv.passed_courses }} 門 / 需 {{ gv.min_courses }} 門
+          <strong>{{ gv.group }}</strong>：已通過 {{ gv.passed_courses }} 門 / 需 {{ gv.min_courses }} 門
           <span v-if="gv.in_progress_courses">（修課中 {{ gv.in_progress_courses }} 門）</span>
           <span v-if="gv.note" class="note">— {{ gv.note }}</span>
         </li>
@@ -76,7 +76,7 @@ const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'dan
         <template #title>
           <span class="collapse-title">
             <el-tag size="small" type="warning" effect="plain">{{ g.label }}</el-tag>
-            透過 {{ g.passed }} 門 / 共列 {{ g.rows.length }} 門
+            通過 {{ g.passed }} 門 / 共列 {{ g.rows.length }} 門
           </span>
         </template>
         <el-table :data="g.rows" size="small" stripe>

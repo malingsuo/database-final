@@ -60,7 +60,7 @@ async function handleLogout() {
         <p class="eyebrow">學分檢核總覽</p>
         <h2>{{ adminName }}，今天需要優先處理 {{ dashboardStats.at_risk_students }} 位風險學生</h2>
         <p class="hero-copy">
-          依學生學分進度、未透過課程與備註紀錄彙整待追蹤名單，協助系辦快速掌握畢業檢核風險。
+          依學生學分進度、未通過課程與備註紀錄彙整待追蹤名單，協助系辦快速掌握畢業檢核風險。
         </p>
       </div>
       <div class="hero-meta">
@@ -134,12 +134,12 @@ async function handleLogout() {
       <aside class="side-stack">
         <article class="panel">
           <h3>課程風險</h3>
-          <p class="panel-note">依學生修課紀錄計算未透過率。</p>
+          <p class="panel-note">依學生修課紀錄計算未通過率。</p>
           <div class="course-list">
             <div v-for="course in difficultCourses" :key="course.name" class="course-row">
               <div>
                 <strong>{{ course.name }}</strong>
-                <span>{{ course.failed }} / {{ course.total }} 未透過</span>
+                <span>{{ course.failed }} / {{ course.total }} 未通過</span>
               </div>
               <el-progress type="circle" :width="52" :percentage="course.failRate" color="#dc2626" />
             </div>

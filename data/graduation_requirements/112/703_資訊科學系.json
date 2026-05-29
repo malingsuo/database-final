@@ -46,7 +46,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "70395700",
+      "course_code_required": "703049001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "70395700",
       "note": "應同時修習0學分實習課（科目代號703957001）"
@@ -67,7 +67,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703002001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -88,7 +88,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "70395500",
+      "course_code_required": "703009001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "70395500",
       "note": "應同時修習0學分實習課（科目代號703955001）"
@@ -109,7 +109,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703008001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -130,7 +130,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703017001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -151,7 +151,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703007001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -172,7 +172,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703056001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -193,7 +193,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703022001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -214,7 +214,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703015001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -235,7 +235,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703014001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -256,7 +256,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703016001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -277,7 +277,7 @@
         "y4s2": false
       },
       "recognition": "需為本系開課",
-      "course_code_required": "無",
+      "course_code_required": "703019001",
       "double_major_recognition": "需為本系開課",
       "double_major_course_code": "無",
       "note": "無"
@@ -483,5 +483,121 @@
       "unique_groups": true,
       "note": "B~E至少選3門，領域不得重複"
     }
+  },
+  "group_course_codes": {
+    "群A": [
+      {
+        "name": "資訊專題（A）",
+        "course_code": "703044001"
+      },
+      {
+        "name": "資訊專題（B）",
+        "course_code": "703045001"
+      },
+      {
+        "name": "資訊專題（C）",
+        "course_code": "703046001"
+      },
+      {
+        "name": "資訊專題（D）",
+        "course_code": "703047001"
+      }
+    ],
+    "群B": [
+      {
+        "name": "人工智慧概論",
+        "course_code": "703038001"
+      },
+      {
+        "name": "資料庫系統",
+        "course_code": "703025001"
+      },
+      {
+        "name": "資料科學",
+        "course_code": "703837001"
+      },
+      {
+        "name": "機器學習概論",
+        "course_code": "703901001"
+      },
+      {
+        "name": "電腦視覺",
+        "course_code": "703918001"
+      }
+    ],
+    "群C": [
+      {
+        "name": "人機互動",
+        "course_code": "703055001"
+      },
+      {
+        "name": "電腦圖學",
+        "course_code": "703053001"
+      },
+      {
+        "name": "軟體開發環境應用設計",
+        "course_code": "703830001"
+      },
+      {
+        "name": "虛擬實境與觸覺回饋互動",
+        "course_code": "703827001"
+      },
+      {
+        "name": "視訊壓縮",
+        "course_code": "703826001"
+      },
+      {
+        "name": "資訊視覺化",
+        "course_code": "703842001"
+      }
+    ],
+    "群D": [
+      {
+        "name": "資訊安全",
+        "course_code": "703060001"
+      },
+      {
+        "name": "資訊理論",
+        "course_code": "703824001"
+      },
+      {
+        "name": "現代密碼學",
+        "course_code": null
+      },
+      {
+        "name": "數位簽章",
+        "course_code": null
+      },
+      {
+        "name": "工業物聯網與營運安全",
+        "course_code": null
+      }
+    ],
+    "群E": [
+      {
+        "name": "計算機網路",
+        "course_code": "703027001"
+      },
+      {
+        "name": "行動通訊網路",
+        "course_code": "703819001"
+      },
+      {
+        "name": "網路與通訊概論",
+        "course_code": "703920001"
+      },
+      {
+        "name": "分散式系統",
+        "course_code": "703059001"
+      },
+      {
+        "name": "軟體工程概論",
+        "course_code": "703039001"
+      },
+      {
+        "name": "等候理論",
+        "course_code": "703042001"
+      }
+    ]
   }
 }

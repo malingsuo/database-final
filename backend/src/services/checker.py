@@ -117,8 +117,9 @@ def _normalize_name(name: str) -> str:
     s = (name or "").strip()
     s = s.translate(_FULLWIDTH_TO_HALF)
     s = unicodedata.normalize("NFC", s)
-    s = re.sub(r"\([^)]*\)", "", s)
-    s = re.sub(r"（[^）]*）", "", s)
+    # 保留數字括號（一）（二）...避免同系列課程名稱撞在一起
+    s = re.sub(r"\((?![一二三四五六七八九十])[^)]*\)", "", s)
+    s = re.sub(r"（(?![一二三四五六七八九十])[^）]*）", "", s)
     s = re.sub(r"\s+", "", s)
     return s.strip()
 
@@ -286,6 +287,38 @@ def _match_courses_from_rules(
     return passed, in_progress, missing, earned, in_prog_credits
 
 
+def _expand_group_courses(rule_courses: list[dict], group_course_codes: dict) -> list[dict]:
+    """把群B/C/D/E 佔位條目展開成實際課程清單，群A 條目名稱已具體不需展開。"""
+    if not group_course_codes:
+        return rule_courses
+
+    expanded = []
+    for dc in rule_courses:
+        grp = str(dc.get("type") or "")
+        if not grp.startswith("群"):
+            expanded.append(dc)
+            continue
+
+        actual = group_course_codes.get(grp)
+        # 群A 條目已是具體課名（資訊專題A/B/C/D），直接保留
+        # 其他群若有 actual 清單就展開
+        if not actual or grp == "群A":
+            expanded.append(dc)
+            continue
+
+        for c in actual:
+            expanded.append({
+                "name": c["name"],
+                "type": grp,
+                "course_code_required": c.get("course_code") or "無",
+                "credits": dc.get("credits", 3),
+                "recognition": dc.get("recognition", "需為本系開課"),
+                "note": dc.get("note", ""),
+            })
+
+    return expanded
+
+
 def check_major(session: Session, student: Student, major_name: str | None) -> dict:
     if not major_name:
         return _not_found_result("未設定主修")
@@ -296,6 +329,10 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
 
     all_courses = rules.get("courses", [])
     rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修") or str(c.get("type") or "").startswith("群")]
+
+    # 若規則有 group_course_codes，展開群B/C/D/E 佔位條目為實際課程
+    group_course_codes = rules.get("group_course_codes", {})
+    rule_courses = _expand_group_courses(rule_courses, group_course_codes)
 
     if not rule_courses and rules.get("total_credits_required") is None:
         return _no_data_result(rules.get("dept_name", major_name))

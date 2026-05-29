@@ -140,7 +140,7 @@ const mockStudents: Student[] = [
     total_credits: 115,
     required_credits: 120,
     completed_courses: 38,
-    notes: '交換生預審透過，需追蹤學分抵免進度。',
+    notes: '交換生預審通過，需追蹤學分抵免進度。',
     courses: [
       {
         course_id: 'CS301',
@@ -174,7 +174,7 @@ const mockStudents: Student[] = [
     total_credits: 52,
     required_credits: 90,
     completed_courses: 18,
-    notes: '必修課多次未透過，需安排學業輔導。',
+    notes: '必修課多次未通過，需安排學業輔導。',
     courses: [
       {
         course_id: 'CORE203',
@@ -271,7 +271,7 @@ export const useAdminStore = defineStore('admin', () => {
       .slice(0, 5)
   })
 
-  // 未透過率最高的課程前三名
+  // 未通過率最高的課程前三名
   const difficultCourses = computed(() => {
     const courseStats = new Map<string, { name: string; total: number; failed: number }>()
 

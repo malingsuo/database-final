@@ -61,7 +61,7 @@ const geMissingCategories = computed(
               <CourseTable :courses="cat.courses" show-score />
             </section>
           </template>
-          <el-empty v-else description="尚無已透過的應修課程" :image-size="80" />
+          <el-empty v-else description="尚無已通過的應修課程" :image-size="80" />
         </el-tab-pane>
 
         <!-- 缺修清單 -->
@@ -120,12 +120,12 @@ const geMissingCategories = computed(
               show-icon
               class="pe-alert"
             >
-              已透過 {{ result.pe_check.passed_semesters }} / {{ result.pe_check.required_semesters }} 學期
+              已通過 {{ result.pe_check.passed_semesters }} / {{ result.pe_check.required_semesters }} 學期
               <template v-if="result.pe_check.missing_semesters > 0">
                 ，尚缺 {{ result.pe_check.missing_semesters }} 學期
               </template>
             </el-alert>
-            <el-table :data="result.pe_check.passed_courses" stripe size="small" empty-text="無已透過的體育課">
+            <el-table :data="result.pe_check.passed_courses" stripe size="small" empty-text="無已通過的體育課">
               <el-table-column prop="course_name" label="課程名稱" min-width="160" show-overflow-tooltip />
               <el-table-column prop="course_code" label="程式碼" width="110" />
               <el-table-column prop="academic_year_semester" label="學年期" width="100" align="center" />

@@ -136,11 +136,11 @@ onMounted(() => {
             <strong>{{ student.completed_courses }}</strong>
           </div>
           <div>
-            <span>透過課程</span>
+            <span>通過課程</span>
             <strong class="success">{{ passedCourses.length }}</strong>
           </div>
           <div>
-            <span>未透過課程</span>
+            <span>未通過課程</span>
             <strong class="danger">{{ failedCourses.length }}</strong>
           </div>
         </div>
@@ -199,7 +199,7 @@ onMounted(() => {
               <el-table-column label="狀態" width="110" align="center">
                 <template #default="{ row }">
                   <el-tag :type="row.is_passed ? 'success' : 'danger'" effect="light">
-                    {{ row.is_passed ? '透過' : '未透過' }}
+                    {{ row.is_passed ? '通過' : '未通過' }}
                   </el-tag>
                 </template>
               </el-table-column>

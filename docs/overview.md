@@ -39,7 +39,7 @@
 | `check_double_major` | 雙主修；AI 學程依主修是否資訊系自動選 cs/non_cs JSON |
 | `check_minor` | 輔系檢核 |
 | `check_ge` | 通識，依 remark_code 對應類別學分 |
-| `check_pe` | 體育必修（需 4 學期透過）|
+| `check_pe` | 體育必修（需 4 學期通過）|
 | `check_graduation` | 主入口，整合全部結果 + 計算選修學分缺口 |
 
 課程比對策略（依序）：

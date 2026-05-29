@@ -166,7 +166,7 @@
               <p class="text-2xl font-bold text-purple-600">
                 {{ student.courses.filter((c) => !c.is_passed).length }}
               </p>
-              <p class="text-xs text-slate-600">未透過課程</p>
+              <p class="text-xs text-slate-600">未通過課程</p>
             </div>
           </div>
 
