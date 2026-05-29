@@ -4,6 +4,7 @@
 
 import type {
   CheckResult,
+  Department,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
@@ -24,7 +25,7 @@ type MockUser = {
   account: string
   password: string
   role: Role
-  student_id?: number | null
+  student_id?: string | null
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
@@ -48,7 +49,7 @@ const mockUsers = new Map<string, MockUser>([
       account: '112703043@example.com',
       password: 'password123',
       role: 'student',
-      student_id: 3,
+      student_id: '112703043',
       student_number: '112703043',
       name: '彭啟則',
       admission_year: 112,
@@ -81,7 +82,7 @@ let currentAccount = readMockAccount()
 
 export const mockCheckResult: CheckResult = {
   student: {
-    id: 3,
+    id: '112703043',
     student_number: '112703043',
     chinese_name: '彭啟則',
     entry_year: 112,
@@ -362,9 +363,13 @@ export function mockGetCheck(): Promise<CheckResult> {
   return delay(mockCheckResult)
 }
 
+export function mockListDepartments(): Promise<Department[]> {
+  return delay(Array.from(departments, ([id, name]) => ({ id, name, college: '' })))
+}
+
 export function mockUpload(): Promise<UploadResponse> {
   return delay({
-    student_id: 3,
+    student_id: '112703043',
     student_number: '112703043',
     chinese_name: '彭啟則',
     course_count: 48,

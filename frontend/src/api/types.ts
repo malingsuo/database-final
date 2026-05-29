@@ -47,8 +47,7 @@ export interface StatusResponse {
   user_id: string
   account: string
   role: Role
-  // 後端就緒後於學生已上傳時帶上；用於免上傳直接解析檢核
-  student_id?: number | null
+  student_id?: string | null
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
@@ -161,16 +160,22 @@ export interface CheckSummary {
 }
 
 export interface StudentInfo {
-  id: number
+  id: string
   student_number: string
   chinese_name: string | null
   entry_year: number
-  register_major: string
+  register_major: string | null
   register_double_major: string | null
   minor1: string | null
   minor2: string | null
   graduation_credit: number | null
   total_credits: number | null
+}
+
+export interface Department {
+  id: string
+  college: string
+  name: string
 }
 
 export interface CheckResult {
@@ -184,7 +189,7 @@ export interface CheckResult {
 }
 
 export interface UploadResponse {
-  student_id: number
+  student_id: string
   student_number: string
   chinese_name: string | null
   course_count: number

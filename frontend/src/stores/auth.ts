@@ -8,7 +8,7 @@ export interface CurrentUser {
   user_id: string
   account: string
   role: Role
-  student_id?: number | null
+  student_id?: string | null
   student_number?: string | null
   name?: string | null
   admission_year?: number | null
