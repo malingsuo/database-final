@@ -20,7 +20,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.core.database import Base
 
 
-class User(Base):
+class Account(Base):
     __tablename__ = "account"
 
     id: Mapped[uuid.UUID] = mapped_column(
@@ -37,14 +37,14 @@ class User(Base):
     )
 
     student: Mapped[Student | None] = relationship(
-        "Student", back_populates="user", uselist=False
+        "Student", back_populates="account", uselist=False
     )
     administrator: Mapped[Administrator | None] = relationship(
-        "Administrator", back_populates="user", uselist=False
+        "Administrator", back_populates="account", uselist=False
     )
 
     def __repr__(self) -> str:
-        return f"<User {self.email} ({self.role})>"
+        return f"<Account {self.email} ({self.role})>"
 
 
 class Department(Base):
@@ -70,7 +70,7 @@ class Administrator(Base):
         String(10), ForeignKey("department.id"), nullable=False
     )
 
-    user: Mapped[User] = relationship("User", back_populates="administrator")
+    account: Mapped[Account] = relationship("Account", back_populates="administrator")
     department: Mapped[Department] = relationship("Department")
 
     def __repr__(self) -> str:
@@ -90,7 +90,7 @@ class Student(Base):
     name: Mapped[str | None] = mapped_column(String(50), default=None)
     admission_year: Mapped[int] = mapped_column(Integer, nullable=False)
 
-    user: Mapped[User] = relationship("User", back_populates="student")
+    account: Mapped[Account] = relationship("Account", back_populates="student")
     enrollments: Mapped[list[Enrollment]] = relationship(
         "Enrollment", back_populates="student", cascade="all, delete-orphan"
     )

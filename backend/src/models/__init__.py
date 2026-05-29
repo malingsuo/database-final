@@ -1,4 +1,5 @@
 from src.models.models import (
+    Account,
     Administrator,
     Base,
     Course,
@@ -6,12 +7,12 @@ from src.models.models import (
     Enrollment,
     FieldOfStudy,
     Student,
-    User,
     create_all_tables,
     drop_all_tables,
 )
 
 __all__ = [
+    "Account",
     "Administrator",
     "Base",
     "Course",
@@ -19,7 +20,6 @@ __all__ = [
     "Enrollment",
     "FieldOfStudy",
     "Student",
-    "User",
     "create_all_tables",
     "drop_all_tables",
 ]
