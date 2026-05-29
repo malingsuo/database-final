@@ -1,0 +1,37 @@
+{
+  "dept_code": "104",
+  "dept_name": "哲學系",
+  "college": "文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-104.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.736655",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 24,
+  "total_courses": 3,
+  "courses": [
+    {
+      "name": "哲學概論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "邏輯",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "本系開設之課程（自由選修）",
+      "credits": 18,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "1.   凡修畢本系開設之必修課程「哲學概論—3 學分」與「邏輯—3 學分」及本系所開之專業課程達 18 學分\n     即可承認其輔系資格，惟全學年課程必須修滿始採計學分。\n2.   「通識課程」不予列入輔系學分計算。",
+  "special_rules": [
+    "哲學系：必修哲學概論3學分+邏輯3學分，另修本系開設課程18學分，共24學分"
+  ],
+  "parse_warnings": []
+}

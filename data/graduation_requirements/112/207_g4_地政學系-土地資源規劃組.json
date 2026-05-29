@@ -1,0 +1,328 @@
+{
+  "dept_code": "207",
+  "dept_name": "地政學系-土地資源規劃組",
+  "dept_name_full": "",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "gopnum": "4",
+  "key": "207_g4",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=4&depnum=207",
+  "total_courses": 15,
+  "courses": [
+    {
+      "name": "民法（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "都市計畫",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "電腦繪圖與地理資訊系統",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "測量學及實習",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "本科目為3學分課程，但每週上課5小時。"
+    },
+    {
+      "name": "規劃實務（一）",
+      "type": "必修",
+      "credits": 8,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "1.先修科目為「都市計畫」，並建議先修「電腦繪圖與地理資訊系統」。\r\n2.本科目每週另開4小時0學分實習課。"
+    },
+    {
+      "name": "土地法（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "建議先修「民法（一）（二）」"
+    },
+    {
+      "name": "土地經濟學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "統計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "都市土地使用計畫",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "都市交通運輸計畫",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "規劃實務（二）",
+      "type": "必修",
+      "credits": 8,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "1.先修科目為「規劃實務（一）」。\r\n2.本科目每週另開4小時0學分實習課。"
+    },
+    {
+      "name": "公共設施計畫",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "都市計畫法規",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "土地政策",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "建議先修「土地制度史」"
+    }
+  ]
+}

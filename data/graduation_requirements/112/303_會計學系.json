@@ -1,0 +1,544 @@
+{
+  "dept_code": "303",
+  "dept_name": "會計學系",
+  "dept_name_full": "",
+  "college": "商學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "303",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=303",
+  "total_courses": 25,
+  "courses": [
+    {
+      "name": "民法概要",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "初級會計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "初級會計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "初級會計學（一）"
+    },
+    {
+      "name": "微積分",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "統計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "統計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "中級會計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "初級會計學（二）"
+    },
+    {
+      "name": "成本管理會計（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "初級會計學（二）"
+    },
+    {
+      "name": "商事法",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "中級會計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "中級會計學（一）"
+    },
+    {
+      "name": "成本管理會計（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "成本管理會計（一）"
+    },
+    {
+      "name": "高級會計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "中級會計學（二）"
+    },
+    {
+      "name": "會計資訊系統（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "初級會計學（二）"
+    },
+    {
+      "name": "企業倫理與社會責任",
+      "type": "必修",
+      "credits": 1,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "高級會計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "高級會計學（一）"
+    },
+    {
+      "name": "審計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "中級會計學（二）"
+    },
+    {
+      "name": "電腦審計",
+      "type": "必修",
+      "credits": 1,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "審計學（一）"
+    },
+    {
+      "name": "風險管理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    },
+    {
+      "name": "管理學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    },
+    {
+      "name": "行銷管理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    },
+    {
+      "name": "財務管理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    },
+    {
+      "name": "人力資源管理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    },
+    {
+      "name": "商業分析",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    },
+    {
+      "name": "營運與供應鏈管理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "七選一"
+    }
+  ],
+  "group_rules": {
+    "群A": {
+      "min_courses": 1,
+      "note": "七選一"
+    }
+  }
+}

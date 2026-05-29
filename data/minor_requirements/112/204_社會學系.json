@@ -1,0 +1,55 @@
+{
+  "dept_code": "204",
+  "dept_name": "社會學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-204.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.816970",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 20,
+  "total_courses": 6,
+  "courses": [
+    {
+      "name": "社會學",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "社會統計",
+      "credits": 4,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "社會學理論",
+      "credits": 4,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "社會研究方法",
+      "credits": 4,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "社會學資料處理",
+      "credits": 4,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "台灣社會研究",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "任選 20 學分。",
+  "special_rules": [
+    "社會學系：任選20學分，所列為可選科目池"
+  ],
+  "parse_warnings": []
+}

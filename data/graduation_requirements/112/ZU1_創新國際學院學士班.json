@@ -1,0 +1,695 @@
+{
+  "dept_code": "ZU1",
+  "dept_name": "創新國際學院學士班",
+  "dept_name_full": "",
+  "college": "創新國際學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "ZU1",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=ZU1",
+  "total_courses": 32,
+  "courses": [
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "全球研究導論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "統計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "程式設計",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "統計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "研究方法",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "人類學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（SS）；十選五/15學分"
+    },
+    {
+      "name": "AI導論",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（DA）；十選五/15學分"
+    },
+    {
+      "name": "社會學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（SS）；十選五/15學分"
+    },
+    {
+      "name": "政治學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（GG）；十選五/15學分"
+    },
+    {
+      "name": "國際公法",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（GG）；十選五/15學分"
+    },
+    {
+      "name": "科技與當代社會",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（SS）；十選五/15學分"
+    },
+    {
+      "name": "資料科學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（DA）；十選五/15學分"
+    },
+    {
+      "name": "人文地理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（SS）；十選五/15學分"
+    },
+    {
+      "name": "行政學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（GG）；十選五/15學分"
+    },
+    {
+      "name": "國際創新管理",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（DA）；十選五/15學分"
+    },
+    {
+      "name": "AI與治理",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(GG/DA)；三軌三選二/共12學分"
+    },
+    {
+      "name": "AI與倫理",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(GG/DA)；三軌三選二/共12學分"
+    },
+    {
+      "name": "人類世與地緣政治",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（SS）；三軌三選二/共12學分"
+    },
+    {
+      "name": "大數據與社會分析",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（DA）；三軌三選二/共12學分"
+    },
+    {
+      "name": "台灣近代史",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(SS/GG)；三軌三選二/共12學分"
+    },
+    {
+      "name": "台灣近代社會史",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(SS/GG)；三軌三選二/共12學分"
+    },
+    {
+      "name": "永續發展與都市政治",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（SS）；三軌三選二/共12學分"
+    },
+    {
+      "name": "全球公民運動",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(SS/GG)；三軌三選二/共12學分"
+    },
+    {
+      "name": "全球衛生治理",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（GG）；三軌三選二/共12學分"
+    },
+    {
+      "name": "全球議題在亞洲",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（GG）；三軌三選二/共12學分"
+    },
+    {
+      "name": "科技社會與文化",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(SS/GG)；三軌三選二/共12學分"
+    },
+    {
+      "name": "科技社會與爭議",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(SS/DA)；三軌三選二/共12學分"
+    },
+    {
+      "name": "假訊息治理與民主政治",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(GG/DA)；三軌三選二/共12學分"
+    },
+    {
+      "name": "國際人權法",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "（GG）；三軌三選二/共12學分；先修課程為國際公法"
+    },
+    {
+      "name": "移民與全球化",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "(SS/GG)；三軌三選二/共12學分"
+    },
+    {
+      "name": "設計思維",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "（DA）；三軌三選二/共12學分"
+    }
+  ],
+  "group_rules": {
+    "群A": {
+      "min_courses": 5,
+      "note": "（DA）；十選五/15學分 （GG）；十選五/15學分 （SS）；十選五/15學分"
+    },
+    "群B": {
+      "min_courses": 2,
+      "note": "（SS）；三軌三選二/共12學分 （GG）；三軌三選二/共12學分；先修課程為國際公法 (GG/DA)；三軌三選二/共12學分 (SS/GG)；三軌三選二/共1"
+    }
+  }
+}

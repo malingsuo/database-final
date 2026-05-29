@@ -1,0 +1,98 @@
+{
+  "dept_code": "781",
+  "dept_name": "數位內容與科技學士學位學程",
+  "dept_name_full": "",
+  "college": "資訊學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=781",
+  "total_required_credits": 12,
+  "total_group_credits": 0,
+  "total_courses": 4,
+  "courses": [
+    {
+      "name": "當代藝術與策展",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "專業必修"
+    },
+    {
+      "name": "數位內容與科技導論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "專業必修"
+    },
+    {
+      "name": "專案實作Ｃ",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "專業必修"
+    },
+    {
+      "name": "專案實作Ｄ",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "專業必修"
+    }
+  ]
+}

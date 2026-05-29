@@ -1,0 +1,47 @@
+{
+  "dept_code": "308",
+  "dept_name": "風險管理與保險學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-308.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.151545",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 5,
+  "courses": [
+    {
+      "name": "風險管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "保險學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "人壽保險",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "財產保險",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "保險契約法",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [],
+  "parse_warnings": []
+}

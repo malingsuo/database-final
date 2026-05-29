@@ -1,0 +1,91 @@
+{
+  "dept_code": "601",
+  "dept_name": "法律學系",
+  "college": "法學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-601.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.466460",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 40,
+  "total_courses": 12,
+  "courses": [
+    {
+      "name": "刑法（一）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "刑法（二）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "刑事訴訟法（一）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民法總則",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民法債編總論（一）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民法債編總論（二）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民法物權",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "身分法",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民事訴訟法（一）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "法學的歷史、社會與思想",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "票據法",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "本系其他法律科目",
+      "credits": 10,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "（一）修畢公行、政治等系所開設之「中華民國憲法」、「中華民國憲法及政府」者，免修法律\n      系憲法，修畢他系所開設之行政法 4 學分者，得免修法律系行政法（一）及行政法（二）4\n      學分。以上免修之科目依免修學分數降低法律系輔系應修總學分，但不得低於 20 學分。\n   （二）表列所稱「本系其他法律科目」係指法律系所開設供本系學生修習之專業必、群及選修科\n      目，不包含本系所開設但不開放法律系學生修習之課程，如：商事法，民法概要等。\n   （三）修習本系所開設之日文、德文及法文不計入輔系總學分。",
+  "special_rules": [
+    "法律學系：全部為群修，應修畢30學分（本系開課），另選修10學分，共40學分"
+  ],
+  "parse_warnings": []
+}

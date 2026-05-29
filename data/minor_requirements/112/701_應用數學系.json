@@ -1,0 +1,89 @@
+{
+  "dept_code": "701",
+  "dept_name": "應用數學系",
+  "college": "理學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-701.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.494927",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 28,
+  "total_courses": 12,
+  "courses": [
+    {
+      "name": "微積分",
+      "credits": 8,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "線性代數",
+      "credits": 8,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "離散數學",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "計算機程式",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "高等微積分",
+      "credits": 8,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "機率論",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "統計學",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "微分方程",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "代數學",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "數值分析",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "作業研究",
+      "credits": 3,
+      "type": null,
+      "group": null
+    },
+    {
+      "name": "複變函數論",
+      "credits": 3,
+      "type": null,
+      "group": null
+    }
+  ],
+  "notes": "必修科目與選修科目至少需修滿 28 學分，其中至少 16 學分需在本\n系修習。",
+  "special_rules": [],
+  "parse_warnings": []
+}

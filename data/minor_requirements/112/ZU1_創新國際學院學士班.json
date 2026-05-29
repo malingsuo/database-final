@@ -1,0 +1,62 @@
+{
+  "dept_code": "ZU1",
+  "dept_name": "創新國際學院學士班",
+  "college": "創新國際學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-ZU1.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.599510",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 27,
+  "total_courses": 7,
+  "courses": [
+    {
+      "name": "經濟學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "統計學(二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "全球研究導論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "程式設計",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "三軌群修課程（群A）",
+      "credits": 6,
+      "type": "群修",
+      "group": "群A"
+    },
+    {
+      "name": "三軌群修課程（群B）",
+      "credits": 6,
+      "type": "群修",
+      "group": "群B"
+    },
+    {
+      "name": "選修課程",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "1. 需再修習本學士班之經濟學/3 學分(課號: 000219032 或 000219512)、統計學(二)/3\n        學分(課號: ZU1016001 或 000360211)。\n   2. 選修課程: 需修習由創國學士班所開設之課程。",
+  "special_rules": [
+    "創新國際學院：申請條件需已修畢經濟學(一)/3+統計學(一)/3，且不計入應修學分",
+    "必修4門12學分 + 群A 6學分 + 群B 6學分 + 選修3學分，共27學分"
+  ],
+  "parse_warnings": []
+}

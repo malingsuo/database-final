@@ -1,0 +1,611 @@
+{
+  "dept_code": "203",
+  "dept_name": "外交學系",
+  "dept_name_full": "",
+  "college": "國際事務學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "203",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=203",
+  "total_courses": 28,
+  "courses": [
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "000219",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "000219",
+      "note": "無"
+    },
+    {
+      "name": "政治學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "000226",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "000226",
+      "note": "無"
+    },
+    {
+      "name": "國際關係",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "中國大陸研究",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "203066",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "203066",
+      "note": "無"
+    },
+    {
+      "name": "中國外交史",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "203010",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "203010",
+      "note": "無"
+    },
+    {
+      "name": "西洋外交史",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "203009",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "203009",
+      "note": "無"
+    },
+    {
+      "name": "國際安全",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係"
+    },
+    {
+      "name": "國際政治經濟學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係"
+    },
+    {
+      "name": "比較政府與政治",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "政治學"
+    },
+    {
+      "name": "國際組織",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "203004",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "203004",
+      "note": "國際關係"
+    },
+    {
+      "name": "質性與量化研究方法導論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "國際公法",
+      "type": "必修",
+      "credits": 4,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "203007",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "203007",
+      "note": "國際關係"
+    },
+    {
+      "name": "領導與外交決策分析",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係"
+    },
+    {
+      "name": "國際談判",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係"
+    },
+    {
+      "name": "區域研究—中東國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—北美國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—拉丁美洲國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—東北亞國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—東南亞國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—非洲國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—俄國與東歐國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—南亞國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—歐盟國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "區域研究—澳紐與大洋洲國際關係",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    {
+      "name": "國際行銷",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "至少四選一。"
+    },
+    {
+      "name": "國際金融",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "至少四選一。"
+    },
+    {
+      "name": "國際貿易",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "至少四選一。"
+    },
+    {
+      "name": "國際經濟",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "至少四選一。"
+    }
+  ],
+  "group_rules": {
+    "群A": {
+      "min_courses": 1,
+      "note": "國際關係、比較政府與政治\r\n至少十選一。此科目限制人數，但修習相關第二外語者優先選課。"
+    },
+    "群B": {
+      "min_courses": 1,
+      "note": "至少四選一。"
+    }
+  }
+}

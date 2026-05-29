@@ -1,0 +1,53 @@
+{
+  "dept_code": "507",
+  "dept_name": "韓國語文學系",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-507.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.357558",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 26,
+  "total_courses": 6,
+  "courses": [
+    {
+      "name": "初級韓國語",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中級韓國語",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "韓語語法(1)",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "韓語語法(2)",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "高級韓國語",
+      "credits": 6,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "韓語口說訓練(一)",
+      "credits": 6,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "1. 階梯式課程受擋修之限制。\n 2. 全學年科目，未選修上學期不得跳修下學期，重(補)修亦同。\n 3. 輔系學生應修習專為擴大輔系生另行開課之必、選修課程。",
+  "special_rules": [],
+  "parse_warnings": []
+}

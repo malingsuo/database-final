@@ -1,0 +1,355 @@
+{
+  "dept_code": "205",
+  "dept_name": "財政學系-公共經濟組",
+  "dept_name_full": "",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "gopnum": "2",
+  "key": "205_g2",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=2&depnum=205",
+  "total_courses": 16,
+  "courses": [
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "民法概要",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "初級會計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "微積分（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "財政學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "經濟學"
+    },
+    {
+      "name": "個體經濟學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "先修科目：經濟學"
+    },
+    {
+      "name": "統計學 （一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "總體經濟學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "先修科目：經濟學"
+    },
+    {
+      "name": "所得稅理論與制度",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "財政學"
+    },
+    {
+      "name": "消費稅理論與制度",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "財政學"
+    },
+    {
+      "name": "財產稅理論與制度",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "財政學"
+    },
+    {
+      "name": "經濟數學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "經濟學、微積分（一）"
+    },
+    {
+      "name": "現代財政理論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "財政學"
+    },
+    {
+      "name": "租稅法（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "個體經濟學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "先修科目：經濟學"
+    },
+    {
+      "name": "總體經濟學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "先修科目：經濟學"
+    }
+  ],
+  "group_rules": {
+    "群A": {
+      "min_courses": null,
+      "note": "先修科目：經濟學"
+    }
+  }
+}

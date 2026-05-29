@@ -1,0 +1,14 @@
+{
+  "dept_code": "509",
+  "dept_name": "歐洲語文學系",
+  "dept_name_full": "",
+  "college": "外語學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "509",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=509",
+  "status": "no_data",
+  "status_note": "政大必修科目表系統顯示：必修科目表尚在建置中或無本系(組)專業必修科目表",
+  "total_courses": 0,
+  "courses": []
+}

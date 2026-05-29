@@ -1,0 +1,161 @@
+{
+  "dept_code": "506",
+  "dept_name": "日本語文學系",
+  "dept_name_full": "",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=506",
+  "total_required_credits": 42,
+  "total_group_credits": 0,
+  "total_courses": 7,
+  "courses": [
+    {
+      "name": "日語會話演習（一）",
+      "type": "必修",
+      "credits": 8,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "A、B分班"
+    },
+    {
+      "name": "初級日語",
+      "type": "必修",
+      "credits": 8,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "中級日語",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "日文習作（一）",
+      "type": "必修",
+      "credits": 4,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "A、B分班"
+    },
+    {
+      "name": "日語會話演習（二）",
+      "type": "必修",
+      "credits": 8,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "A、B分班"
+    },
+    {
+      "name": "日文習作（二）",
+      "type": "必修",
+      "credits": 4,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "A、B分班"
+    },
+    {
+      "name": "高級日語",
+      "type": "必修",
+      "credits": 4,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    }
+  ]
+}

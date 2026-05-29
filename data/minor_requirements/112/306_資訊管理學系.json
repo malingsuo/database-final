@@ -1,0 +1,65 @@
+{
+  "dept_code": "306",
+  "dept_name": "資訊管理學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-306.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.104714",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 8,
+  "courses": [
+    {
+      "name": "計算機概論",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "程式設計一",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "程式設計二",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "資訊管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "資料庫管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "系統分析與設計",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "資料結構",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "企業資料通訊",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [],
+  "parse_warnings": []
+}

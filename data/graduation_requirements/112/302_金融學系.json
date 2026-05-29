@@ -1,0 +1,422 @@
+{
+  "dept_code": "302",
+  "dept_name": "金融學系",
+  "dept_name_full": "",
+  "college": "商學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "302",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=302",
+  "total_courses": 19,
+  "courses": [
+    {
+      "name": "微積分甲",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "00021957",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "00021957",
+      "note": "無"
+    },
+    {
+      "name": "初級會計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "統計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "初級會計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "先修初級會計學(一)"
+    },
+    {
+      "name": "統計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "財務管理",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "00034709",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "00034709",
+      "note": "無"
+    },
+    {
+      "name": "貨幣銀行學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "30203402",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "30203402",
+      "note": "先修經濟學"
+    },
+    {
+      "name": "投資學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "00035103",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "00035103",
+      "note": "無"
+    },
+    {
+      "name": "商事法",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "企業倫理與社會責任",
+      "type": "必修",
+      "credits": 1,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "無"
+    },
+    {
+      "name": "衍生性金融商品",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "先修財務管理與投資學"
+    },
+    {
+      "name": "國際金融",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "30203700",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "30203700",
+      "note": "先修財務管理"
+    },
+    {
+      "name": "銀行經營管理",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "30201800",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "30201800",
+      "note": "無"
+    },
+    {
+      "name": "個體經濟學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "先修經濟學，二選一"
+    },
+    {
+      "name": "總體經濟學",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "先修經濟學，二選一"
+    },
+    {
+      "name": "金融法規",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "30203201",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "30203201",
+      "note": "三選一"
+    },
+    {
+      "name": "金融機構管理",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "30204400",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "30204400",
+      "note": "三選一"
+    },
+    {
+      "name": "貨幣理論與政策",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "30204300",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "30204300",
+      "note": "先修貨幣銀行學，三選一"
+    }
+  ],
+  "group_rules": {
+    "群A": {
+      "min_courses": 1,
+      "note": "先修經濟學，二選一"
+    },
+    "群B": {
+      "min_courses": 1,
+      "note": "三選一 先修貨幣銀行學，三選一"
+    }
+  }
+}

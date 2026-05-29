@@ -1,0 +1,514 @@
+{
+  "dept_code": "301",
+  "dept_name": "國際經營與貿易學系",
+  "dept_name_full": "",
+  "college": "商學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "key": "301",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=301",
+  "total_courses": 23,
+  "courses": [
+    {
+      "name": "微積分",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "經濟學",
+      "type": "必修",
+      "credits": 6,
+      "semesters": 2,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "初級會計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "初級會計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "行銷管理",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同選修"
+    },
+    {
+      "name": "財務管理",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同選修"
+    },
+    {
+      "name": "商事法",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "管理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "統計學（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "統計學（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "企業倫理與社會責任",
+      "type": "必修",
+      "credits": 1,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "不限",
+      "course_code_required": "無",
+      "double_major_recognition": "不限",
+      "double_major_course_code": "無",
+      "note": "院共同必修"
+    },
+    {
+      "name": "國際買賣法",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": true,
+        "y3s2": true,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群A至少修一門"
+    },
+    {
+      "name": "國際經貿法",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": true,
+        "y3s2": true,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群A至少修一門"
+    },
+    {
+      "name": "國際經貿法專題",
+      "type": "群A",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群A至少修一門(先修科目：國際經貿法)"
+    },
+    {
+      "name": "國貿理論與政策",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群B至少修一門"
+    },
+    {
+      "name": "國際金融",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群B至少修一門"
+    },
+    {
+      "name": "國際金融專題",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群B至少修一門"
+    },
+    {
+      "name": "貿易與投資專題",
+      "type": "群B",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群B至少修一門"
+    },
+    {
+      "name": "國際企業管理",
+      "type": "群C",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群C至少修一門"
+    },
+    {
+      "name": "國際行銷管理",
+      "type": "群C",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群C至少修一門"
+    },
+    {
+      "name": "數據化投資分析",
+      "type": "群D",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": true,
+        "y3s2": true,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群D至少修一門"
+    },
+    {
+      "name": "用Python學財務計量",
+      "type": "群D",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群D至少修一門"
+    },
+    {
+      "name": "國際財務管理",
+      "type": "群D",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": true,
+        "y2s1": true,
+        "y2s2": true,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "無",
+      "note": "群D至少修一門"
+    }
+  ],
+  "group_rules": {
+    "群A": {
+      "min_courses": 1,
+      "note": "群A至少修一門(先修科目：國際經貿法) 群A至少修一門"
+    },
+    "群B": {
+      "min_courses": 1,
+      "note": "群B至少修一門"
+    },
+    "群C": {
+      "min_courses": 1,
+      "note": "群C至少修一門"
+    },
+    "群D": {
+      "min_courses": 1,
+      "note": "群D至少修一門"
+    }
+  }
+}

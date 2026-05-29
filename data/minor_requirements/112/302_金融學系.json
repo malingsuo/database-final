@@ -1,0 +1,89 @@
+{
+  "dept_code": "302",
+  "dept_name": "金融學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-302.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.003164",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 23,
+  "total_courses": 12,
+  "courses": [
+    {
+      "name": "貨幣銀行學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "投資學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "衍生性商品",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "貨幣理論與政策",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "金融法規",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "銀行經營管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "金融機構管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "金融市場",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "金融數量",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "大數據分析與金融科技",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "永續金融與商品創",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "責任投",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "依『國立政治大學各學系學生修讀雙主修、輔系辦法』第六條，修讀輔系者\n應修讀輔系規定之科目學分，至多抵免六學分，如修習本系教師所開之課程則不受上述\n限制，抵免後不足之學分由本系主任指派其它專業課程補足之。",
+  "special_rules": [],
+  "parse_warnings": []
+}

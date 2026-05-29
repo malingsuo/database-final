@@ -1,0 +1,89 @@
+{
+  "dept_code": "102",
+  "dept_name": "教育學系",
+  "college": "教育學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-102.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.687162",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 30,
+  "total_courses": 12,
+  "courses": [
+    {
+      "name": "教育概論",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "教育心理學",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "教育哲學",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "教育社會學",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "教學原理",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "班級經營",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "教學媒體與運用",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "課程發展與設計",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "輔導原理與實務",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "特殊教育導論",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "學習評量",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "教育議題專題",
+      "credits": 2,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "（一）應修學分以本系或本校師資培育中心所開課程為原則。\n（二）辦理學分抵免之科目不足教育系輔系就該科目所應修之學分數，依國立政治大學學生修讀雙主修、輔系\n    辦法第 6 條第 3 項規定辦理。\n（三）教育概論需達 85 分以上，始得續修教育哲學、輔導原理與實務及學習評量。",
+  "special_rules": [],
+  "parse_warnings": []
+}

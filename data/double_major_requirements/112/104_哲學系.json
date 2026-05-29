@@ -1,0 +1,203 @@
+{
+  "dept_code": "104",
+  "dept_name": "哲學系",
+  "dept_name_full": "",
+  "college": "文學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=104",
+  "total_required_credits": 27,
+  "total_group_credits": 0,
+  "total_courses": 9,
+  "courses": [
+    {
+      "name": "西洋哲學史（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10400700",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10400700",
+      "note": "無"
+    },
+    {
+      "name": "哲學概論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10400100",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10400100",
+      "note": "無"
+    },
+    {
+      "name": "西洋哲學史（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10408200",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10408200",
+      "note": "無"
+    },
+    {
+      "name": "邏輯",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10404900",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10404900",
+      "note": "無"
+    },
+    {
+      "name": "中國哲學史（一）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10400600",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10400600",
+      "note": "無"
+    },
+    {
+      "name": "倫理學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10400500",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10400500",
+      "note": "無"
+    },
+    {
+      "name": "中國哲學史（二）",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10407700",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10407700",
+      "note": "無"
+    },
+    {
+      "name": "知識論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10400300",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10400300",
+      "note": "無"
+    },
+    {
+      "name": "形上學",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "10400200",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "10400200",
+      "note": "無"
+    }
+  ]
+}
