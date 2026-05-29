@@ -1,0 +1,65 @@
+{
+  "dept_code": "506",
+  "dept_name": "日本語文學系",
+  "college": "外國語文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-506.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.333205",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 32,
+  "total_courses": 8,
+  "courses": [
+    {
+      "name": "初級日語",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "日語會話（一）",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "日語演習（一）",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中級日語",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "日語會話（二）",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "日語演習（二）",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "日文寫作",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "選修課程",
+      "credits": 4,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "一、本系同意抵免上限為 16 學分，其中必修課抵免上限 12 學分，選修課抵免上限 4 學分。\n二、本系所開通識課程不得抵免。\n三、跳修初級日語、中級日語、日語演習(一)者須改選本系選修課，以來補足初級日語／中級日\n  語／日語演習（一）的學分。\n四、輔系課程均沒有設定擋修，所有課程可依個人情形自由調整修課。即修習年別可依個人狀況\n  調整。",
+  "special_rules": [],
+  "parse_warnings": []
+}

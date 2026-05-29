@@ -1,0 +1,292 @@
+{
+  "dept_code": "102",
+  "dept_name": "教育學系-師資組",
+  "dept_name_full": "",
+  "college": "教育學院",
+  "entry_year": 112,
+  "gopnum": "4",
+  "key": "102_g4",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=4&depnum=102",
+  "total_courses": 13,
+  "courses": [
+    {
+      "name": "教育心理學",
+      "type": "必修",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102103",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102103",
+      "note": "上課4小時"
+    },
+    {
+      "name": "教育議題專題",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102119",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102119",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "社會領域教學實習",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102120",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102120",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "商業與管理群教材教法",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102123",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102123",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "商業與管理群教學實習",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102124",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102124",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "綜合活動領域教材教法",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102121",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102121",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "綜合活動領域教學實習",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102122",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102122",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "語文領域-英文教材教法",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102115",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102115",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "語文領域-英文教學實習",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102116",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102116",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "語文領域-國文教材教法",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102113",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102113",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "語文領域-國文教學實習",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102114",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102114",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "數學領域教材教法",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102117",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102117",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    },
+    {
+      "name": "數學領域教學實習",
+      "type": "群B",
+      "credits": 2,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本系開課",
+      "course_code_required": "102118",
+      "double_major_recognition": "需為本系開課",
+      "double_major_course_code": "102118",
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    }
+  ],
+  "group_rules": {
+    "群B": {
+      "min_courses": 2,
+      "note": "12科選2\r\n(教材教法與教學實習須為同一類科)"
+    }
+  }
+}

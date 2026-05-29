@@ -1,0 +1,56 @@
+{
+  "dept_code": "783",
+  "dept_name": "人工智慧應用學士學位學程",
+  "dept_name_full": "",
+  "college": "資訊學院",
+  "entry_year": 112,
+  "gopnum": "",
+  "source_url": "https://moltke.nccu.edu.tw/tsreqsub_SSO/reqsub.tsreqsub?gdetpe=1&yy=112&gopnum=&depnum=783",
+  "total_required_credits": 6,
+  "total_group_credits": 0,
+  "total_courses": 2,
+  "courses": [
+    {
+      "name": "計算思維與人工智慧應用導論",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "先導入門(由本院各單位開課)"
+    },
+    {
+      "name": "人工智慧實務專題",
+      "type": "必修",
+      "credits": 3,
+      "semesters": 1,
+      "schedule": {
+        "y1s1": true,
+        "y1s2": false,
+        "y2s1": false,
+        "y2s2": false,
+        "y3s1": false,
+        "y3s2": false,
+        "y4s1": false,
+        "y4s2": false
+      },
+      "recognition": "需為本院開課",
+      "course_code_required": "無",
+      "double_major_recognition": "需為本院開課",
+      "double_major_course_code": "無",
+      "note": "統整實作(由本院各單位開課)"
+    }
+  ]
+}

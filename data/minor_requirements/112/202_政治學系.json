@@ -1,0 +1,134 @@
+{
+  "dept_code": "202",
+  "dept_name": "政治學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-202.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.764268",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 30,
+  "total_courses": 19,
+  "courses": [
+    {
+      "name": "政治學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中華民國憲法與政府",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "比較政府與政治",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "政黨政治",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "經 計量分析軟體在社會科學的應用",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "政 國會與立法行為",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "治 經驗政治理論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "門 選舉與投票行為",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "民意與調查",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "政 中國政治思想史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "想 西洋政治思想史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "歷 西洋政治思想典籍導讀",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "人權與市民社會",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國大陸政府與政治",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "比 兩岸關係概論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "政 國際關係",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "治 歐陸政府與政治",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "門 拉丁美洲政府與政治",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "東亞政府與政治",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "別 分 行 系\n                             開 附\n                             課 修\n政治學                      必   6        一、輔系生請修：\n中華民國憲法與政府                必   6     \n                                       1. 必修科目：\n比較政府與政治                  必   6           政治學（6 學分）\n 政黨政治                    群   3           中華民國憲法與政府\n經 計量分析軟體在社會科學的應用         群   3           （6 學分）\n驗                                         比較政府與政治\n政 國會與立法行為                群   3           （6 學分）\n治 經驗政治理論                 群   3           三科 18 學分；\n學\n門 選舉與投票行為                群   3        2. 群修科目：\n                                          於三學門中任選兩學\n 民意與調查                   群   3     \n                                          門，每學門至少選修\n政 中國政治思想史                群   3           6 學分。\n治 中國政治思想典籍導讀                           合計 30 學分。\n思\n                         群   3     \n想 西洋政治思想史                群   3     \n與                                    二、抵免後不足三十學分\n歷 西洋政治思想典籍導讀             群   3        者，由本系指定其他科\n史 意識型態理論                               目補足之。\n學\n                         群   3     \n門 自由、人權與市民社會             群   3        三、公行及外交兩系同學\n 中國大陸政府與政治               群   3          選修本系為輔系者，抵\n比 兩岸關係概論                 群   3          免學分上限為十學分。\n較\n政 國際關係                   群   3     \n治 歐陸政府與政治                群   3     \n學\n門 拉丁美洲政府與政治              群   3     \n 東亞政府與政治                 群   3     ",
+  "special_rules": [
+    "政治學系：必修18學分（3門），群修12學分（三學門任選兩學門，各至少6學分），合計30學分",
+    "公行及外交兩系同學選修本系為輔系者，抵免學分上限為十學分"
+  ],
+  "parse_warnings": []
+}

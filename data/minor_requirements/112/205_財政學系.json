@@ -1,0 +1,65 @@
+{
+  "dept_code": "205",
+  "dept_name": "財政學系",
+  "college": "社會科學學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-205.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.840840",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 8,
+  "courses": [
+    {
+      "name": "財政學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "財產稅理論與制度",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "所得稅理論與制度",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "消費稅理論與制度",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "租稅法（一）",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "所得稅問題",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "稅務會計",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "現代財政理論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "依照『國立政治大學學生修讀雙主修、輔系辦法』第六條，如核定抵免後之科目\n     不足輔系就該科目所應修之學分數，則應經由本系指定另修專業科目學分補足\n     之。",
+  "special_rules": [],
+  "parse_warnings": []
+}

@@ -1,0 +1,77 @@
+{
+  "dept_code": "203",
+  "dept_name": "外交學系",
+  "college": "國際事務學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-203.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.788920",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 30,
+  "total_courses": 10,
+  "courses": [
+    {
+      "name": "西洋外交史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國外交史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "國際關係",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國際公法",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國際組織",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "中國大陸研究",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "領導與外交決策分析",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "國際政治經濟學",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "國際安全",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "國際談判",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "1.   西洋外交史和中國外交史至少需修習一門課程，輔系生需修專班。\n2.   「國際關係」請修習輔系專班或外交整合開課，均須繳交學分費。\n3.   「區域研究」（包含非洲、歐盟、拉丁美洲、中東、北美、東北亞、俄國與東歐、南亞\n     和東南亞國際關係）、「國際經貿事務」（包含國際經濟、國際貿易、國際金融、國際\n     行銷）各至多選修兩門。\n4.   「外交學系選修」限系內開設之選修課程，以 6 學分為限。\n5.   設有先修科目之科目請注意需先修習完畢尚可修習該課程。\n6.   開課狀況視該年師資狀況可能調整。\n7.   以上所有科目限修外交系及外交輔系之班級，欲修讀他系開設之同名科目需先徵求本系\n     同意，並於修畢後辦理抵免。\n8.   外交輔系專班（另行開課）學分費繳交依據校方規定辦理。",
+  "special_rules": [],
+  "parse_warnings": []
+}

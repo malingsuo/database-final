@@ -1,0 +1,79 @@
+{
+  "dept_code": "402",
+  "dept_name": "廣告學系",
+  "college": "傳播學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-402.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.205264",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 10,
+  "courses": [
+    {
+      "name": "傳播概論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "傳播與社會",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "資料分析基礎與策略",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "數位行銷企劃實務",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "企業公共關係",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "沉浸式媒體與創意",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "行銷公關",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "品牌行銷",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "公關個案研究",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "社群媒體行銷",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1.   本系輔系共需修滿 21學分，含院必修 9 學分，以及廣告系群修 12 學分。\n2.   修課規定：以下院必修3 門 9 學分外，另以下 7門群修課，自行選讀 4 門課。\n3.   上列必修科目在課表公告採系所分派，僅限於本系生；輔系生仍需自行選課（考量輔系生，\n     仍有該系必修或其他原因需優先修讀，故不適用分派）。\n\n\n\n\n     院必修9 學分 (3科，9學分)\n     科目名稱            學分       修別   開課方式    開課年級   開課系所\n\n     傳播概論                 3    必   單學期課程   一年級    傳播學院\n\n     傳播與社會                3    必   單學期課程   一年級    傳播學院\n\n     資料分析基礎與策略            3    必   單學期課程   二年級    傳播學院\n\n     合計              9\n\n     廣告系群修 (7選 4，12 學分)\n\n     科目名稱            學分       修別   開課方式    開課年級   開課系所\n\n\n     數位行銷企劃實務             3    群   單學期課程   三年級    廣告系\n\n\n     企業公共關係               3    群   單學期課程   四年級    廣告系\n\n\n     沉浸式媒體與創意             3    群   單學期課程   三年級    廣告系\n\n\n     行銷公關                 3    群   單學期課程   三年級    廣告系\n\n     品牌行銷                 3    群   單學期課程   三年級    廣告系\n\n     公關個案研究               3    群   單學期課程   三四年級   廣告系\n\n     社群媒體行銷               3    群   單學期課程   三四年級   廣告系\n\n     合計              12",
+  "special_rules": [
+    "廣告學系：院必修3門9學分 + 廣告系群修7選4（12學分），共21學分"
+  ],
+  "parse_warnings": []
+}

@@ -1,0 +1,68 @@
+{
+  "dept_code": "401",
+  "dept_name": "新聞學系",
+  "college": "傳播學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-401.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.180326",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 30,
+  "total_courses": 8,
+  "courses": [
+    {
+      "name": "傳播概論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "傳播與社會",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "傳播與當代思潮",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "資料分析基礎與策略",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "傳播學想像",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "傳播方法與實踐",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "新聞媒體實驗(一)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "新聞媒體實驗(二)",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1. 修畢總學分數：30 學分。\n2. 須修畢表列「必修」4 門課程（12 學分）﹐「群修」4 門課程中至少修畢 2 門課程\n（6 學分），其餘由「群修」與「選修」課程中任選 12 學分。\n3. 修習新聞媒體實驗(一)(二)(即大學報)注意事項：\n  •  未修新聞媒體實驗(一)，不得修新聞媒體實驗(二)。\n  •  此兩門課為灌檔課，若要選修，請先洽大學報助教了解相關修課規定\n  (褚介敏助教，jeanchu@nccu.edu.tw，分機 67084)。\n4. 除新聞媒體實驗(一)(二)由系辦灌檔外，考量輔系生仍有本科系課程或其他\n原因影響科目修讀順序，故請自行安排選課。\n\n\n\n\n                         2",
+  "special_rules": [
+    "新聞學系：必修4門12學分 + 群修4選2（6學分）+ 自由選修12學分，共30學分",
+    "新聞媒體實驗(一)(二)為灌檔課"
+  ],
+  "parse_warnings": []
+}

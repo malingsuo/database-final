@@ -1,0 +1,159 @@
+{
+  "dept_code": "703",
+  "dept_name": "資訊科學系",
+  "college": "資訊學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-703.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.550698",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 23,
+  "courses": [
+    {
+      "name": "計算機程式設計(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "資料結構",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "演算法",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "物件導向程式設計",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "作業系統",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "程式語言",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "數位系統導論",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "計算機結構與組織",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "資料庫系統",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "人機互動",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "人工智慧概論",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "軟體工程概論",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "計算機網路",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "資訊安全",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "自然語言處理",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "深度學習：基礎及應用",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "資料科學",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "等候理論",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "分散式系統",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "電腦圖學",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "電腦視覺",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "網路搜索與探勘",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    },
+    {
+      "name": "其他本系專業選修課程",
+      "credits": 3,
+      "type": "選修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [
+    "資訊科學系：限修本校資科系（科目代號前3碼703）課程，必修3門9學分+選修至21學分共7門"
+  ],
+  "parse_warnings": [
+    "sum=69 >> declared=21"
+  ]
+}

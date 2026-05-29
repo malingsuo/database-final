@@ -1,0 +1,101 @@
+{
+  "dept_code": "305",
+  "dept_name": "企業管理學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-305.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.080665",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 43,
+  "total_courses": 14,
+  "courses": [
+    {
+      "name": "經濟學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "初級會計學（一）",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "微積分",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "初級會計學（二）",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "管理學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "統計學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "組織行為",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "社會責任與倫理",
+      "credits": 1,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "人力資源管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "行銷管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "財務管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "營運與供應鏈管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "資訊管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "策略管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1. 管理學限修習非本系專班。\n2. 微積分若修習學年課，須修畢上下學期，方得承認上學期為本系必修科目，下學期計入選修學分。\n3. 有列「先修科目」的部分，原則上均需修過先修科目後才能修此科目。",
+  "special_rules": [],
+  "parse_warnings": []
+}

@@ -1,0 +1,83 @@
+{
+  "dept_code": "702",
+  "dept_name": "心理學系",
+  "college": "理學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-702.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.520106",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 31,
+  "total_courses": 11,
+  "courses": [
+    {
+      "name": "普通心理學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "心理及教育統計學",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "心理實驗法",
+      "credits": 4,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "心理測驗（含實習）",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "人體生理學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "生理心理學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "性格心理學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "發展心理學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "人類學習與認知",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "社會心理學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "知覺心理學",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1. 應修總學分數共計 31 學分，含必修科目 4 門共 19 學分、群修科目任選 4 門（含）\n     以上至少 12 學分。\n  2. 指定科目與群修任選科目的選課資格視同本系生，若選課人數額滿且輔系生確\n     有選課需要時，可至心理系系辦公室辦理人工選課。\n  3. 除上述科目外，輔系生選修本系其他科目時需受名額限制。",
+  "special_rules": [],
+  "parse_warnings": []
+}

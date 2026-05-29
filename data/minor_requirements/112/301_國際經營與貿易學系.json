@@ -1,0 +1,89 @@
+{
+  "dept_code": "301",
+  "dept_name": "國際經營與貿易學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-301.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.977957",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 21,
+  "total_courses": 12,
+  "courses": [
+    {
+      "name": "行銷管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "財務管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國際買賣法",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國際經貿法",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國際經貿法專題",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國貿理論與政策",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "貿易與投資專題",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "國際金融專題",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "國際企業管理",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "國際財務管理",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "數據化投資分析",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "用 Python 學財務計量",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "1. 其他先修科目：「微積分」一學年(3/3)或「微積分甲」一學期(3)，「統計學(一)(二)」(3/3)，\n   「經濟學」(3/3)。先修科目不計入應修總學分之內。\n2. 需於群 A、群 B、群 C、群 D 中至少各修習一門課程，群修課共計需修習五門 15 學分。\n3. 群修課需修讀國貿系開課，不得至外系修讀。",
+  "special_rules": [],
+  "parse_warnings": []
+}

@@ -1,0 +1,65 @@
+{
+  "dept_code": "782",
+  "dept_name": "電子物理學士學位學程",
+  "college": "理學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-782.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.574706",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 26,
+  "total_courses": 8,
+  "courses": [
+    {
+      "name": "普通物理學(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "普通物理學(二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "普通物理學實驗",
+      "credits": 2,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "近代物理學",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "電磁學(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "電磁學(二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "電子學(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "微積分甲",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [],
+  "parse_warnings": []
+}

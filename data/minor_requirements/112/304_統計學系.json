@@ -1,0 +1,65 @@
+{
+  "dept_code": "304",
+  "dept_name": "統計學系",
+  "college": "商學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-304.pdf",
+  "reparsed_at": "2026-05-21T17:58:02.056910",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 27,
+  "total_courses": 8,
+  "courses": [
+    {
+      "name": "統計學(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "統計學(二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "微積分甲",
+      "credits": 6,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "線性代數",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "機率論",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "數理統計學(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "數理統計學(二)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    },
+    {
+      "name": "迴歸分析(一)",
+      "credits": 3,
+      "type": "必修",
+      "group": null
+    }
+  ],
+  "notes": "",
+  "special_rules": [],
+  "parse_warnings": []
+}

@@ -1,0 +1,288 @@
+{
+  "program_code": "783",
+  "program_name": "人工智慧應用學士學位學程",
+  "college": "資訊學院",
+  "degree": "資訊學學士（Bachelor of Science, BS）",
+  "entry_year": 112,
+  "applicable_years": "112-113學年度入學學生適用",
+  "total_credits_required": 42,
+  "source_urls": [
+    "https://bpai.nccu.edu.tw/PageDoc?fid=12557",
+    "https://bpai.nccu.edu.tw/upload/80/doc/24680/AI%E5%AD%B8%E7%A8%8B112%E5%BF%85%E4%BF%AE%E7%A7%91%E7%9B%AE%E8%A1%A8(%E6%A0%A1%E8%AA%B2%E5%A7%94%E6%9C%83%E4%BF%AE%E8%A8%82)-20250605-%E7%B6%B2%E9%A0%81%E6%9B%B4%E6%96%B0.pdf",
+    "https://bpai.nccu.edu.tw/upload/80/doc/24680/AI%E5%AD%B8%E7%A8%8B-C%E9%A1%9E%E6%8A%80%E8%A1%93%E8%AA%B2%E7%A8%8B%E5%88%97-20260107%E5%A7%94%E5%93%A1%E6%9C%83%E9%80%9A%E9%81%8E%E7%89%88.pdf",
+    "https://bpai.nccu.edu.tw/upload/80/doc/24680/AI%E5%AD%B8%E7%A8%8B-%E7%BE%A4D%E6%8A%80%E8%A1%93%E8%AA%B2%E7%A8%8B%E5%88%97%E8%A1%A8-%E5%85%AC%E5%91%8A%E7%89%88-20250814.pdf"
+  ],
+  "last_updated": "2026-01-13",
+  "variant": "cs",
+  "variant_note": "適用於資訊科學系（主修 dept_code=703）學生",
+  "note": "資訊系（含輔系）學生特殊規定",
+  "categories": [
+    {
+      "name": "必修",
+      "credits_required": 6,
+      "note": "全體學生必修，共2門各3學分",
+      "courses": [
+        {
+          "name": "計算思維與人工智慧應用導論",
+          "credits": 3,
+          "type": "必修",
+          "code": "必_1",
+          "note": "先導入門，由本院各單位開課"
+        },
+        {
+          "name": "人工智慧實務專題",
+          "credits": 3,
+          "type": "必修",
+          "code": "必_1",
+          "note": "統整實作，由本院各單位開課"
+        }
+      ]
+    },
+    {
+      "name": "群修C",
+      "full_name": "第三類群修：技術（工具）─人工智慧技術課群",
+      "total_credits_range": "12-21",
+      "note": "非資訊系學生至少選4門（12學分），資訊系（含輔系）學生至少選7門（21學分）。科目列表更新日期：2026-01-07委員會通過版。",
+      "courses": [
+        {
+          "code": "C-01",
+          "name": "AI 導論（英）",
+          "credits": 3
+        },
+        {
+          "code": "C-02",
+          "name": "人工智慧概論",
+          "credits": 3
+        },
+        {
+          "code": "C-03",
+          "name": "大型語言模型與資訊安全系統（英）",
+          "credits": 3
+        },
+        {
+          "code": "C-04",
+          "name": "生成式AI應用系統與工程",
+          "credits": 3
+        },
+        {
+          "code": "C-05",
+          "name": "生成式AI：文字與圖像生成的原理與實務",
+          "credits": 3
+        },
+        {
+          "code": "C-06",
+          "name": "自然語言處理",
+          "credits": 3
+        },
+        {
+          "code": "C-07",
+          "name": "貝氏資料分析",
+          "credits": 3
+        },
+        {
+          "code": "C-08",
+          "name": "卷積神經網路與進階神經網路",
+          "credits": 3
+        },
+        {
+          "code": "C-09",
+          "name": "深度學習：基礎及應用",
+          "credits": 3
+        },
+        {
+          "code": "C-10",
+          "name": "智慧製造執行系統",
+          "credits": 3
+        },
+        {
+          "code": "C-11",
+          "name": "資料科學",
+          "credits": 3
+        },
+        {
+          "code": "C-12",
+          "name": "資料採掘",
+          "credits": 3
+        },
+        {
+          "code": "C-13",
+          "name": "資訊視覺化",
+          "credits": 3
+        },
+        {
+          "code": "C-14",
+          "name": "電腦視覺",
+          "credits": 3
+        },
+        {
+          "code": "C-15",
+          "name": "電腦圖學",
+          "credits": 3
+        },
+        {
+          "code": "C-16",
+          "name": "網路搜索與探勘",
+          "credits": 3
+        },
+        {
+          "code": "C-17",
+          "name": "影像處理",
+          "credits": 3
+        },
+        {
+          "code": "C-18",
+          "name": "數據分析實作（英）",
+          "credits": 3
+        },
+        {
+          "code": "C-19",
+          "name": "機器學習概論",
+          "credits": 3
+        },
+        {
+          "code": "C-20",
+          "name": "機器學習觀念與應用",
+          "credits": 3
+        },
+        {
+          "code": "C-21",
+          "name": "應用機器學習（英）",
+          "credits": 3
+        }
+      ],
+      "credits_required": 21,
+      "min_courses": 7
+    },
+    {
+      "name": "群修D",
+      "full_name": "第四類群修：應用（能力）─人工智慧應用課群",
+      "total_credits_range": "10-13",
+      "note": "非資訊系學生至少選4門（12學分），資訊系（含輔系）學生至少選5門（15學分）。科目列表更新日期：2025-08-14。",
+      "courses": [
+        {
+          "code": "D-01",
+          "name": "人機互動",
+          "credits": 3
+        },
+        {
+          "code": "D-02",
+          "name": "人工智慧倫理",
+          "credits": 3
+        },
+        {
+          "code": "D-03",
+          "name": "人工智慧與法律",
+          "credits": 3
+        },
+        {
+          "code": "D-04",
+          "name": "人工智慧與會計應用",
+          "credits": 3
+        },
+        {
+          "code": "D-05",
+          "name": "人工智慧與商業應用（英）",
+          "credits": 3
+        },
+        {
+          "code": "D-06",
+          "name": "人工智慧、資訊安全與法律",
+          "credits": 2
+        },
+        {
+          "code": "D-07",
+          "name": "人工智慧生成圖像與創造力",
+          "credits": 3
+        },
+        {
+          "code": "D-08",
+          "name": "大數據分析與社會科學",
+          "credits": 3
+        },
+        {
+          "code": "D-09",
+          "name": "大數據與社會分析（英）",
+          "credits": 3
+        },
+        {
+          "code": "D-10",
+          "name": "生成式AI及資料科學應用實作（英）",
+          "credits": 3
+        },
+        {
+          "code": "D-11",
+          "name": "生成式人工智慧的人文導論",
+          "credits": 3
+        },
+        {
+          "code": "D-12",
+          "name": "生物資訊概論與實務（英）",
+          "credits": 3
+        },
+        {
+          "code": "D-13",
+          "name": "自主行動機器人導論",
+          "credits": 3
+        },
+        {
+          "code": "D-14",
+          "name": "社群媒體探勘",
+          "credits": 3
+        },
+        {
+          "code": "D-15",
+          "name": "金融科技導論",
+          "credits": 3
+        },
+        {
+          "code": "D-16",
+          "name": "設計思考與人工智慧",
+          "credits": 3
+        },
+        {
+          "code": "D-17",
+          "name": "無人機智慧系統開發與實作",
+          "credits": 3
+        },
+        {
+          "code": "D-18",
+          "name": "量子計算（英）",
+          "credits": 3
+        },
+        {
+          "code": "D-19",
+          "name": "資料科學與財政研究",
+          "credits": 3
+        },
+        {
+          "code": "D-20",
+          "name": "語料處理",
+          "credits": 3,
+          "note": "僅限學生於113學年度（含）以前修習並取得學分者，自114學年度起不再採計為群D科目"
+        },
+        {
+          "code": "D-21-1",
+          "name": "踏石智慧跨領域（一）",
+          "credits": 2
+        },
+        {
+          "code": "D-21-2",
+          "name": "踏石智慧跨領域（二）",
+          "credits": 3
+        },
+        {
+          "code": "D-22",
+          "name": "機器學習與其在行為科學之應用",
+          "credits": 3
+        },
+        {
+          "code": "D-23",
+          "name": "機器導航與探索",
+          "credits": 3
+        }
+      ],
+      "credits_required": 15,
+      "min_courses": 5
+    }
+  ]
+}

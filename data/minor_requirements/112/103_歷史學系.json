@@ -1,0 +1,53 @@
+{
+  "dept_code": "103",
+  "dept_name": "歷史學系",
+  "college": "文學院",
+  "entry_year": 112,
+  "pdf_url": "https://aca.nccu.edu.tw/download/minor/112/112-103.pdf",
+  "reparsed_at": "2026-05-21T17:58:01.711860",
+  "status": "ok",
+  "error": null,
+  "total_credits_required": 30,
+  "total_courses": 6,
+  "courses": [
+    {
+      "name": "臺灣史",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "史學導論",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國通史（上）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "中國通史（下）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "世界通史（上）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    },
+    {
+      "name": "世界通史（下）",
+      "credits": 3,
+      "type": "群修",
+      "group": null
+    }
+  ],
+  "notes": "1.專史類課程必選 6 學分。\n2.專題類課程必選 3 學分。\n3.應於基礎課程、進階課程中修滿 30 學分。",
+  "special_rules": [],
+  "parse_warnings": []
+}
