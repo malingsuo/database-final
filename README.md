@@ -4,7 +4,7 @@
 > - `account.id` 改為 UUID（原為 SERIAL）
 > - `account.account` 欄位改為 `email`
 > - `course.id` 移除，改為複合 PK `(course_code, year, semester)`
-> - `course` 新增 `ge_label`（SMALLINT 6-bit 通識標籤），移除 `group_label`
+> - `course` 新增 `ge_label`（SMALLINT 8-bit 通識標籤），移除 `group_label`；`type` 值域改為：必修 / 群修 / 選修 / 通識 / 體育
 > - `token` 表移除（auth 由 JWT 處理）
 > - `administrator.id` 直接使用 `account.id`（UUID FK）
 > - `enrollment` 的 `course_id` 改為複合 FK `(course_code, year, semester)`
