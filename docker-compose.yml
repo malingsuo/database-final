@@ -1,0 +1,34 @@
+services:
+  backend-auth:
+    build: ./auth
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/auth_db
+    depends_on:
+      - db
+  backend:
+    build: ./backend
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/auth_db
+    depends_on:
+      - db
+  fe-nginx:
+    build: ./fe-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - auth
+      - backend
+  db:
+    image: postgres:18
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=auth_db
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - pg_data:/var/lib/postgresql/18/docker
+  
