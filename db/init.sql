@@ -16,15 +16,15 @@ EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
 
 -- =============================================================
--- user：帳號（學生 / 管理員共用）
+-- account：帳號（學生 / 管理員共用）
 -- =============================================================
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS account (
     id              SERIAL PRIMARY KEY,
     account         VARCHAR(20)      NOT NULL,
     password_hash   VARCHAR(255)     NOT NULL,
     role            user_role_enum   NOT NULL,
     created_at      TIMESTAMPTZ      NOT NULL DEFAULT NOW(),
-    CONSTRAINT uq_user_account UNIQUE (account)
+    CONSTRAINT uq_account_account UNIQUE (account)
 );
 
 -- =============================================================
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 -- =============================================================
 CREATE TABLE IF NOT EXISTS student (
     id                      SERIAL PRIMARY KEY,
-    user_id                 INTEGER          NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    user_id                 INTEGER          NOT NULL REFERENCES account(id) ON DELETE CASCADE,
     student_number          VARCHAR(20)      NOT NULL,
     chinese_name            VARCHAR(50),
     entry_year              INTEGER          NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS student (
 -- =============================================================
 CREATE TABLE IF NOT EXISTS admin (
     id          SERIAL PRIMARY KEY,
-    user_id     INTEGER      NOT NULL REFERENCES "user"(id) ON DELETE CASCADE,
+    user_id     INTEGER      NOT NULL REFERENCES account(id) ON DELETE CASCADE,
     dept_code   VARCHAR(10)  NOT NULL,
     dept_name   VARCHAR(100) NOT NULL,
     CONSTRAINT uq_admin_user UNIQUE (user_id)
@@ -83,7 +83,7 @@ CREATE INDEX IF NOT EXISTS idx_student_course_code    ON student_course (course_
 -- =============================================================
 -- 測試用管理員帳號（密碼：admin1234，argon2 hash）
 -- =============================================================
-INSERT INTO "user" (account, password_hash, role)
+INSERT INTO account (account, password_hash, role)
 VALUES (
     'admin',
     '$argon2id$v=19$m=65536,t=3,p=4$c29tZXNhbHQ$RdescudvJCsgt3ub+b27Gli694kX9aDMRA31tWBmVPU',
@@ -92,5 +92,5 @@ VALUES (
 
 INSERT INTO admin (user_id, dept_code, dept_name)
 SELECT id, '703', '資訊科學系'
-FROM "user" WHERE account = 'admin'
+FROM account WHERE account = 'admin'
 ON CONFLICT DO NOTHING;
