@@ -14,15 +14,11 @@ from passlib.context import CryptContext
 from pydantic import BaseModel, ConfigDict
 
 # --- Configuration ---
-DB_DATABASE_NAME = os.getenv("DB_DATABASE_NAME")
-DB_USERNAME = os.getenv("DB_USERNAME")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT", "5432")
-
-DATABASE_URL = (
-    f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE_NAME}"
-)
+DB_USER = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
 
 # --- Password Hashing & Token URL ---
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
@@ -38,16 +34,11 @@ async def lifespan(app: FastAPI):
     try:
         pool = await asyncpg.create_pool(DATABASE_URL)
         print("Database pool created successfully.")
-        redis_client = aioredis.from_url(REDIS_URL, decode_responses=True)
-        await redis_client.ping()
-        print("Redis connection established.")
         yield
     finally:
         if pool:
             await pool.close()
             print("Database pool closed.")
-        if redis_client:
-            await redis_client.aclose()
 
 
 async def get_db_connection():
@@ -57,12 +48,6 @@ async def get_db_connection():
         )
     async with pool.acquire() as connection:
         yield connection
-
-
-async def get_redis() -> aioredis.Redis:
-    if redis_client is None:
-        raise HTTPException(status_code=503, detail="Redis is not available.")
-    return redis_client
 
 
 # --- Pydantic Models ---
