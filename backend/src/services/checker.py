@@ -117,9 +117,9 @@ def _normalize_name(name: str) -> str:
     s = (name or "").strip()
     s = s.translate(_FULLWIDTH_TO_HALF)
     s = unicodedata.normalize("NFC", s)
-    # 保留數字括號（一）（二）...避免同系列課程名稱撞在一起
-    s = re.sub(r"\((?![一二三四五六七八九十])[^)]*\)", "", s)
-    s = re.sub(r"（(?![一二三四五六七八九十])[^）]*）", "", s)
+    # 保留數字/字母括號（一）（二）（A）（B）...避免同系列課程名稱撞在一起
+    s = re.sub(r"\((?![一二三四五六七八九十A-Za-z])[^)]*\)", "", s)
+    s = re.sub(r"（(?![一二三四五六七八九十A-Za-z])[^）]*）", "", s)
     s = re.sub(r"\s+", "", s)
     return s.strip()
 
