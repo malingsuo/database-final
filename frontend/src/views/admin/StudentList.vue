@@ -169,7 +169,7 @@ onMounted(() => {
 .list-page {
   min-height: 100vh;
   padding: 24px clamp(16px, 4vw, 48px) 48px;
-  background: #f5f7fa;
+  background: var(--app-bg);
 }
 
 .topbar {
@@ -189,7 +189,7 @@ onMounted(() => {
 h1 {
   margin: 0;
   font-size: 22px;
-  color: #1f2937;
+  color: var(--app-text);
 }
 
 .title-block p {
@@ -244,7 +244,7 @@ h1 {
 .card-head h3 {
   margin: 0;
   font-size: 17px;
-  color: #1f2937;
+  color: var(--app-text);
 }
 
 .sid {
@@ -280,7 +280,7 @@ h1 {
   gap: 2px;
   padding: 8px 4px;
   border-radius: 6px;
-  background: #f8fafc;
+  background: var(--app-surface-muted);
 }
 
 .stat-row strong {

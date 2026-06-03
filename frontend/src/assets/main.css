@@ -2,6 +2,58 @@
   box-sizing: border-box;
 }
 
+:root {
+  --app-primary: #2563eb;
+  --app-primary-dark: #1d4ed8;
+  --app-primary-soft: #bfdbfe;
+  --app-primary-tint: #eff6ff;
+  --app-bg: #f5f7fa;
+  --app-bg-gradient: linear-gradient(135deg, #dbeafe 0%, #f5f7fa 100%);
+  --app-surface: #ffffff;
+  --app-surface-muted: #f8fafc;
+  --app-border: #e5e7eb;
+  --app-border-soft: #dbe3ef;
+  --app-text: #1f2937;
+  --app-text-strong: #111827;
+  --app-text-muted: #6b7280;
+  --app-on-primary: #ffffff;
+  --app-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  --el-color-primary: var(--app-primary);
+  --el-color-primary-light-3: color-mix(in srgb, var(--app-primary) 70%, white);
+  --el-color-primary-light-5: color-mix(in srgb, var(--app-primary) 50%, white);
+  --el-color-primary-light-7: color-mix(in srgb, var(--app-primary) 30%, white);
+  --el-color-primary-light-8: color-mix(in srgb, var(--app-primary) 20%, white);
+  --el-color-primary-light-9: var(--app-primary-tint);
+  --el-color-primary-dark-2: var(--app-primary-dark);
+}
+
+:root[data-theme='forest'] {
+  --app-primary: #059669;
+  --app-primary-dark: #047857;
+  --app-primary-soft: #a7f3d0;
+  --app-primary-tint: #ecfdf5;
+  --app-bg: #f4fbf7;
+  --app-bg-gradient: linear-gradient(135deg, #d1fae5 0%, #f7fbf8 100%);
+}
+
+:root[data-theme='sunset'] {
+  --app-primary: #ea580c;
+  --app-primary-dark: #c2410c;
+  --app-primary-soft: #fed7aa;
+  --app-primary-tint: #fff7ed;
+  --app-bg: #fff8f3;
+  --app-bg-gradient: linear-gradient(135deg, #ffedd5 0%, #fff7ed 100%);
+}
+
+:root[data-theme='grape'] {
+  --app-primary: #7c3aed;
+  --app-primary-dark: #6d28d9;
+  --app-primary-soft: #ddd6fe;
+  --app-primary-tint: #f5f3ff;
+  --app-bg: #f8f7ff;
+  --app-bg-gradient: linear-gradient(135deg, #ede9fe 0%, #f8f7ff 100%);
+}
+
 html,
 body,
 #app {
@@ -13,8 +65,8 @@ body,
 body {
   font-family:
     'Helvetica Neue', Helvetica, 'PingFang TC', 'Microsoft JhengHei', Arial, sans-serif;
-  background-color: #f5f7fa;
-  color: #303133;
+  background-color: var(--app-bg);
+  color: var(--app-text);
 }
 
 #app {

@@ -99,14 +99,18 @@ async function handleLogin() {
   place-items: center;
   padding: 24px;
   background:
-    linear-gradient(135deg, rgba(31, 41, 55, 0.92), rgba(29, 78, 216, 0.74)),
-    #1f2937;
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--app-text-strong) 88%, transparent),
+      color-mix(in srgb, var(--app-primary) 74%, transparent)
+    ),
+    var(--app-text);
 }
 
 .login-panel {
   width: min(100%, 440px);
   padding: 32px;
-  background: #fff;
+  background: var(--app-surface);
   border-radius: 8px;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
 }
@@ -126,18 +130,18 @@ async function handleLogin() {
   color: #fff;
   font-weight: 800;
   border-radius: 8px;
-  background: #1d4ed8;
+  background: var(--app-primary);
 }
 
 h1 {
   margin: 0;
   font-size: 24px;
-  color: #111827;
+  color: var(--app-text-strong);
 }
 
 p {
   margin: 4px 0 0;
-  color: #6b7280;
+  color: var(--app-text-muted);
 }
 
 .login-button {

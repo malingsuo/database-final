@@ -94,7 +94,7 @@ async function onSubmit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #e0eafc 0%, #f5f7fa 100%);
+  background: var(--app-bg-gradient);
   padding: 20px;
 }
 

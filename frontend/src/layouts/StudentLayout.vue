@@ -76,7 +76,7 @@ async function handleLogout() {
 }
 
 .aside {
-  background-color: #fff;
+  background-color: var(--app-surface);
   border-right: 1px solid var(--el-border-color-light);
   display: flex;
   flex-direction: column;
@@ -88,7 +88,7 @@ async function handleLogout() {
   align-items: center;
   gap: 8px;
   padding: 0 20px;
-  color: var(--el-color-primary);
+  color: var(--app-primary);
   font-weight: 700;
   border-bottom: 1px solid var(--el-border-color-light);
 }
@@ -103,7 +103,7 @@ async function handleLogout() {
 }
 
 .header {
-  background-color: #fff;
+  background-color: var(--app-surface);
   border-bottom: 1px solid var(--el-border-color-light);
   display: flex;
   align-items: center;
@@ -128,5 +128,6 @@ async function handleLogout() {
 .main {
   padding: 24px;
   overflow-y: auto;
+  background: var(--app-bg);
 }
 </style>

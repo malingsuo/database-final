@@ -192,9 +192,7 @@ async function onSubmit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    linear-gradient(135deg, rgba(49, 130, 206, 0.12), rgba(56, 161, 105, 0.08)),
-    #f6f8fb;
+  background: var(--app-bg-gradient);
   padding: 24px;
 }
 
@@ -212,7 +210,7 @@ async function onSubmit() {
 .title {
   font-size: 24px;
   margin: 0 0 8px;
-  color: #1f2937;
+  color: var(--app-text);
 }
 
 .subtitle {
