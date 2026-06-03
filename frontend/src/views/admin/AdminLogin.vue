@@ -101,8 +101,9 @@ async function handleLogin() {
   background:
     linear-gradient(
       135deg,
-      color-mix(in srgb, var(--app-text-strong) 88%, transparent),
-      color-mix(in srgb, var(--app-primary) 74%, transparent)
+      color-mix(in srgb, var(--app-text-strong) 92%, transparent),
+      color-mix(in srgb, var(--app-primary) 78%, transparent) 58%,
+      color-mix(in srgb, var(--app-accent) 54%, transparent)
     ),
     var(--app-text);
 }
@@ -110,9 +111,11 @@ async function handleLogin() {
 .login-panel {
   width: min(100%, 440px);
   padding: 32px;
-  background: var(--app-surface);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.88);
   border-radius: 8px;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(18px);
 }
 
 .brand-block {
@@ -130,7 +133,9 @@ async function handleLogin() {
   color: #fff;
   font-weight: 800;
   border-radius: 8px;
-  background: var(--app-primary);
+  background:
+    linear-gradient(135deg, var(--app-primary), var(--app-accent));
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--app-primary) 30%, transparent);
 }
 
 h1 {

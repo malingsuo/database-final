@@ -32,10 +32,15 @@ async function handleLogout() {
 
 <template>
   <el-container class="layout">
-    <el-aside width="220px" class="aside">
+    <el-aside width="236px" class="aside">
       <div class="brand">
-        <el-icon :size="22"><DataLine /></el-icon>
-        <span class="brand-text">畢業學分審核</span>
+        <div class="brand-icon">
+          <el-icon :size="21"><DataLine /></el-icon>
+        </div>
+        <div>
+          <span class="brand-text">畢業學分審核</span>
+          <span class="brand-sub">Credit Compass</span>
+        </div>
       </div>
       <el-menu :default-active="activeMenu" router class="menu">
         <el-menu-item index="overview" :route="{ name: 'overview' }">
@@ -55,9 +60,12 @@ async function handleLogout() {
 
     <el-container>
       <el-header class="header">
-        <div class="header-title">學生畢業學分審核器</div>
+        <div>
+          <div class="header-title">學生畢業學分審核器</div>
+          <div class="header-subtitle">追蹤學分、缺修與畢業狀態</div>
+        </div>
         <div class="header-right">
-          <el-tag type="info" effect="plain">學生</el-tag>
+          <el-tag class="role-tag" type="info" effect="plain">學生</el-tag>
           <span class="account">{{ displayName }}</span>
           <el-button text :icon="SwitchButton" @click="handleLogout">登出</el-button>
         </div>
@@ -73,38 +81,95 @@ async function handleLogout() {
 <style scoped>
 .layout {
   height: 100vh;
+  background: transparent;
 }
 
 .aside {
-  background-color: var(--app-surface);
-  border-right: 1px solid var(--el-border-color-light);
+  margin: 14px 0 14px 14px;
+  border: 1px solid color-mix(in srgb, var(--app-border) 78%, transparent);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.66)),
+    var(--app-surface);
+  box-shadow: var(--app-shadow);
+  backdrop-filter: blur(18px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .brand {
-  height: 60px;
+  min-height: 76px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 20px;
-  color: var(--app-primary);
-  font-weight: 700;
-  border-bottom: 1px solid var(--el-border-color-light);
+  gap: 12px;
+  padding: 0 18px;
+  color: var(--app-text-strong);
+  border-bottom: 1px solid color-mix(in srgb, var(--app-border) 72%, transparent);
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, var(--app-primary), var(--app-accent));
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--app-primary) 28%, transparent);
 }
 
 .brand-text {
+  display: block;
   font-size: 16px;
+  font-weight: 800;
+}
+
+.brand-sub {
+  display: block;
+  margin-top: 2px;
+  color: var(--app-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .menu {
+  padding: 12px;
   border-right: none;
   flex: 1;
+  background: transparent;
+}
+
+.menu :deep(.el-menu-item) {
+  height: 44px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  color: var(--app-text);
+  font-weight: 650;
+}
+
+.menu :deep(.el-menu-item:hover) {
+  background: color-mix(in srgb, var(--app-primary-tint) 82%, white);
+}
+
+.menu :deep(.el-menu-item.is-active) {
+  color: var(--app-primary);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--app-primary) 14%, white), rgba(255, 255, 255, 0.76));
+  box-shadow: inset 3px 0 0 var(--app-primary);
 }
 
 .header {
-  background-color: var(--app-surface);
-  border-bottom: 1px solid var(--el-border-color-light);
+  height: 76px;
+  margin: 14px 14px 0;
+  border: 1px solid color-mix(in srgb, var(--app-border) 78%, transparent);
+  border-radius: 8px;
+  background: var(--app-surface-glass);
+  box-shadow: var(--app-shadow-soft);
+  backdrop-filter: blur(18px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,7 +177,14 @@ async function handleLogout() {
 
 .header-title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 800;
+  color: var(--app-text-strong);
+}
+
+.header-subtitle {
+  margin-top: 3px;
+  color: var(--app-text-muted);
+  font-size: 13px;
 }
 
 .header-right {
@@ -125,9 +197,54 @@ async function handleLogout() {
   font-weight: 500;
 }
 
+.role-tag {
+  border-color: color-mix(in srgb, var(--app-primary) 26%, transparent);
+  color: var(--app-primary);
+  background: color-mix(in srgb, var(--app-primary-tint) 76%, white);
+}
+
 .main {
-  padding: 24px;
+  padding: 20px 14px 28px 20px;
   overflow-y: auto;
-  background: var(--app-bg);
+  background: transparent;
+}
+
+@media (max-width: 820px) {
+  .layout {
+    height: auto;
+    min-height: 100vh;
+    display: block;
+  }
+
+  .aside {
+    width: auto !important;
+    margin: 10px;
+  }
+
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .menu :deep(.el-menu-item) {
+    margin: 0;
+  }
+
+  .header {
+    height: auto;
+    min-height: 72px;
+    margin: 10px;
+    padding: 12px 14px;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .main {
+    padding: 10px;
+  }
 }
 </style>
