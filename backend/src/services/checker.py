@@ -355,11 +355,37 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     # pprint(in_progress)
 
     total_req = rules.get("total_credits_required")
+    group_rules = rules.get("group_rules")
     if total_req is None and rule_courses:
-        total_req = round(sum(float(c.get("credits", 0) or 0) for c in rule_courses), 1)
+        group_rules_data = group_rules or {}
+        shared_info = group_rules_data.get("_shared", {})
+        shared_groups = set(shared_info.get("groups", []))
+
+        # 取每個群的代表學分（取該群第一門課的學分）
+        group_credits: dict[str, float] = {}
+        for c in rule_courses:
+            grp = str(c.get("type") or "")
+            if grp not in group_credits:
+                group_credits[grp] = float(c.get("credits", 0) or 0)
+
+        total_req = 0.0
+        # 必修：全數加總
+        for c in rule_courses:
+            if c.get("type") == "必修":
+                total_req += float(c.get("credits", 0) or 0)
+        # 群修：依 group_rules 的 min_courses 計算，_shared 群組由 _shared 統一處理
+        for grp, grule in group_rules_data.items():
+            if grp == "_shared":
+                min_total = grule.get("min_total_courses", 0)
+                groups = grule.get("groups", [])
+                credits = group_credits.get(groups[0], 3.0) if groups else 3.0
+                total_req += min_total * credits
+            elif grp not in shared_groups:
+                total_req += grule.get("min_courses", 0) * group_credits.get(grp, 3.0)
+
+        total_req = round(total_req, 1)
     missing_credits = max(0.0, float(total_req) - earned) if total_req is not None else None
 
-    group_rules = rules.get("group_rules")
     group_violations = _check_group_rules(group_rules, passed, in_progress)
 
     return {
