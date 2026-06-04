@@ -197,7 +197,7 @@ def _check_group_rules(
 
             if total_passed < min_total:
                 violations.append({
-                    "group": "_shared(" + "+".join(shared_groups) + ")",
+                    "group": "+".join(shared_groups),
                     "min_courses": min_total,
                     "passed_courses": total_passed,
                     "in_progress_courses": total_in_prog,
