@@ -1,5 +1,58 @@
 # Database Final
 
+## 啟動方式
+
+### 首次啟動（全新環境）
+
+```sh
+docker compose up -d --build
+```
+
+> 資料庫 volume 為空時，`db/` 目錄下的 SQL 腳本會自動執行，建立 schema 並載入種子資料。
+
+### 日常啟動
+
+```sh
+docker compose up -d
+```
+
+### 重置資料庫（清除所有資料，重新建立 schema）
+
+```sh
+docker compose down -v
+docker compose up -d --build
+```
+
+> `-v` 會刪除 `pg_data` volume，下次啟動時重新執行初始化腳本。
+
+### 重新 build 單一服務（程式碼修改後）
+
+```sh
+# 只重 build backend
+docker compose up -d --build backend
+
+# 只重 build frontend
+docker compose up -d --build frontend
+
+# 只重 build auth
+docker compose up -d --build auth
+```
+
+### 服務對應 Port
+
+| 服務 | Port | 說明 |
+|------|------|------|
+| nginx | http://localhost:3030 | 主入口，統一路由前後端 |
+| frontend | http://localhost:3000 | 前端靜態檔（直連，無 API proxy） |
+| backend | http://localhost:8080 | 主後端 API |
+| auth | http://localhost:8000 | 認證服務 |
+| pgAdmin | http://localhost:5050 | 資料庫管理介面（帳號：admin@admin.com / admin） |
+| PostgreSQL | localhost:5432 | 資料庫 |
+
+> 正常使用請開啟 **http://localhost:3030**（nginx），前端的 API 呼叫才能正確轉發至後端。
+
+---
+
 > ERD 圖待更新，需修改專案：
 > - `account.id` 改為 UUID（原為 SERIAL）
 > - `account.account` 欄位改為 `email`
