@@ -46,6 +46,25 @@ async function onSubmit() {
 
 <template>
   <div class="auth-page">
+    <section class="auth-visual">
+      <p class="eyebrow">Graduation Radar</p>
+      <h2>把畢業進度變成一眼看懂的路線圖</h2>
+      <div class="visual-grid">
+        <div class="metric-card primary">
+          <span>總學分進度</span>
+          <strong>87%</strong>
+        </div>
+        <div class="metric-card">
+          <span>缺修提醒</span>
+          <strong>4</strong>
+        </div>
+        <div class="metric-card">
+          <span>通識完成</span>
+          <strong>23/28</strong>
+        </div>
+      </div>
+    </section>
+
     <el-card class="auth-card" shadow="always">
       <div class="auth-header">
         <h1 class="title">學生畢業學分審核器</h1>
@@ -91,17 +110,84 @@ async function onSubmit() {
 <style scoped>
 .auth-page {
   min-height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(280px, 520px) minmax(360px, 420px);
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #e0eafc 0%, #f5f7fa 100%);
-  padding: 20px;
+  gap: clamp(28px, 6vw, 86px);
+  background: var(--app-bg-gradient);
+  padding: 32px;
+}
+
+.auth-visual {
+  color: var(--app-text-strong);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--app-primary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.auth-visual h2 {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+  max-width: 470px;
+}
+
+.metric-card {
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--app-border) 80%, transparent);
+  border-radius: 8px;
+  background: var(--app-surface-glass);
+  box-shadow: var(--app-shadow-soft);
+  backdrop-filter: blur(16px);
+}
+
+.metric-card.primary {
+  grid-row: span 2;
+  min-height: 236px;
+  color: #fff;
+  background:
+    linear-gradient(145deg, var(--app-primary), var(--app-accent));
+  box-shadow: 0 24px 56px color-mix(in srgb, var(--app-primary) 26%, transparent);
+}
+
+.metric-card span {
+  color: inherit;
+  opacity: 0.72;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.metric-card strong {
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 900;
 }
 
 .auth-card {
   width: 100%;
   max-width: 420px;
-  border-radius: 12px;
+  border-radius: 8px;
+  padding: 6px;
 }
 
 .auth-header {
@@ -112,7 +198,7 @@ async function onSubmit() {
 .title {
   font-size: 22px;
   margin: 0 0 8px;
-  color: var(--el-color-primary);
+  color: var(--app-text-strong);
 }
 
 .subtitle {
@@ -130,5 +216,15 @@ async function onSubmit() {
   margin-top: 8px;
   font-size: 14px;
   color: var(--el-text-color-secondary);
+}
+
+@media (max-width: 900px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-visual {
+    display: none;
+  }
 }
 </style>

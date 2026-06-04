@@ -112,7 +112,7 @@ export const mockCheckResult: CheckResult = {
       { course_name: '數位邏輯設計', course_code: 'CS220', credits: 3, score: '通過', match_confidence: 'normalized' },
       { course_name: '機率論', course_code: 'CS231', credits: 3, score: '82', group_label: '群A', match_confidence: 'exact' },
       { course_name: '線性代數', course_code: 'CS232', credits: 3, score: '90', group_label: '群A', match_confidence: 'exact' },
-      { course_name: '計算機組織', course_code: 'CS240', credits: 3, score: '70', group_label: '群B', match_confidence: 'fuzzy' },
+      { course_name: '計算機組織', course_code: 'CS240', credits: 3, score: '70', group_label: '群B', match_confidence: 'normalized' },
       { course_name: '物件導向程式設計', course_code: 'CS250', credits: 3, score: '85', match_confidence: 'exact' },
     ],
     in_progress_courses: [

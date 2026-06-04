@@ -99,16 +99,23 @@ async function handleLogin() {
   place-items: center;
   padding: 24px;
   background:
-    linear-gradient(135deg, rgba(31, 41, 55, 0.92), rgba(29, 78, 216, 0.74)),
-    #1f2937;
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--app-text-strong) 92%, transparent),
+      color-mix(in srgb, var(--app-primary) 78%, transparent) 58%,
+      color-mix(in srgb, var(--app-accent) 54%, transparent)
+    ),
+    var(--app-text);
 }
 
 .login-panel {
   width: min(100%, 440px);
   padding: 32px;
-  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.88);
   border-radius: 8px;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(18px);
 }
 
 .brand-block {
@@ -126,18 +133,20 @@ async function handleLogin() {
   color: #fff;
   font-weight: 800;
   border-radius: 8px;
-  background: #1d4ed8;
+  background:
+    linear-gradient(135deg, var(--app-primary), var(--app-accent));
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--app-primary) 30%, transparent);
 }
 
 h1 {
   margin: 0;
   font-size: 24px;
-  color: #111827;
+  color: var(--app-text-strong);
 }
 
 p {
   margin: 4px 0 0;
-  color: #6b7280;
+  color: var(--app-text-muted);
 }
 
 .login-button {

@@ -140,15 +140,17 @@ async function onSubmit() {
         </el-form-item>
 
         <template v-if="isStudent">
-          <el-form-item label="學號" prop="studentId">
-            <el-input v-model="form.studentId" :prefix-icon="User" placeholder="例如 112703043" />
-          </el-form-item>
-          <el-form-item label="姓名" prop="studentName">
-            <el-input v-model="form.studentName" :prefix-icon="UserFilled" placeholder="請輸入真實姓名" />
-          </el-form-item>
-          <el-form-item label="入學年度" prop="admissionYear">
-            <el-input-number v-model="form.admissionYear" :min="109" :max="114" controls-position="right" />
-          </el-form-item>
+          <div class="form-grid">
+            <el-form-item label="學號" prop="studentId">
+              <el-input v-model="form.studentId" :prefix-icon="User" placeholder="例如 112703043" />
+            </el-form-item>
+            <el-form-item label="姓名" prop="studentName">
+              <el-input v-model="form.studentName" :prefix-icon="UserFilled" placeholder="請輸入真實姓名" />
+            </el-form-item>
+            <el-form-item label="入學年度" prop="admissionYear">
+              <el-input-number v-model="form.admissionYear" :min="109" :max="114" controls-position="right" />
+            </el-form-item>
+          </div>
         </template>
 
         <template v-else>
@@ -189,18 +191,18 @@ async function onSubmit() {
 <style scoped>
 .auth-page {
   min-height: 100vh;
-  display: flex;
+  display: grid;
+  place-items: center;
   align-items: center;
   justify-content: center;
-  background:
-    linear-gradient(135deg, rgba(49, 130, 206, 0.12), rgba(56, 161, 105, 0.08)),
-    #f6f8fb;
+  background: var(--app-bg-gradient);
   padding: 24px;
 }
 
 .auth-card {
   width: 100%;
-  max-width: 480px;
+  max-width: 620px;
+  padding: 6px;
   border-radius: 8px;
 }
 
@@ -212,7 +214,8 @@ async function onSubmit() {
 .title {
   font-size: 24px;
   margin: 0 0 8px;
-  color: #1f2937;
+  color: var(--app-text);
+  font-weight: 900;
 }
 
 .subtitle {
@@ -227,10 +230,36 @@ async function onSubmit() {
   width: 100%;
 }
 
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 14px;
+}
+
+.form-grid :deep(.el-input-number) {
+  width: 100%;
+}
+
+.role-switch {
+  padding: 4px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--app-primary-tint) 76%, white);
+}
+
 .auth-footer {
   text-align: center;
   margin-top: 8px;
   font-size: 14px;
   color: var(--el-text-color-secondary);
+}
+
+@media (max-width: 640px) {
+  .auth-card {
+    max-width: 480px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

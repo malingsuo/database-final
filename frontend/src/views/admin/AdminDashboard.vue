@@ -174,8 +174,8 @@ async function handleLogout() {
 <style scoped>
 .admin-page {
   min-height: 100vh;
-  background: #f5f7fb;
-  color: #111827;
+  background: var(--app-bg);
+  color: var(--app-text-strong);
 }
 
 .topbar {
@@ -187,8 +187,8 @@ async function handleLogout() {
   justify-content: space-between;
   gap: 20px;
   padding: 18px clamp(20px, 4vw, 56px);
-  border-bottom: 1px solid #e5e7eb;
-  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--app-border);
+  background: color-mix(in srgb, var(--app-surface) 94%, transparent);
   backdrop-filter: blur(10px);
 }
 
@@ -206,7 +206,7 @@ async function handleLogout() {
   color: #fff;
   font-weight: 800;
   border-radius: 8px;
-  background: #1d4ed8;
+  background: var(--app-primary);
 }
 
 h1,
@@ -224,7 +224,7 @@ h1 {
 .hero-copy,
 .panel p,
 .panel-note {
-  color: #6b7280;
+  color: var(--app-text-muted);
 }
 
 .top-actions {
@@ -250,7 +250,7 @@ h1 {
 
 .eyebrow {
   margin-bottom: 8px;
-  color: #1d4ed8;
+  color: var(--app-primary);
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -275,15 +275,15 @@ h1 {
   gap: 4px;
   align-content: center;
   align-self: flex-end;
-  color: #1f2937;
-  border: 1px solid #dbe3ef;
+  color: var(--app-text);
+  border: 1px solid var(--app-border-soft);
   border-radius: 8px;
-  background: #fff;
+  background: var(--app-surface);
   padding: 10px 16px;
 }
 
 .hero-meta span {
-  color: #6b7280;
+  color: var(--app-text-muted);
   font-size: 13px;
 }
 
@@ -299,10 +299,10 @@ h1 {
 
 .stat-card,
 .panel {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--app-border);
   border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
 }
 
 .stat-card {
@@ -317,7 +317,7 @@ h1 {
 }
 
 .stat-icon.blue {
-  color: #2563eb;
+  color: var(--app-primary);
 }
 
 .stat-icon.green {
@@ -329,11 +329,11 @@ h1 {
 }
 
 .stat-icon.purple {
-  color: #7c3aed;
+  color: color-mix(in srgb, var(--app-primary) 78%, #7c3aed);
 }
 
 .stat-card span {
-  color: #6b7280;
+  color: var(--app-text-muted);
   font-size: 14px;
 }
 
@@ -398,7 +398,7 @@ h1 {
   gap: 16px;
   padding: 12px;
   border-radius: 8px;
-  background: #f9fafb;
+  background: var(--app-surface-muted);
 }
 
 .course-row div {
@@ -407,7 +407,7 @@ h1 {
 }
 
 .course-row span {
-  color: #6b7280;
+  color: var(--app-text-muted);
   font-size: 13px;
 }
 

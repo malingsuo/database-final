@@ -263,7 +263,7 @@ onMounted(() => {
 .detail-page {
   min-height: 100vh;
   padding: 24px clamp(16px, 4vw, 48px) 48px;
-  background: #f5f7fa;
+  background: var(--app-bg);
 }
 
 .detail-header,
@@ -300,7 +300,7 @@ p {
 
 h1 {
   font-size: clamp(28px, 4vw, 42px);
-  color: #1f2937;
+  color: var(--app-text);
 }
 
 .student-meta,
@@ -318,7 +318,7 @@ h1 {
   padding: 24px;
   border: 1px solid var(--el-border-color-light);
   border-radius: 8px;
-  background: #fff;
+  background: var(--app-surface);
 }
 
 .summary-main {
@@ -330,7 +330,7 @@ h1 {
 
 .summary-main h2 {
   font-size: 44px;
-  color: #1f2937;
+  color: var(--app-text);
 }
 
 .summary-stats {
@@ -344,7 +344,7 @@ h1 {
   gap: 4px;
   padding: 14px;
   border-radius: 8px;
-  background: #f8fafc;
+  background: var(--app-surface-muted);
 }
 
 .summary-stats span,
