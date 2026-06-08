@@ -49,7 +49,7 @@ docker compose up -d --build auth
 | pgAdmin | http://localhost:5050 | 資料庫管理介面（帳號：admin@admin.com / admin） |
 | PostgreSQL | localhost:5432 | 資料庫 |
 
-> 正常使用請開啟 **http://localhost:3030**（nginx），前端的 API 呼叫才能正確轉發至後端。
+> 正常使用請開啟 `http://localhost:3030`（nginx），前端的 API 呼叫才能正確轉發至後端。
 
 ---
 

@@ -81,6 +81,18 @@ export interface GroupViolation {
   status: string
 }
 
+export interface CreditParts {
+  mandatory: number
+  group: number
+}
+
+export interface CreditBreakdown {
+  required: CreditParts
+  earned: CreditParts
+  in_progress: CreditParts
+  missing: CreditParts
+}
+
 export interface DeptCheck {
   dept_name: string
   found: boolean

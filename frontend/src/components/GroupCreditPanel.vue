@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { CourseEntry, DeptCheck } from '@/api/types'
+import type { CourseEntry, DeptCheck, GroupViolation } from '@/api/types'
 
 const props = defineProps<{
   check: DeptCheck
@@ -9,6 +9,39 @@ const props = defineProps<{
 type Kind = 'passed' | 'in_progress' | 'missing'
 interface GroupRow extends CourseEntry {
   _kind: Kind
+}
+
+function courseKey(course: CourseEntry): string {
+  const code = course.course_code?.trim()
+  if (code && code !== '無') return code.length >= 6 ? code.slice(0, 6) : code
+  return course.course_name.replace(/\s+/g, '')
+}
+
+function uniqueCount(rows: GroupRow[], kind: Kind): number {
+  return new Set(rows.filter((r) => r._kind === kind).map(courseKey)).size
+}
+
+function recognizedCount(label: string, rows: GroupRow[], kind: Kind): number {
+  const count = uniqueCount(rows, kind)
+  if (label === '群A') return Math.min(count, 2)
+  if (/^群[A-E]$/.test(label)) return Math.min(count, 1)
+  return count
+}
+
+function groupRequirementLabel(group: string): string {
+  const parts = group.split('+').filter(Boolean)
+  if (parts.length <= 1) return group
+  const first = parts[0]!
+  const last = parts[parts.length - 1]!.replace(/^群/, '')
+  return `${first}~${last}總共`
+}
+
+function groupViolationLabel(violation: GroupViolation): string {
+  const missing = Math.max(0, violation.min_courses - violation.passed_courses)
+  const inProgress = violation.in_progress_courses
+    ? `（修課中可補 ${violation.in_progress_courses} 門）`
+    : ''
+  return `${groupRequirementLabel(violation.group)}缺 ${missing} 門${inProgress}`
 }
 
 const groups = computed(() => {
@@ -29,12 +62,13 @@ const groups = computed(() => {
     .map(([label, rows]) => ({
       label,
       rows,
-      passed: rows.filter((r) => r._kind === 'passed').length,
+      passed: recognizedCount(label, rows, 'passed'),
     }))
     .sort((a, b) => a.label.localeCompare(b.label))
 })
 
 const violations = computed(() => props.check.group_violations ?? [])
+const violationLabels = computed(() => violations.value.map(groupViolationLabel))
 
 const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'danger' }> = {
   passed: { label: '已通過', type: 'success' },
@@ -63,10 +97,9 @@ const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'dan
     >
       <template #title>群修門數尚未達標</template>
       <ul class="violation-list">
-        <li v-for="(gv, idx) in violations" :key="idx">
-          <strong>{{ gv.group }}</strong>：已通過 {{ gv.passed_courses }} 門 / 需 {{ gv.min_courses }} 門
-          <span v-if="gv.in_progress_courses">（修課中 {{ gv.in_progress_courses }} 門）</span>
-          <span v-if="gv.note" class="note">— {{ gv.note }}</span>
+        <li v-for="(label, idx) in violationLabels" :key="idx">
+          {{ label }}
+          <span v-if="violations[idx]?.note" class="note">— {{ violations[idx]?.note }}</span>
         </li>
       </ul>
     </el-alert>
@@ -76,7 +109,7 @@ const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'dan
         <template #title>
           <span class="collapse-title">
             <el-tag size="small" type="warning" effect="plain">{{ g.label }}</el-tag>
-            通過 {{ g.passed }} 門 / 共列 {{ g.rows.length }} 門
+            認列 {{ g.passed }} 門 / 共列 {{ g.rows.length }} 門
           </span>
         </template>
         <el-table :data="g.rows" size="small" stripe>
