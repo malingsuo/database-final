@@ -6,6 +6,8 @@ const props = defineProps<{
   elective: ElectiveCredits
 }>()
 
+const ri = (v: number | null | undefined) => Math.round(v ?? 0)
+
 const percentage = computed(() => {
   const req = props.elective.elective_required
   if (!req || req <= 0) return 100
@@ -19,7 +21,7 @@ const complete = computed(() => props.elective.elective_gap <= 0)
   <el-card shadow="never" class="elective-card">
     <template #header>
       <div class="card-header">
-        <span class="card-title">選修學分缺口</span>
+        <span class="card-title">選修學分</span>
         <el-tag :type="complete ? 'success' : 'danger'" size="small" effect="dark">
           {{ complete ? '已達標' : `尚缺 ${elective.elective_gap} 學分` }}
         </el-tag>
@@ -33,18 +35,24 @@ const complete = computed(() => props.elective.elective_gap <= 0)
       class="elective-progress"
     />
 
-    <el-descriptions :column="2" border size="small" class="elective-desc">
-      <el-descriptions-item label="畢業總學分">{{ elective.graduation_total }}</el-descriptions-item>
-      <el-descriptions-item label="已修總學分">{{ elective.total_credits_earned }}</el-descriptions-item>
-      <el-descriptions-item label="主系應修">{{ elective.major_required }}</el-descriptions-item>
-      <el-descriptions-item label="通識應修">{{ elective.ge_required }}</el-descriptions-item>
-      <el-descriptions-item label="體育應修">{{ elective.pe_required }}</el-descriptions-item>
-      <el-descriptions-item label="選修應修">{{ elective.elective_required }}</el-descriptions-item>
-      <el-descriptions-item label="選修已修">{{ elective.elective_earned }}</el-descriptions-item>
-      <el-descriptions-item label="選修尚缺">
-        <span :class="{ miss: !complete }">{{ elective.elective_gap }}</span>
-      </el-descriptions-item>
-    </el-descriptions>
+    <div class="credit-stats">
+      <div class="stat">
+        <div class="stat-value">{{ ri(elective.elective_required) }}</div>
+        <div class="stat-label">應修學分</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value pass">{{ ri(elective.elective_earned) }}</div>
+        <div class="stat-label">已修得</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value progress">{{ ri(elective.elective_in_progress) }}</div>
+        <div class="stat-label">修課中</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" :class="{ miss: !complete }">{{ ri(elective.elective_gap) }}</div>
+        <div class="stat-label">尚缺</div>
+      </div>
+    </div>
 
     <p class="note">{{ elective.note }}</p>
   </el-card>
@@ -70,9 +78,42 @@ const complete = computed(() => props.elective.elective_gap <= 0)
   margin-bottom: 16px;
 }
 
-.miss {
-  color: var(--el-color-danger);
+.credit-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  background: var(--el-fill-color-light);
+  border-radius: 8px;
+  padding: 10px 6px;
+}
+
+.stat-value {
+  font-size: 20px;
   font-weight: 700;
+}
+
+.stat-value.pass {
+  color: var(--el-color-success);
+}
+
+.stat-value.progress {
+  color: var(--el-color-warning);
+}
+
+.stat-value.miss {
+  color: var(--el-color-danger);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--el-text-color-secondary);
+  margin-top: 2px;
 }
 
 .note {

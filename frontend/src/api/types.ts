@@ -76,6 +76,7 @@ export interface GroupViolation {
   min_courses: number
   passed_courses: number
   in_progress_courses: number
+  missing_credits?: number
   note: string
   status: string
 }
@@ -101,7 +102,10 @@ export interface DeptCheck {
   earned_credits: number
   in_progress_credits: number
   missing_credits: number | null
-  credit_breakdown?: CreditBreakdown
+  req_only_total?: number
+  req_only_earned?: number
+  req_only_in_progress?: number
+  req_only_missing?: number
   passed_courses: CourseEntry[]
   in_progress_courses: CourseEntry[]
   missing_courses: CourseEntry[]
@@ -179,6 +183,7 @@ export interface ElectiveCredits {
   ge_earned: number
   pe_earned: number
   elective_earned: number
+  elective_in_progress: number
   elective_gap: number
   note: string
 }
