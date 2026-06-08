@@ -123,6 +123,187 @@ def _normalize_name(name: str) -> str:
     return s.strip()
 
 
+CS_112_GROUP_REQUIRED_CREDITS = 15.0
+CS_112_GROUP_RULES = {
+    "群A": {
+        "min_courses": 2,
+        "note": "整合應用類核心課程至少選2門",
+    },
+    "_shared": {
+        "label": "群B~E",
+        "groups": ["群B", "群C", "群D", "群E"],
+        "min_total_courses": 3,
+        "unique_groups": True,
+        "note": "群B~E需選3門且領域不得重複",
+    },
+}
+CS_112_GROUP_CODE_PREFIXES = {
+    "703044": "群A",  # 資訊專題（A）
+    "703045": "群A",  # 資訊專題（B）
+    "703046": "群A",  # 資訊專題（C）
+    "703047": "群A",  # 資訊專題（D）
+    "703038": "群B",  # 人工智慧概論
+    "753849": "群B",
+    "703025": "群B",  # 資料庫系統
+    "753884": "群B",
+    "703837": "群B",  # 資料科學
+    "753831": "群B",
+    "703901": "群B",  # 機器學習概論
+    "753934": "群B",
+    "703918": "群B",  # 電腦視覺
+    "753916": "群B",
+    "703055": "群C",  # 人機互動
+    "753846": "群C",
+    "703053": "群C",  # 電腦圖學
+    "753873": "群C",
+    "703830": "群C",  # 軟體開發環境應用設計
+    "703827": "群C",  # 虛擬實境與觸覺回饋互動
+    "753822": "群C",
+    "703826": "群C",  # 視訊壓縮
+    "753832": "群C",
+    "703842": "群C",  # 資訊視覺化
+    "753841": "群C",
+    "703060": "群D",  # 資訊安全
+    "791001": "群D",
+    "703824": "群D",  # 資訊理論
+    "753817": "群D",
+    "753836": "群D",  # 現代密碼學
+    "791013": "群D",
+    "753807": "群D",  # 數位簽章
+    "791006": "群D",
+    "703027": "群E",  # 計算機網路
+    "703819": "群E",  # 行動通訊網路
+    "753810": "群E",
+    "703920": "群E",  # 網路與通訊概論
+    "703059": "群E",  # 分散式系統
+    "753852": "群E",
+    "791012": "群E",
+    "703039": "群E",  # 軟體工程概論
+    "753886": "群E",
+    "703042": "群E",  # 等候理論
+    "753889": "群E",
+}
+CS_112_GROUP_NAMES = {
+    "資訊專題": "群A",
+    "人工智慧概論": "群B",
+    "資料庫系統": "群B",
+    "資料科學": "群B",
+    "機器學習概論": "群B",
+    "電腦視覺": "群B",
+    "人機互動": "群C",
+    "電腦圖學": "群C",
+    "軟體開發環境應用設計": "群C",
+    "虛擬實境與觸覺回饋互動": "群C",
+    "視訊壓縮": "群C",
+    "資訊視覺化": "群C",
+    "資訊安全": "群D",
+    "資訊理論": "群D",
+    "現代密碼學": "群D",
+    "數位簽章": "群D",
+    "工業物聯網與營運安全": "群D",
+    "計算機網路": "群E",
+    "行動通訊網路": "群E",
+    "網路與通訊概論": "群E",
+    "分散式系統": "群E",
+    "軟體工程概論": "群E",
+    "等候理論": "群E",
+}
+CS_112_GROUP_NAME_DEPT_PREFIXES = ("703", "753", "791")
+
+
+def _is_cs_112_major(entry_year: int, major_name: str | None) -> bool:
+    return entry_year == 112 and "資訊科學" in (major_name or "")
+
+
+def _is_group_label(value: str | None) -> bool:
+    text = (value or "").strip()
+    return text == "群修" or bool(re.fullmatch(r"群[A-E]", text))
+
+
+def _cs_112_group_label(course_code: str | None, course_name: str | None) -> str | None:
+    code = (course_code or "").strip()
+    for prefix, group in CS_112_GROUP_CODE_PREFIXES.items():
+        if code.startswith(prefix):
+            return group
+
+    if not code.startswith(CS_112_GROUP_NAME_DEPT_PREFIXES):
+        return None
+    return CS_112_GROUP_NAMES.get(_normalize_name(course_name or ""))
+
+
+def _cs_112_group_identity(course_code: str | None, course_name: str | None) -> str:
+    code = (course_code or "").strip()
+    for prefix in CS_112_GROUP_CODE_PREFIXES:
+        if code.startswith(prefix):
+            return prefix
+    return _normalize_name(course_name or "")
+
+
+def _group_entry_from_enrollment(sc: Enrollment, group_label: str) -> dict:
+    return {
+        "course_name": sc.course_name,
+        "course_code": sc.course_code,
+        "course_type": "群修",
+        "credits": float(sc.credit),
+        "score": sc.score,
+        "group_label": group_label,
+        "match_confidence": "classified",
+    }
+
+
+def _classify_cs_112_group_courses(
+    student_courses: Sequence[Enrollment],
+) -> tuple[list, list, list, float, float]:
+    best_by_course: dict[tuple[str, str], tuple[str, dict]] = {}
+    status_rank = {"failed": 0, "in_progress": 1, "passed": 2}
+
+    for sc in student_courses:
+        group_label = _cs_112_group_label(sc.course_code, sc.course_name)
+        if not group_label:
+            continue
+
+        status = _score_status(sc.score)
+        entry = _group_entry_from_enrollment(sc, group_label)
+        if status == "failed":
+            entry["note"] = "成績不通過"
+
+        key = (group_label, _cs_112_group_identity(sc.course_code, sc.course_name))
+        existing = best_by_course.get(key)
+        if existing is None or status_rank[status] > status_rank[existing[0]]:
+            best_by_course[key] = (status, entry)
+
+    passed, in_progress, missing = [], [], []
+    earned = 0.0
+    in_prog_credits = 0.0
+    for status, entry in best_by_course.values():
+        if status == "passed":
+            earned += float(entry.get("credits", 0) or 0)
+            passed.append(entry)
+        elif status == "in_progress":
+            in_prog_credits += float(entry.get("credits", 0) or 0)
+            in_progress.append(entry)
+        else:
+            missing.append(entry)
+
+    return passed, in_progress, missing, earned, in_prog_credits
+
+
+def _major_rule_courses(
+    all_courses: list[dict],
+    entry_year: int,
+    major_name: str | None,
+) -> list[dict]:
+    if _is_cs_112_major(entry_year, major_name):
+        return [c for c in all_courses if c.get("type") == "必修"]
+    return [c for c in all_courses if c.get("type") in ("必修", "群修")]
+
+
+def _major_group_rules(rules: dict, entry_year: int, major_name: str | None) -> dict | None:
+    if _is_cs_112_major(entry_year, major_name):
+        return CS_112_GROUP_RULES
+    return rules.get("group_rules")
+
+
 def _build_sc_by_code(student_courses: Sequence[Enrollment]) -> dict:
     result = {}
     for sc in student_courses:
@@ -195,7 +376,7 @@ def _check_group_rules(
 
             if total_passed < min_total:
                 violations.append({
-                    "group": "_shared(" + "+".join(shared_groups) + ")",
+                    "group": rule.get("label") or "_shared(" + "+".join(shared_groups) + ")",
                     "min_courses": min_total,
                     "passed_courses": total_passed,
                     "in_progress_courses": total_in_prog,
@@ -295,7 +476,7 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
         return _not_found_result(major_name)
 
     all_courses = rules.get("courses", [])
-    rule_courses = [c for c in all_courses if c.get("type") in ("必修", "群修")]
+    rule_courses = _major_rule_courses(all_courses, student.admission_year, major_name)
 
     if not rule_courses and rules.get("total_credits_required") is None:
         return _no_data_result(rules.get("dept_name", major_name))
@@ -315,11 +496,28 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     )
 
     total_req = rules.get("total_credits_required")
-    if total_req is None and rule_courses:
+    if _is_cs_112_major(student.admission_year, major_name):
+        group_passed, group_in_progress, group_missing, group_earned, group_in_prog = (
+            _classify_cs_112_group_courses(student_courses)
+        )
+        passed.extend(group_passed)
+        in_progress.extend(group_in_progress)
+        missing.extend(group_missing)
+
+        required_total = round(sum(float(c.get("credits", 0) or 0) for c in rule_courses), 1)
+        if total_req is None:
+            total_req = required_total + CS_112_GROUP_REQUIRED_CREDITS
+        capped_group_earned = min(CS_112_GROUP_REQUIRED_CREDITS, group_earned)
+        earned += capped_group_earned
+        in_prog_credits += min(
+            max(0.0, CS_112_GROUP_REQUIRED_CREDITS - capped_group_earned),
+            group_in_prog,
+        )
+    elif total_req is None and rule_courses:
         total_req = round(sum(float(c.get("credits", 0) or 0) for c in rule_courses), 1)
     missing_credits = max(0.0, float(total_req) - earned) if total_req is not None else None
 
-    group_rules = rules.get("group_rules")
+    group_rules = _major_group_rules(rules, student.admission_year, major_name)
     group_violations = _check_group_rules(group_rules, passed, in_progress)
 
     return {
@@ -931,7 +1129,7 @@ def check_group_courses(session: Session, student: Student) -> dict:
     for key in ("passed_courses", "in_progress_courses", "missing_courses"):
         major[key] = [
             c for c in major.get(key, [])
-            if c.get("group_label") == "群修" or c.get("course_type") == "群修"
+            if _is_group_label(c.get("group_label")) or _is_group_label(c.get("course_type"))
         ]
     return major
 
