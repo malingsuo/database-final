@@ -6,10 +6,9 @@ import RequirementBlock from '@/components/RequirementBlock.vue'
 import ElectiveGapCard from '@/components/ElectiveGapCard.vue'
 
 function gePercentage(ge: GeCheck): number {
-  const required = ge.categories.reduce((s, c) => s + c.credits_required, 0)
+  const required = ge.total_required_credits
   if (required <= 0) return ge.status === 'complete' ? 100 : 0
-  const earned = ge.categories.reduce((s, c) => s + Math.min(c.earned_credits, c.credits_required), 0)
-  return Math.min(100, Math.round((earned / required) * 100))
+  return Math.min(100, Math.round((ge.earned_credits / required) * 100))
 }
 
 function pePercentage(pe: PeCheck): number {
@@ -72,7 +71,7 @@ function statusTag(status: string) {
                   class="ge-cat-credit"
                   :class="{ miss: cat.missing_credits > 0 }"
                 >
-                  {{ cat.earned_credits }} / {{ cat.credits_required }}
+                  {{ cat.earned_credits }} / {{ cat.credits_required_max }}
                 </span>
               </div>
             </div>

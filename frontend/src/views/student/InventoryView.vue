@@ -82,7 +82,7 @@ const geMissingCategories = computed(
               <el-table :data="geMissingCategories" stripe size="small">
                 <el-table-column prop="category_name" label="類別" min-width="160" />
                 <el-table-column prop="remark_code" label="程式碼" width="90" align="center" />
-                <el-table-column prop="credits_required" label="應修" width="80" align="center" />
+                <el-table-column prop="credits_required_min" label="應修" width="80" align="center" />
                 <el-table-column prop="earned_credits" label="已修" width="80" align="center" />
                 <el-table-column label="尚缺" width="80" align="center">
                   <template #default="{ row }">

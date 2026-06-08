@@ -109,7 +109,8 @@ export interface DoubleMajorGroupCheck {
 export interface GeCategory {
   category_name: string
   remark_code: string
-  credits_required: number
+  credits_required_min: number
+  credits_required_max: number
   earned_credits: number
   missing_credits: number
   courses: CourseEntry[]
@@ -118,6 +119,12 @@ export interface GeCategory {
 
 export interface GeCheck {
   categories: GeCategory[]
+  total_required_credits: number
+  earned_credits: number
+  missing_credits: number
+  core_domains?: string[]
+  core_domains_required?: number
+  cross_domain_courses?: CourseEntry[]
   status: 'complete' | 'incomplete'
 }
 
