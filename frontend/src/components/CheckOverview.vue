@@ -57,7 +57,7 @@ function statusTag(status: string) {
             <div class="block-header">
               <span class="block-title">通識</span>
               <el-tag :type="statusTag(result.ge_check.status).type" effect="dark" size="small">
-                {{ statusTag(result.ge_check.status).label }}
+                {{ result.ge_check.status === 'complete' ? '已達標' : `尚缺 ${result.ge_check.missing_credits} 學分` }}
               </el-tag>
             </div>
           </template>

@@ -228,16 +228,26 @@ def _match_courses_from_rules(
     student_courses: Sequence[Enrollment],
     sc_by_code: dict,
     alt_code_key: str | None = None,
-) -> tuple[list, list, list, float, float]:
+) -> tuple[list, list, list, float, float, float, float, float, float]:
+    """回傳 (passed, in_progress, missing, earned, in_prog_credits,
+             req_total, req_earned, req_in_prog, req_missing)
+    其中 req_* 為必修課程依規則學分計算的統計，供正確計算應修/尚缺使用。"""
     passed, in_progress, missing = [], [], []
     earned = 0.0
     in_prog_credits = 0.0
+    req_total = 0.0
+    req_earned = 0.0
+    req_in_prog = 0.0
+    req_missing = 0.0
 
     for dc in rule_courses:
         rule_name = dc.get("name", "")
         rule_code = dc.get("course_code_required") or dc.get("code") or ""
         group_label = dc.get("group_label") or dc.get("type")
         cred = float(dc.get("credits", 0) or 0)
+        is_required = dc.get("type") == "必修"
+        if is_required:
+            req_total += cred
 
         alt_code = dc.get(alt_code_key, "") if alt_code_key else ""
 
@@ -248,6 +258,8 @@ def _match_courses_from_rules(
             matched, confidence = _match_course(rule_code, rule_name, sc_by_code, student_courses)
 
         if matched is None:
+            if is_required:
+                req_missing += cred
             missing.append({
                 "course_name": rule_name,
                 "course_code": alt_code or rule_code,
@@ -269,11 +281,17 @@ def _match_courses_from_rules(
             }
             if status == "passed":
                 earned += cred
+                if is_required:
+                    req_earned += cred
                 passed.append(entry)
             elif status == "in_progress":
                 in_prog_credits += cred
+                if is_required:
+                    req_in_prog += cred
                 in_progress.append(entry)
             else:
+                if is_required:
+                    req_missing += cred
                 missing.append({
                     "course_name": rule_name,
                     "course_code": alt_code or rule_code,
@@ -285,7 +303,7 @@ def _match_courses_from_rules(
                     "match_confidence": confidence,
                 })
 
-    return passed, in_progress, missing, earned, in_prog_credits
+    return passed, in_progress, missing, earned, in_prog_credits, req_total, req_earned, req_in_prog, req_missing
 
 
 def _expand_group_courses(rule_courses: list[dict], group_course_codes: dict) -> list[dict]:
@@ -348,25 +366,25 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     )
     sc_by_code = _build_sc_by_code(student_courses)
 
-    passed, in_progress, missing, earned, in_prog_credits = _match_courses_from_rules(
+    (passed, in_progress, missing, earned, in_prog_credits,
+     req_total, req_earned, req_in_prog, req_missing) = _match_courses_from_rules(
         rule_courses, student_courses, sc_by_code
     )
-    # from pprint import pprint
-    # pprint(in_progress)
 
     total_req = rules.get("total_credits_required")
     group_rules = rules.get("group_rules")
+
+    # 取每個群的代表學分（取該群第一門課的學分），供計算群修尚缺學分使用
+    group_credits: dict[str, float] = {}
+    for c in rule_courses:
+        grp = str(c.get("type") or "")
+        if grp not in group_credits:
+            group_credits[grp] = float(c.get("credits", 0) or 0)
+
     if total_req is None and rule_courses:
         group_rules_data = group_rules or {}
         shared_info = group_rules_data.get("_shared", {})
         shared_groups = set(shared_info.get("groups", []))
-
-        # 取每個群的代表學分（取該群第一門課的學分）
-        group_credits: dict[str, float] = {}
-        for c in rule_courses:
-            grp = str(c.get("type") or "")
-            if grp not in group_credits:
-                group_credits[grp] = float(c.get("credits", 0) or 0)
 
         total_req = 0.0
         # 必修：全數加總
@@ -387,6 +405,11 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     missing_credits = max(0.0, float(total_req) - earned) if total_req is not None else None
 
     group_violations = _check_group_rules(group_rules, passed, in_progress)
+    for v in group_violations:
+        grp_name = v["group"]
+        missing_count = v["min_courses"] - v["passed_courses"]
+        base_grp = grp_name.split("+")[0] if "+" in grp_name else grp_name
+        v["missing_credits"] = round(missing_count * group_credits.get(base_grp, 3.0), 1)
 
     return {
         "dept_name": rules.get("dept_name", major_name),
@@ -395,6 +418,10 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
         "earned_credits": round(earned, 1),
         "in_progress_credits": round(in_prog_credits, 1),
         "missing_credits": round(missing_credits, 1) if missing_credits is not None else None,
+        "req_only_total": round(req_total, 1),
+        "req_only_earned": round(req_earned, 1),
+        "req_only_in_progress": round(req_in_prog, 1),
+        "req_only_missing": round(req_missing, 1),
         "passed_courses": passed,
         "in_progress_courses": in_progress,
         "missing_courses": missing,
@@ -437,7 +464,7 @@ def check_double_major(session: Session, student: Student, dm_name: str | None, 
     )
     sc_by_code = _build_sc_by_code(student_courses)
 
-    passed, in_progress, missing, earned, in_prog_credits = _match_courses_from_rules(
+    passed, in_progress, missing, earned, in_prog_credits, *_ = _match_courses_from_rules(
         rule_courses, student_courses, sc_by_code, alt_code_key="double_major_course_code"
     )
 
@@ -505,7 +532,7 @@ def check_minor(session: Session, student: Student, minor_name: str) -> dict:
     )
     sc_by_code = _build_sc_by_code(student_courses)
 
-    passed, in_progress, missing, earned, in_prog_credits = _match_courses_from_rules(
+    passed, in_progress, missing, earned, in_prog_credits, *_ = _match_courses_from_rules(
         rule_courses, student_courses, sc_by_code
     )
 
@@ -815,29 +842,23 @@ PE_REQUIRED_CREDITS = 4
 
 def _calc_elective_gap(
     total_credits: float,
+    total_in_progress: float,
     major_result: dict,
     ge_result: dict,
     pe_result: dict,
 ) -> dict:
     TOTAL = GRADUATION_TOTAL_CREDITS
-    required_lists = (
-        major_result.get("passed_courses", [])
-        + major_result.get("in_progress_courses", [])
-        + major_result.get("missing_courses", [])
-    )
-    major_required = sum(
-        float(c.get("credits", 0) or 0)
-        for c in required_lists
-        if c.get("group_label") == "必修" or c.get("course_type") == "必修"
-    )
-    major_earned = sum(
-        float(c.get("credits", 0) or 0)
-        for c in major_result.get("passed_courses", [])
-        if c.get("group_label") == "必修" or c.get("course_type") == "必修"
-    )
+
+    # 優先使用 check_major 回傳的規則學分統計（避免學生實際學分與規則不同造成誤差）
+    major_required = major_result.get("req_only_total") or 0.0
+    major_earned = major_result.get("req_only_earned") or 0.0
+    major_in_progress_req = major_result.get("req_only_in_progress") or 0.0
+
     if major_required == 0:
-        major_required = major_result.get("total_credits_required") or 0
-        major_earned = major_result.get("earned_credits") or 0.0
+        # fallback：無規則學分資料時改用後端彙整值
+        major_required = float(major_result.get("total_credits_required") or 0)
+        major_earned = float(major_result.get("earned_credits") or 0.0)
+        major_in_progress_req = float(major_result.get("in_progress_credits") or 0.0)
 
     ge_earned = ge_result.get("earned_credits")
     if ge_earned is None:
@@ -846,31 +867,37 @@ def _calc_elective_gap(
 
     pe_passed = len(pe_result.get("passed_courses", []))
     pe_earned = float(min(pe_passed, PE_REQUIRED_CREDITS))
+    pe_in_progress = float(min(
+        len(pe_result.get("in_progress_courses", [])),
+        max(0, PE_REQUIRED_CREDITS - pe_passed),
+    ))
 
     elective_required = max(0, TOTAL - major_required - GE_REQUIRED_CREDITS - PE_REQUIRED_CREDITS)
     total_earned = total_credits
     elective_earned = max(0.0, total_earned - major_earned - ge_earned - pe_earned)
+    elective_in_progress = max(0.0, total_in_progress - major_in_progress_req - pe_in_progress)
     elective_gap = max(0.0, elective_required - elective_earned)
 
     note = (
-        f"選修應修 = {TOTAL} - 必修{major_required} - 通識{GE_REQUIRED_CREDITS}"
-        f" - 體育{PE_REQUIRED_CREDITS} = {elective_required} 學分"
+        f"選修應修 = {TOTAL} - 必修{round(major_required)} - 通識{GE_REQUIRED_CREDITS}"
+        f" - 體育{PE_REQUIRED_CREDITS} = {round(elective_required)} 學分"
     )
     if major_result.get("found") is False or major_result.get("no_data"):
         note += "（主系資料不完整，選修缺口為估算值）"
 
     return {
         "graduation_total": TOTAL,
-        "major_required": major_required,
+        "major_required": round(major_required),
         "ge_required": GE_REQUIRED_CREDITS,
         "pe_required": PE_REQUIRED_CREDITS,
-        "elective_required": elective_required,
-        "total_credits_earned": round(total_earned, 1),
-        "major_earned": round(major_earned, 1),
-        "ge_earned": round(ge_earned, 1),
-        "pe_earned": round(pe_earned, 1),
-        "elective_earned": round(elective_earned, 1),
-        "elective_gap": round(elective_gap, 1),
+        "elective_required": round(elective_required),
+        "total_credits_earned": round(total_earned),
+        "major_earned": round(major_earned),
+        "ge_earned": round(ge_earned),
+        "pe_earned": round(pe_earned),
+        "elective_earned": round(elective_earned),
+        "elective_in_progress": round(elective_in_progress),
+        "elective_gap": round(elective_gap),
         "note": note,
     }
 
@@ -911,6 +938,12 @@ def check_graduation(session: Session, student_id: str) -> dict:
         float(e.course.credits) for e in enrollments
         if e.is_passed and e.course
     )
+    total_in_progress_credits = sum(
+        float(e.course.credits) for e in enrollments
+        if _score_status(e.score) == "in_progress" and e.course
+    )
+
+    elective_gap_info = _calc_elective_gap(total_credits, total_in_progress_credits, major_result, ge_result, pe_result)
 
     incomplete_items = []
     if major_result.get("status") not in ("complete",):
@@ -924,9 +957,10 @@ def check_graduation(session: Session, student_id: str) -> dict:
         incomplete_items.append("通識")
     if pe_result.get("status") not in ("complete",):
         incomplete_items.append("體育必修")
+    if elective_gap_info.get("elective_gap", 0) > 0:
+        incomplete_items.append("選修")
 
     all_complete = len(incomplete_items) == 0
-    elective_gap_info = _calc_elective_gap(total_credits, major_result, ge_result, pe_result)
 
     return {
         "student": {

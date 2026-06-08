@@ -128,6 +128,7 @@ export const mockCheckResult: CheckResult = {
         min_courses: 2,
         passed_courses: 1,
         in_progress_courses: 1,
+        missing_credits: 3,
         note: '群B（系統類）至少需通過 2 門',
         status: 'incomplete',
       },
@@ -247,7 +248,7 @@ export const mockCheckResult: CheckResult = {
   },
   summary: {
     all_complete: false,
-    incomplete_items: ['主系必修', '雙主修', '輔系 統計學系', '通識', '體育必修'],
+    incomplete_items: ['主系必修', '雙主修', '輔系 統計學系', '通識', '體育必修', '選修'],
     elective_credits: {
       graduation_total: 128,
       major_required: 36,
@@ -259,8 +260,9 @@ export const mockCheckResult: CheckResult = {
       ge_earned: 13,
       pe_earned: 3,
       elective_earned: 59,
+      elective_in_progress: 3,
       elective_gap: 1,
-      note: '選修應修 = 128 - 主系36 - 通識28 - 體育4 = 60 學分',
+      note: '選修應修 = 128 - 必修36 - 通識28 - 體育4 = 60 學分',
     },
   },
 }
