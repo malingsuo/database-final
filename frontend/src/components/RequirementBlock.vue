@@ -100,82 +100,6 @@ const progressStatus = computed(() => {
   if (props.check.status === 'complete') return 'success'
   return percentage.value >= 100 ? 'success' : 'warning'
 })
-
-const hasCreditBreakdown = computed(() => Boolean(props.check.credit_breakdown))
-
-function formatCredit(value: number | null | undefined): string {
-  if (value == null) return '-'
-  if (!Number.isFinite(value)) return '-'
-  return Number.isInteger(value) ? `${value}` : value.toFixed(1)
-}
-
-function formatCreditParts(kind: 'required' | 'earned' | 'in_progress' | 'missing'): string {
-  const parts = props.check.credit_breakdown?.[kind]
-  if (!parts) return '-'
-  return `${formatCredit(parts.mandatory)}+${formatCredit(parts.group)}`
-}
-
-const requiredCreditsLabel = computed(() =>
-  hasCreditBreakdown.value
-    ? formatCreditParts('required')
-    : formatCredit(props.check.total_credits_required),
-)
-
-const earnedCreditsLabel = computed(() =>
-  hasCreditBreakdown.value
-    ? formatCreditParts('earned')
-    : formatCredit(props.check.earned_credits),
-)
-
-const inProgressCreditsLabel = computed(() =>
-  hasCreditBreakdown.value
-    ? formatCreditParts('in_progress')
-    : formatCredit(props.check.in_progress_credits),
-)
-
-const missingCreditsLabel = computed(() =>
-  hasCreditBreakdown.value
-    ? formatCreditParts('missing')
-    : formatCredit(props.check.missing_credits),
-)
-
-function isMandatoryCourse(course: CourseEntry): boolean {
-  return course.group_label === '必修' || course.course_type === '必修'
-}
-
-function courseLabel(course: CourseEntry): string {
-  return course.note ? `${course.course_name}（${course.note}）` : course.course_name
-}
-
-function groupRequirementLabel(group: string): string {
-  const parts = group.split('+').filter(Boolean)
-  if (parts.length <= 1) return group
-  const first = parts[0]!
-  const last = parts[parts.length - 1]!.replace(/^群/, '')
-  return `${first}~${last}總共`
-}
-
-function groupViolationLabel(violation: GroupViolation): string {
-  const missing = Math.max(0, violation.min_courses - violation.passed_courses)
-  const inProgress = violation.in_progress_courses
-    ? `（修課中可補 ${violation.in_progress_courses} 門）`
-    : ''
-  return `${groupRequirementLabel(violation.group)}缺 ${missing} 門${inProgress}`
-}
-
-const mandatoryMissingCourses = computed(() =>
-  props.check.missing_courses.filter(isMandatoryCourse),
-)
-
-const groupMissingItems = computed(() =>
-  (props.check.group_violations ?? [])
-    .filter((gv) => gv.min_courses > gv.passed_courses)
-    .map(groupViolationLabel),
-)
-
-const hasMissingItems = computed(
-  () => mandatoryMissingCourses.value.length > 0 || groupMissingItems.value.length > 0,
-)
 </script>
 
 <template>
@@ -243,25 +167,16 @@ const hasMissingItems = computed(
         </div>
       </div>
 
-      <div v-if="hasMissingItems" class="violations">
-        <div class="violations-title">尚缺項目：</div>
+      <div v-if="check.group_violations && check.group_violations.length" class="violations">
+        <div class="violations-title">群修門數未達標：</div>
         <el-tag
-          v-for="course in mandatoryMissingCourses"
-          :key="`mandatory-${course.course_code}-${course.course_name}`"
+          v-for="(gv, idx) in check.group_violations"
+          :key="idx"
           type="danger"
           effect="plain"
           class="violation-tag"
         >
-          必修：{{ courseLabel(course) }}
-        </el-tag>
-        <el-tag
-          v-for="(item, idx) in groupMissingItems"
-          :key="`group-${idx}`"
-          type="danger"
-          effect="plain"
-          class="violation-tag"
-        >
-          {{ item }}
+          {{ gv.group }}：已過 {{ gv.passed_courses }}/{{ gv.min_courses }} 門
         </el-tag>
       </div>
     </template>

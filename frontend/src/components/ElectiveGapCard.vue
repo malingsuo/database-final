@@ -21,7 +21,7 @@ const complete = computed(() => props.elective.elective_gap <= 0)
   <el-card shadow="never" class="elective-card">
     <template #header>
       <div class="card-header">
-        <span class="card-title">選修學分</span>
+        <span class="card-title">選修</span>
         <el-tag :type="complete ? 'success' : 'danger'" size="small" effect="dark">
           {{ complete ? '已達標' : `尚缺 ${elective.elective_gap} 學分` }}
         </el-tag>
