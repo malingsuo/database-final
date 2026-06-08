@@ -31,7 +31,7 @@ const confidenceMeta: Record<MatchConfidence, { label: string; type: 'success' |
 <template>
   <el-table :data="courses" stripe size="small" :empty-text="emptyText" class="course-table">
     <el-table-column prop="course_name" label="課程名稱" min-width="180" show-overflow-tooltip />
-    <el-table-column prop="course_code" label="課程程式碼" width="110" />
+    <el-table-column prop="course_code" label="課程代碼" width="110" />
     <el-table-column label="學分" width="70" align="center">
       <template #default="{ row }">{{ row.credits ?? '-' }}</template>
     </el-table-column>

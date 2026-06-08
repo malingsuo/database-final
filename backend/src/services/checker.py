@@ -163,6 +163,71 @@ def _match_course(
     return None, "none"
 
 
+def _enrollment_key(sc: Enrollment) -> tuple[str, str, str]:
+    return ((sc.course_code or "").strip(), str(sc.year or ""), str(sc.semester or ""))
+
+
+def _status_rank(sc: Enrollment) -> int:
+    status = _score_status(sc.score)
+    if status == "passed":
+        return 0
+    if status == "in_progress":
+        return 1
+    return 2
+
+
+def _sort_enrollments(matches: list[Enrollment]) -> list[Enrollment]:
+    return sorted(
+        matches,
+        key=lambda sc: (_status_rank(sc), str(sc.year or ""), str(sc.semester or ""), sc.course_code or ""),
+    )
+
+
+def _match_course_candidates(
+    rule_code: str | None,
+    rule_name: str,
+    student_courses: Sequence[Enrollment],
+) -> tuple[list[Enrollment], str]:
+    code = (rule_code or "").strip()
+    if code and code != "無":
+        exact = [sc for sc in student_courses if (sc.course_code or "").strip() == code]
+        if exact:
+            return _sort_enrollments(exact), "exact"
+
+        if len(code) >= 6:
+            prefix = code[:6]
+            prefix_matches = [
+                sc for sc in student_courses
+                if (sc.course_code or "").strip().startswith(prefix)
+            ]
+            if prefix_matches:
+                return _sort_enrollments(prefix_matches), "exact_prefix"
+
+    rule_norm = _normalize_name(rule_name)
+    if not rule_norm:
+        return [], "none"
+
+    name_matches = [
+        sc for sc in student_courses
+        if rule_norm in _normalize_name(sc.course_name) or _normalize_name(sc.course_name) in rule_norm
+    ]
+    if name_matches:
+        return _sort_enrollments(name_matches), "normalized"
+    return [], "none"
+
+
+def _course_entry_from_match(dc: dict, matched: Enrollment, group_label: str, confidence: str, credits: float) -> dict:
+    return {
+        "course_name": matched.course_name,
+        "course_code": matched.course_code,
+        "course_type": dc.get("type"),
+        "credits": credits,
+        "score": matched.score,
+        "group_label": group_label,
+        "match_confidence": confidence,
+    }
+
+
 def _check_group_rules(
     group_rules: dict | None,
     passed_courses: list,
@@ -172,16 +237,26 @@ def _check_group_rules(
         return []
 
     violations = []
-    group_passed: dict[str, int] = {}
-    group_in_prog: dict[str, int] = {}
+    group_passed_keys: dict[str, set[str]] = {}
+    group_in_prog_keys: dict[str, set[str]] = {}
     for c in passed_courses:
         gl = c.get("group_label")
         if gl:
-            group_passed[gl] = group_passed.get(gl, 0) + 1
+            group_passed_keys.setdefault(gl, set()).add(_course_unique_key(c))
     for c in in_progress_courses:
         gl = c.get("group_label")
         if gl:
-            group_in_prog[gl] = group_in_prog.get(gl, 0) + 1
+            group_in_prog_keys.setdefault(gl, set()).add(_course_unique_key(c))
+
+    group_passed = {grp: len(keys) for grp, keys in group_passed_keys.items()}
+    group_in_prog = {grp: len(keys) for grp, keys in group_in_prog_keys.items()}
+
+    shared_unique_groups = {
+        group
+        for rule_key, rule in group_rules.items()
+        if rule_key == "_shared" and rule.get("unique_groups")
+        for group in rule.get("groups", [])
+    }
 
     for grp, rule in group_rules.items():
         if grp == "_shared":
@@ -189,11 +264,25 @@ def _check_group_rules(
             min_total: int = rule.get("min_total_courses", 0)
             unique_groups: bool = rule.get("unique_groups", False)
             if unique_groups:
-                total_passed = sum(1 for g in shared_groups if group_passed.get(g, 0) > 0)
-                total_in_prog = sum(1 for g in shared_groups if group_in_prog.get(g, 0) > 0)
+                passed_groups = {g for g in shared_groups if group_passed.get(g, 0) > 0}
+                total_passed = len(passed_groups)
+                missing_cnt = max(0, min_total - total_passed)
+                in_prog_groups = {
+                    g
+                    for g in shared_groups
+                    if g not in passed_groups and group_in_prog.get(g, 0) > 0
+                }
+                total_in_prog = min(len(in_prog_groups), missing_cnt)
             else:
                 total_passed = sum(group_passed.get(g, 0) for g in shared_groups)
-                total_in_prog = sum(group_in_prog.get(g, 0) for g in shared_groups)
+                missing_cnt = max(0, min_total - total_passed)
+                total_in_prog = min(
+                    sum(
+                        len(group_in_prog_keys.get(g, set()) - group_passed_keys.get(g, set()))
+                        for g in shared_groups
+                    ),
+                    missing_cnt,
+                )
 
             if total_passed < min_total:
                 violations.append({
@@ -206,11 +295,18 @@ def _check_group_rules(
                 })
             continue
 
+        if grp in shared_unique_groups:
+            continue
+
         min_c = rule.get("min_courses")
         if min_c is None:
             continue
         passed_cnt = group_passed.get(grp, 0)
-        in_prog_cnt = group_in_prog.get(grp, 0)
+        missing_cnt = max(0, min_c - passed_cnt)
+        in_prog_cnt = min(
+            len(group_in_prog_keys.get(grp, set()) - group_passed_keys.get(grp, set())),
+            missing_cnt,
+        )
         if passed_cnt < min_c:
             violations.append({
                 "group": grp,
@@ -240,52 +336,272 @@ def _match_courses_from_rules(
         cred = float(dc.get("credits", 0) or 0)
 
         alt_code = dc.get(alt_code_key, "") if alt_code_key else ""
+        match_code = alt_code or rule_code
+        matches, confidence = _match_course_candidates(match_code, rule_name, student_courses)
 
-        matched, confidence = None, "none"
-        if alt_code and alt_code in sc_by_code:
-            matched, confidence = sc_by_code[alt_code], "exact"
-        else:
-            matched, confidence = _match_course(rule_code, rule_name, sc_by_code, student_courses)
-
-        if matched is None:
+        if not matches:
             missing.append({
                 "course_name": rule_name,
-                "course_code": alt_code or rule_code,
+                "course_code": match_code,
                 "course_type": dc.get("type"),
                 "group_label": group_label,
                 "credits": cred,
                 "match_confidence": "none",
             })
-        else:
+            continue
+
+        semesters_required = int(dc.get("semesters", 1) or 1)
+        multi_semester_rule = semesters_required > 1 or (
+            cred > 0 and matches and cred > float(matches[0].credit or 0)
+        )
+        selected_matches = matches if multi_semester_rule else matches[:1]
+
+        covered_credits = 0.0
+        used_keys: set[tuple[str, str, str]] = set()
+        for matched in selected_matches:
+            key = _enrollment_key(matched)
+            if key in used_keys:
+                continue
+            used_keys.add(key)
+
+            remaining = max(0.0, cred - covered_credits)
+            if multi_semester_rule and cred > 0 and remaining <= 0:
+                break
+
+            matched_credits = float(matched.credit or 0)
+            entry_credits = min(matched_credits, remaining) if multi_semester_rule and cred > 0 else matched_credits
+            if matched_credits <= 0 and cred == 0:
+                entry_credits = 0.0
+            covered_credits += entry_credits
+
             status = _score_status(matched.score)
-            entry = {
-                "course_name": matched.course_name,
-                "course_code": matched.course_code,
-                "course_type": dc.get("type"),
-                "credits": float(matched.credit),
-                "score": matched.score,
-                "group_label": group_label,
-                "match_confidence": confidence,
-            }
+            entry = _course_entry_from_match(dc, matched, group_label, confidence, entry_credits)
             if status == "passed":
-                earned += cred
+                earned += entry_credits
                 passed.append(entry)
             elif status == "in_progress":
-                in_prog_credits += cred
+                in_prog_credits += entry_credits
                 in_progress.append(entry)
             else:
                 missing.append({
                     "course_name": rule_name,
-                    "course_code": alt_code or rule_code,
+                    "course_code": match_code,
                     "course_type": dc.get("type"),
                     "group_label": group_label,
-                    "credits": cred,
+                    "credits": entry_credits,
                     "score": matched.score,
                     "note": "成績不通過",
                     "match_confidence": confidence,
                 })
 
+        if multi_semester_rule and cred > covered_credits:
+            missing.append({
+                "course_name": rule_name,
+                "course_code": match_code,
+                "course_type": dc.get("type"),
+                "group_label": group_label,
+                "credits": round(cred - covered_credits, 1),
+                "match_confidence": "none",
+            })
+
     return passed, in_progress, missing, earned, in_prog_credits
+
+
+def _is_mandatory_label(label: object) -> bool:
+    return str(label or "") == "必修"
+
+
+def _is_group_label(label: object) -> bool:
+    label_s = str(label or "")
+    return label_s == "群修" or label_s.startswith("群")
+
+
+def _has_credit_label(course: dict, predicate) -> bool:
+    return any(
+        predicate(course.get(key))
+        for key in ("group_label", "course_type", "type")
+    )
+
+
+def _has_missing_mandatory_course(missing_courses: list[dict]) -> bool:
+    return any(
+        _has_credit_label(c, _is_mandatory_label)
+        for c in missing_courses
+    )
+
+
+def _course_unique_key(course: dict) -> str:
+    code = str(course.get("course_code") or course.get("course_code_required") or "").strip()
+    if code and code != "無":
+        return code[:6] if len(code) >= 6 else code
+    name = str(course.get("course_name") or course.get("name") or "").strip()
+    return _normalize_name(name) or str(id(course))
+
+
+def _sum_labeled_credits(courses: list[dict], predicate, unique: bool = False) -> float:
+    total = 0.0
+    seen: set[str] = set()
+    for c in courses:
+        if not _has_credit_label(c, predicate):
+            continue
+        if unique:
+            key = _course_unique_key(c)
+            if key in seen:
+                continue
+            seen.add(key)
+        total += float(c.get("credits", 0) or 0)
+    return total
+
+
+def _group_label(course: dict) -> str:
+    for key in ("group_label", "course_type", "type"):
+        label = course.get(key)
+        if _is_group_label(label):
+            return str(label)
+    return ""
+
+
+def _group_credit_options(courses: list[dict]) -> dict[str, dict[str, float]]:
+    result: dict[str, dict[str, float]] = {}
+    for c in courses:
+        label = _group_label(c)
+        if not label:
+            continue
+        key = _course_unique_key(c)
+        credits = float(c.get("credits", 0) or 0)
+        by_key = result.setdefault(label, {})
+        by_key[key] = max(by_key.get(key, 0.0), credits)
+    return result
+
+
+def _recognized_group_credits(
+    courses: list[dict],
+    group_rules: dict | None,
+    group_required: float,
+    prior_courses: list[dict] | None = None,
+) -> float:
+    grouped = _group_credit_options(courses)
+    prior_grouped = _group_credit_options(prior_courses or [])
+
+    if not group_rules or not isinstance(group_rules, dict):
+        raw = 0.0
+        for group, by_key in grouped.items():
+            prior_keys = set(prior_grouped.get(group, {}))
+            raw += sum(
+                credits
+                for key, credits in by_key.items()
+                if key not in prior_keys
+            )
+        return min(raw, group_required)
+
+    recognized = 0.0
+    shared_unique_groups: set[str] = set()
+
+    for rule_key, rule in group_rules.items():
+        if rule_key != "_shared" or not rule.get("unique_groups"):
+            continue
+
+        groups = list(rule.get("groups", []))
+        shared_unique_groups.update(groups)
+        min_total = int(rule.get("min_total_courses", 0) or 0)
+        prior_options = [
+            (max(prior_grouped[group].values()), group)
+            for group in groups
+            if prior_grouped.get(group)
+        ]
+        selected_prior_groups = {
+            group
+            for _, group in sorted(prior_options, reverse=True)[:min_total]
+        }
+        remaining_slots = max(0, min_total - len(selected_prior_groups))
+        current_options = [
+            max(grouped[group].values())
+            for group in groups
+            if group not in selected_prior_groups and grouped.get(group)
+        ]
+        recognized += sum(sorted(current_options, reverse=True)[:remaining_slots])
+
+    for group, by_key in grouped.items():
+        if group in shared_unique_groups:
+            continue
+        rule = group_rules.get(group, {})
+        cap = int(rule.get("min_courses", 0) or 0)
+        if cap <= 0:
+            cap = len(by_key)
+        prior_count = len(prior_grouped.get(group, {}))
+        remaining_slots = max(0, cap - prior_count)
+        prior_keys = set(prior_grouped.get(group, {}))
+        available_credits = [
+            credits
+            for key, credits in by_key.items()
+            if key not in prior_keys
+        ]
+        recognized += sum(sorted(available_credits, reverse=True)[:remaining_slots])
+
+    return min(recognized, group_required)
+
+
+def _credit_part(mandatory: float, group: float) -> dict:
+    return {
+        "mandatory": round(mandatory, 1),
+        "group": round(group, 1),
+    }
+
+
+def _build_credit_breakdown(
+    rule_courses: list[dict],
+    passed_courses: list[dict],
+    in_progress_courses: list[dict],
+    total_required: float | int | None,
+    group_rules: dict | None = None,
+) -> dict | None:
+    has_group_courses = any(
+        _has_credit_label(c, _is_group_label)
+        for c in (rule_courses + passed_courses + in_progress_courses)
+    )
+    if not has_group_courses:
+        return None
+
+    mandatory_required = _sum_labeled_credits(rule_courses, _is_mandatory_label)
+    if total_required is None:
+        group_required = _sum_labeled_credits(rule_courses, _is_group_label)
+    else:
+        group_required = max(0.0, float(total_required) - mandatory_required)
+
+    mandatory_earned_raw = _sum_labeled_credits(passed_courses, _is_mandatory_label)
+    group_earned_raw = _recognized_group_credits(
+        passed_courses,
+        group_rules,
+        group_required,
+    )
+    mandatory_earned = min(mandatory_earned_raw, mandatory_required)
+    group_earned = min(group_earned_raw, group_required)
+
+    mandatory_in_progress_raw = _sum_labeled_credits(in_progress_courses, _is_mandatory_label)
+    group_in_progress_raw = _recognized_group_credits(
+        in_progress_courses,
+        group_rules,
+        max(0.0, group_required - group_earned),
+        prior_courses=passed_courses,
+    )
+    mandatory_in_progress = min(
+        mandatory_in_progress_raw,
+        max(0.0, mandatory_required - mandatory_earned),
+    )
+    group_in_progress = min(
+        group_in_progress_raw,
+        max(0.0, group_required - group_earned),
+    )
+
+    return {
+        "required": _credit_part(mandatory_required, group_required),
+        "earned": _credit_part(mandatory_earned, group_earned),
+        "in_progress": _credit_part(mandatory_in_progress, group_in_progress),
+        "missing": _credit_part(
+            max(0.0, mandatory_required - mandatory_earned),
+            max(0.0, group_required - group_earned),
+        ),
+    }
 
 
 def _expand_group_courses(rule_courses: list[dict], group_course_codes: dict) -> list[dict]:
@@ -357,12 +673,20 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     total_req = rules.get("total_credits_required")
     if total_req is None and rule_courses:
         total_req = round(sum(float(c.get("credits", 0) or 0) for c in rule_courses), 1)
-    missing_credits = max(0.0, float(total_req) - earned) if total_req is not None else None
-
     group_rules = rules.get("group_rules")
-    group_violations = _check_group_rules(group_rules, passed, in_progress)
+    credit_breakdown = _build_credit_breakdown(rule_courses, passed, in_progress, total_req, group_rules)
+    if credit_breakdown:
+        total_req = sum(credit_breakdown["required"].values())
+        earned = sum(credit_breakdown["earned"].values())
+        in_prog_credits = sum(credit_breakdown["in_progress"].values())
+        missing_credits = sum(credit_breakdown["missing"].values())
+    else:
+        missing_credits = max(0.0, float(total_req) - earned) if total_req is not None else None
 
-    return {
+    group_violations = _check_group_rules(group_rules, passed, in_progress)
+    has_missing_mandatory_course = _has_missing_mandatory_course(missing)
+
+    result = {
         "dept_name": rules.get("dept_name", major_name),
         "found": True,
         "total_credits_required": total_req,
@@ -374,9 +698,17 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
         "missing_courses": missing,
         "group_violations": group_violations,
         "status": "complete"
-        if (missing_credits is not None and missing_credits == 0 and not group_violations)
+        if (
+            missing_credits is not None
+            and missing_credits == 0
+            and not group_violations
+            and not has_missing_mandatory_course
+        )
         else "incomplete",
     }
+    if credit_breakdown:
+        result["credit_breakdown"] = credit_breakdown
+    return result
 
 
 def check_double_major(session: Session, student: Student, dm_name: str | None, major_name: str | None) -> dict | None:
@@ -444,7 +776,10 @@ def check_double_major(session: Session, student: Student, dm_name: str | None, 
             })
 
     overall_complete = (
-        missing_credits is not None and missing_credits == 0 and not group_incomplete
+        missing_credits is not None
+        and missing_credits == 0
+        and not group_incomplete
+        and not _has_missing_mandatory_course(missing)
     )
 
     return {
@@ -497,7 +832,11 @@ def check_minor(session: Session, student: Student, minor_name: str) -> dict:
         "in_progress_courses": in_progress,
         "missing_courses": missing,
         "status": "complete"
-        if (missing_credits is not None and missing_credits == 0)
+        if (
+            missing_credits is not None
+            and missing_credits == 0
+            and not _has_missing_mandatory_course(missing)
+        )
         else "incomplete",
     }
 
@@ -793,22 +1132,31 @@ def _calc_elective_gap(
     ge_result: dict,
     pe_result: dict,
 ) -> dict:
+    def fmt_credit(value: float | int) -> str:
+        return f"{float(value):g}"
+
     TOTAL = GRADUATION_TOTAL_CREDITS
-    required_lists = (
-        major_result.get("passed_courses", [])
-        + major_result.get("in_progress_courses", [])
-        + major_result.get("missing_courses", [])
-    )
-    major_required = sum(
-        float(c.get("credits", 0) or 0)
-        for c in required_lists
-        if c.get("group_label") == "必修" or c.get("course_type") == "必修"
-    )
-    major_earned = sum(
-        float(c.get("credits", 0) or 0)
-        for c in major_result.get("passed_courses", [])
-        if c.get("group_label") == "必修" or c.get("course_type") == "必修"
-    )
+    credit_breakdown = major_result.get("credit_breakdown")
+    if credit_breakdown:
+        major_required = sum(float(v or 0) for v in credit_breakdown["required"].values())
+        major_earned = sum(float(v or 0) for v in credit_breakdown["earned"].values())
+    else:
+        required_lists = (
+            major_result.get("passed_courses", [])
+            + major_result.get("in_progress_courses", [])
+            + major_result.get("missing_courses", [])
+        )
+        major_required = sum(
+            float(c.get("credits", 0) or 0)
+            for c in required_lists
+            if c.get("group_label") == "必修" or c.get("course_type") == "必修"
+        )
+        major_earned = sum(
+            float(c.get("credits", 0) or 0)
+            for c in major_result.get("passed_courses", [])
+            if c.get("group_label") == "必修" or c.get("course_type") == "必修"
+        )
+
     if major_required == 0:
         major_required = major_result.get("total_credits_required") or 0
         major_earned = major_result.get("earned_credits") or 0.0
@@ -827,8 +1175,8 @@ def _calc_elective_gap(
     elective_gap = max(0.0, elective_required - elective_earned)
 
     note = (
-        f"選修應修 = {TOTAL} - 必修{major_required} - 通識{GE_REQUIRED_CREDITS}"
-        f" - 體育{PE_REQUIRED_CREDITS} = {elective_required} 學分"
+        f"選修應修 = {TOTAL} - 主系{fmt_credit(major_required)} - 通識{GE_REQUIRED_CREDITS}"
+        f" - 體育{PE_REQUIRED_CREDITS} = {fmt_credit(elective_required)} 學分"
     )
     if major_result.get("found") is False or major_result.get("no_data"):
         note += "（主系資料不完整，選修缺口為估算值）"
