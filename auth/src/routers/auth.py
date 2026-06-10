@@ -22,6 +22,10 @@ async def login(body: LoginRequest, session: AsyncSession = Depends(get_session)
     if not account:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
+    # 驗證密碼雜湊
+    if not pwd_context.verify(body.password, account.password_hash):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+
     token_str = secrets.token_urlsafe(32)
     session.add(Token(account_id=account.id, token=token_str))
     await session.commit()

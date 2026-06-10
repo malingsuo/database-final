@@ -1,21 +1,58 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends
+import uuid
+
+from fastapi import APIRouter, Depends, Header
 from pydantic import BaseModel
-from sqlalchemy import and_, case, exists, func, select
+from sqlalchemy import and_, case, exists, func, or_, select
 from sqlalchemy.orm import Session
 
 from src.core.database import get_db
-from src.core.exceptions import BadRequestException, NotFoundException
-from src.models import Course, Enrollment, FieldOfStudy, Student
+from src.core.exceptions import BadRequestException, ForbiddenException, NotFoundException, UnauthorizedException
+from src.models import Account, Course, Enrollment, FieldOfStudy, Student
 from src.services.checker import GRADUATION_TOTAL_CREDITS, check_graduation, reload_rules_cache
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+
+# Grades that indicate a course is still in-progress (not yet graded / no result).
+_IN_PROGRESS_GRADES = ("成績未到或無成績", "")
+
+
+def require_admin(
+    x_account_id: str | None = Header(None, alias="X-Account-ID"),
+    db: Session = Depends(get_db),
+) -> Account:
+    """Dependency: verify the caller is an authenticated admin.
+
+    nginx injects the X-Account-ID header after validating the JWT token.
+    If the header is missing the request is unauthenticated.
+    If the account exists but is not an admin, raise 403 Forbidden.
+    """
+    if not x_account_id:
+        raise UnauthorizedException("請先登入後再操作")
+    try:
+        account_id = uuid.UUID(x_account_id)
+    except ValueError:
+        raise UnauthorizedException("登入身分無效")
+
+    account = db.get(Account, account_id)
+    if account is None or account.role != "admin":
+        raise ForbiddenException("只有管理員帳號可以使用此功能")
+    return account
 
 
 class StudentAdminUpdate(BaseModel):
     status: str | None = None
     notes: str | None = None
+
+
+def _is_in_progress_expr():
+    """SQLAlchemy expression that is True when a grade means 'in progress' / not yet graded."""
+    return or_(
+        Enrollment.grade.is_(None),
+        Enrollment.grade == "",
+        Enrollment.grade == "成績未到或無成績",
+    )
 
 
 def _profile_query():
@@ -26,8 +63,23 @@ def _profile_query():
     passed_count = func.coalesce(
         func.sum(case((Enrollment.is_passed.is_(True), 1), else_=0)), 0
     )
+    # Count truly failed courses: is_passed=False AND grade is not in-progress states
     failed_count = func.coalesce(
-        func.sum(case((Enrollment.is_passed.is_(False), 1), else_=0)), 0
+        func.sum(
+            case(
+                (
+                    and_(
+                        Enrollment.is_passed.is_(False),
+                        Enrollment.grade.isnot(None),
+                        Enrollment.grade != "",
+                        Enrollment.grade != "成績未到或無成績",
+                    ),
+                    1,
+                ),
+                else_=0,
+            )
+        ),
+        0,
     )
     double_major = exists().where(
         and_(
@@ -99,7 +151,10 @@ def _load_profiles(
 
 
 @router.get("/dashboard")
-def get_dashboard(db: Session = Depends(get_db)):
+def get_dashboard(
+    db: Session = Depends(get_db),
+    _account: Account = Depends(require_admin),
+):
     total = db.execute(select(func.count(Student.student_id))).scalar() or 0
     on_track = db.execute(
         select(func.count(Student.student_id)).where(Student.advisor_status == "on_track")
@@ -129,8 +184,23 @@ def get_dashboard(db: Session = Depends(get_db)):
 
 def _difficult_courses(db: Session, limit: int = 3) -> list[dict]:
     total_count = func.count()
+    # Only count truly failed: is_passed=False AND grade is not an in-progress value
     failed_count = func.coalesce(
-        func.sum(case((Enrollment.is_passed.is_(False), 1), else_=0)), 0
+        func.sum(
+            case(
+                (
+                    and_(
+                        Enrollment.is_passed.is_(False),
+                        Enrollment.grade.isnot(None),
+                        Enrollment.grade != "",
+                        Enrollment.grade != "成績未到或無成績",
+                    ),
+                    1,
+                ),
+                else_=0,
+            )
+        ),
+        0,
     )
     rows = db.execute(
         select(
@@ -169,12 +239,17 @@ def list_students(
     admission_year: int | None = None,
     status: str | None = None,
     db: Session = Depends(get_db),
+    _account: Account = Depends(require_admin),
 ):
     return _load_profiles(db, q=q, admission_year=admission_year, status=status)
 
 
 @router.get("/students/{sid}")
-def get_student_detail(sid: str, db: Session = Depends(get_db)):
+def get_student_detail(
+    sid: str,
+    db: Session = Depends(get_db),
+    _account: Account = Depends(require_admin),
+):
     profiles = _load_profiles(db, sid=sid)
     if not profiles:
         raise NotFoundException(f"Student id={sid} 不存在")
@@ -186,6 +261,7 @@ def update_student_admin(
     sid: str,
     body: StudentAdminUpdate,
     db: Session = Depends(get_db),
+    _account: Account = Depends(require_admin),
 ):
     student = db.get(Student, sid)
     if student is None:
@@ -201,7 +277,9 @@ def update_student_admin(
 
 
 @router.post("/rules/reload-cache", summary="清除畢業規則快取")
-def admin_reload_rules_cache():
+def admin_reload_rules_cache(
+    _account: Account = Depends(require_admin),
+):
     """清除 graduation_requirements / minor_requirements 等 JSON 規則的記憶體快取。
     在更新 data/ 下的規則 JSON 後呼叫，讓系統立即反映最新規則，不需重啟服務。"""
     reload_rules_cache()
