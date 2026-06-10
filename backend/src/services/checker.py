@@ -163,6 +163,71 @@ def _match_course(
     return None, "none"
 
 
+def _enrollment_key(sc: Enrollment) -> tuple[str, str, str]:
+    return ((sc.course_code or "").strip(), str(sc.year or ""), str(sc.semester or ""))
+
+
+def _status_rank(sc: Enrollment) -> int:
+    status = _score_status(sc.score)
+    if status == "passed":
+        return 0
+    if status == "in_progress":
+        return 1
+    return 2
+
+
+def _sort_enrollments(matches: list[Enrollment]) -> list[Enrollment]:
+    return sorted(
+        matches,
+        key=lambda sc: (_status_rank(sc), str(sc.year or ""), str(sc.semester or ""), sc.course_code or ""),
+    )
+
+
+def _match_course_candidates(
+    rule_code: str | None,
+    rule_name: str,
+    student_courses: Sequence[Enrollment],
+) -> tuple[list[Enrollment], str]:
+    code = (rule_code or "").strip()
+    if code and code != "無":
+        exact = [sc for sc in student_courses if (sc.course_code or "").strip() == code]
+        if exact:
+            return _sort_enrollments(exact), "exact"
+
+        if len(code) >= 6:
+            prefix = code[:6]
+            prefix_matches = [
+                sc for sc in student_courses
+                if (sc.course_code or "").strip().startswith(prefix)
+            ]
+            if prefix_matches:
+                return _sort_enrollments(prefix_matches), "exact_prefix"
+
+    rule_norm = _normalize_name(rule_name)
+    if not rule_norm:
+        return [], "none"
+
+    name_matches = [
+        sc for sc in student_courses
+        if rule_norm in _normalize_name(sc.course_name) or _normalize_name(sc.course_name) in rule_norm
+    ]
+    if name_matches:
+        return _sort_enrollments(name_matches), "normalized"
+    return [], "none"
+
+
+def _course_entry_from_match(dc: dict, matched: Enrollment, group_label: str, confidence: str, credits: float) -> dict:
+    return {
+        "course_name": matched.course_name,
+        "course_code": matched.course_code,
+        "course_type": dc.get("type"),
+        "credits": credits,
+        "score": matched.score,
+        "group_label": group_label,
+        "match_confidence": confidence,
+    }
+
+
 def _check_group_rules(
     group_rules: dict | None,
     passed_courses: list,
@@ -250,58 +315,84 @@ def _match_courses_from_rules(
             req_total += cred
 
         alt_code = dc.get(alt_code_key, "") if alt_code_key else ""
+        match_code = alt_code or rule_code
+        matches, confidence = _match_course_candidates(match_code, rule_name, student_courses)
 
-        matched, confidence = None, "none"
-        if alt_code and alt_code in sc_by_code:
-            matched, confidence = sc_by_code[alt_code], "exact"
-        else:
-            matched, confidence = _match_course(rule_code, rule_name, sc_by_code, student_courses)
-
-        if matched is None:
+        if not matches:
             if is_required:
                 req_missing += cred
             missing.append({
                 "course_name": rule_name,
-                "course_code": alt_code or rule_code,
+                "course_code": match_code,
                 "course_type": dc.get("type"),
                 "group_label": group_label,
                 "credits": cred,
                 "match_confidence": "none",
             })
-        else:
+            continue
+
+        semesters_required = int(dc.get("semesters", 1) or 1)
+        multi_semester_rule = semesters_required > 1 or (
+            cred > 0 and matches and cred > float(matches[0].credit or 0)
+        )
+        selected_matches = matches if multi_semester_rule else matches[:1]
+
+        covered_credits = 0.0
+        used_keys: set[tuple[str, str, str]] = set()
+        for matched in selected_matches:
+            key = _enrollment_key(matched)
+            if key in used_keys:
+                continue
+            used_keys.add(key)
+
+            remaining = max(0.0, cred - covered_credits)
+            if multi_semester_rule and cred > 0 and remaining <= 0:
+                break
+
+            matched_credits = float(matched.credit or 0)
+            entry_credits = min(matched_credits, remaining) if multi_semester_rule and cred > 0 else matched_credits
+            if matched_credits <= 0 and cred == 0:
+                entry_credits = 0.0
+            covered_credits += entry_credits
+
             status = _score_status(matched.score)
-            entry = {
-                "course_name": matched.course_name,
-                "course_code": matched.course_code,
-                "course_type": dc.get("type"),
-                "credits": float(matched.credit),
-                "score": matched.score,
-                "group_label": group_label,
-                "match_confidence": confidence,
-            }
+            entry = _course_entry_from_match(dc, matched, group_label, confidence, entry_credits)
             if status == "passed":
-                earned += cred
+                earned += entry_credits
                 if is_required:
-                    req_earned += cred
+                    req_earned += entry_credits
                 passed.append(entry)
             elif status == "in_progress":
-                in_prog_credits += cred
+                in_prog_credits += entry_credits
                 if is_required:
-                    req_in_prog += cred
+                    req_in_prog += entry_credits
                 in_progress.append(entry)
             else:
                 if is_required:
-                    req_missing += cred
+                    req_missing += entry_credits
                 missing.append({
                     "course_name": rule_name,
-                    "course_code": alt_code or rule_code,
+                    "course_code": match_code,
                     "course_type": dc.get("type"),
                     "group_label": group_label,
-                    "credits": cred,
+                    "credits": entry_credits,
                     "score": matched.score,
                     "note": "成績不通過",
                     "match_confidence": confidence,
                 })
+
+        if multi_semester_rule and cred > covered_credits:
+            missing_credits = round(cred - covered_credits, 1)
+            if is_required:
+                req_missing += missing_credits
+            missing.append({
+                "course_name": rule_name,
+                "course_code": match_code,
+                "course_type": dc.get("type"),
+                "group_label": group_label,
+                "credits": missing_credits,
+                "match_confidence": "none",
+            })
 
     return passed, in_progress, missing, earned, in_prog_credits, req_total, req_earned, req_in_prog, req_missing
 
