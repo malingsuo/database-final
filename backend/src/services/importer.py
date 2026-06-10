@@ -153,6 +153,32 @@ def parse_student_data(json_data: dict) -> dict:
                 "ge_label": ge_label,
             })
 
+    # waivedCourseList：免修課，視為「通過」納入學分計算
+    # 欄位與 gradeRecordList 相似：courseCode, courseName, credit,
+    # academicYear, semester, requiredOrElectiveCourse
+    for rec in acad.get("waivedCourseList", []) or []:
+        course_code = str(rec.get("courseCode", "")).strip()
+        course_name = str(rec.get("courseName", "")).strip()
+        if not course_code and not course_name:
+            continue
+        req_norm = _normalize_req(rec.get("requiredOrElectiveCourse", "選"))
+        acad_year_raw = rec.get("academicYear", "0")
+        semester_raw = rec.get("semester", "0")
+        remark = rec.get("remark") or None
+        ge_label = infer_ge_label(course_code, course_name, remark)
+        courses.append({
+            "course_code": course_code,
+            "course_name": course_name,
+            "credit": _to_decimal(rec.get("credit")) or 0,
+            "score": "通過",        # 免修 = 已通過
+            "required_or_elective": req_norm,
+            "remark": remark,
+            "academic_year": str(acad_year_raw or "0"),
+            "semester": str(semester_raw or "0"),
+            "course_type": _course_type(course_code, course_name, req_norm, ge_label),
+            "ge_label": ge_label,
+        })
+
     return {
         "student_info": {
             "student_id": student_id,

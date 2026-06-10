@@ -34,6 +34,12 @@ def _load_json(path: Path) -> dict | list | None:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def reload_rules_cache() -> None:
+    """強制清除 JSON 規則快取，讓下次讀取時重新載入最新檔案。
+    在更新 data/ 下的規則 JSON 後呼叫此函式，不需重啟服務。"""
+    _load_json.cache_clear()
+
+
 def _find_rules(kind: str, entry_year: int, dept_name: str) -> dict | None:
     dir_path = _DATA_DIR / f"{kind}_requirements" / str(entry_year)
     if not dir_path.exists():
@@ -293,10 +299,13 @@ def _match_courses_from_rules(
     student_courses: Sequence[Enrollment],
     sc_by_code: dict,
     alt_code_key: str | None = None,
-) -> tuple[list, list, list, float, float, float, float, float, float]:
+) -> tuple[list, list, list, float, float, float, float, float, float, int]:
     """回傳 (passed, in_progress, missing, earned, in_prog_credits,
-             req_total, req_earned, req_in_prog, req_missing)
-    其中 req_* 為必修課程依規則學分計算的統計，供正確計算應修/尚缺使用。"""
+             req_total, req_earned, req_in_prog, req_missing,
+             zero_credit_req_missing_count)
+    req_* 為必修課程依規則學分計算的統計。
+    zero_credit_req_missing_count：0 學分必修沒通過的門數，
+    需額外用來判定 status（因為 req_missing 不能反映 0 學分缺口）。"""
     passed, in_progress, missing = [], [], []
     earned = 0.0
     in_prog_credits = 0.0
@@ -304,6 +313,7 @@ def _match_courses_from_rules(
     req_earned = 0.0
     req_in_prog = 0.0
     req_missing = 0.0
+    zero_credit_req_missing = 0  # 0 學分必修缺修門數
 
     for dc in rule_courses:
         rule_name = dc.get("name", "")
@@ -321,6 +331,10 @@ def _match_courses_from_rules(
         if not matches:
             if is_required:
                 req_missing += cred
+                # 0 學分必修（如程式能力檢定）缺修時 cred=0，
+                # 用獨立 counter 追蹤，不影響學分顯示
+                if cred == 0:
+                    zero_credit_req_missing += 1
             missing.append({
                 "course_name": rule_name,
                 "course_code": match_code,
@@ -370,6 +384,9 @@ def _match_courses_from_rules(
             else:
                 if is_required:
                     req_missing += entry_credits
+                    # 0 學分必修不通過（failed）也要計入 counter
+                    if entry_credits == 0:
+                        zero_credit_req_missing += 1
                 missing.append({
                     "course_name": rule_name,
                     "course_code": match_code,
@@ -394,7 +411,7 @@ def _match_courses_from_rules(
                 "match_confidence": "none",
             })
 
-    return passed, in_progress, missing, earned, in_prog_credits, req_total, req_earned, req_in_prog, req_missing
+    return passed, in_progress, missing, earned, in_prog_credits, req_total, req_earned, req_in_prog, req_missing, zero_credit_req_missing
 
 
 def _expand_group_courses(rule_courses: list[dict], group_course_codes: dict) -> list[dict]:
@@ -458,7 +475,8 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
     sc_by_code = _build_sc_by_code(student_courses)
 
     (passed, in_progress, missing, earned, in_prog_credits,
-     req_total, req_earned, req_in_prog, req_missing) = _match_courses_from_rules(
+     req_total, req_earned, req_in_prog, req_missing,
+     zero_credit_req_missing) = _match_courses_from_rules(
         rule_courses, student_courses, sc_by_code
     )
 
@@ -517,8 +535,19 @@ def check_major(session: Session, student: Student, major_name: str | None) -> d
         "in_progress_courses": in_progress,
         "missing_courses": missing,
         "group_violations": group_violations,
+        # status=complete 需同時滿足四個條件：
+        #   1. 總學分缺口 = 0（earned >= total_required）
+        #   2. 必修學分缺口 = 0（不能讓選修修多而掩蓋必修缺漏）
+        #   3. 0 學分必修全部通過（程式能力檢定、數位系統實驗等）
+        #   4. 群修門數規則全部達標（group_violations 為空）
         "status": "complete"
-        if (missing_credits is not None and missing_credits == 0 and not group_violations)
+        if (
+            missing_credits is not None
+            and missing_credits == 0
+            and req_missing == 0
+            and zero_credit_req_missing == 0
+            and not group_violations
+        )
         else "incomplete",
     }
 
@@ -623,7 +652,7 @@ def check_minor(session: Session, student: Student, minor_name: str) -> dict:
     )
     sc_by_code = _build_sc_by_code(student_courses)
 
-    passed, in_progress, missing, earned, in_prog_credits, *_ = _match_courses_from_rules(
+    passed, in_progress, missing, earned, in_prog_credits, *_, req_missing, zero_credit_req_missing = _match_courses_from_rules(
         rule_courses, student_courses, sc_by_code
     )
 
@@ -640,8 +669,17 @@ def check_minor(session: Session, student: Student, minor_name: str) -> dict:
         "passed_courses": passed,
         "in_progress_courses": in_progress,
         "missing_courses": missing,
+        # 輔系有必修（如資科系輔系有 3 門必修），需同時確認：
+        # 1. 總學分缺口 = 0
+        # 2. 必修學分缺口 = 0
+        # 3. 0 學分必修全部通過
         "status": "complete"
-        if (missing_credits is not None and missing_credits == 0)
+        if (
+            missing_credits is not None
+            and missing_credits == 0
+            and req_missing == 0
+            and zero_credit_req_missing == 0
+        )
         else "incomplete",
     }
 
@@ -1038,7 +1076,16 @@ def check_graduation(session: Session, student_id: str) -> dict:
 
     incomplete_items = []
     if major_result.get("status") not in ("complete",):
-        incomplete_items.append("主系必修")
+        # 區分是「必修缺」還是「群修門數不足」，讓前端顯示更精確
+        has_req_gap = (major_result.get("req_only_missing") or 0) > 0
+        has_grp_gap = bool(major_result.get("group_violations"))
+        if has_req_gap:
+            incomplete_items.append("主系必修")
+        if has_grp_gap:
+            incomplete_items.append("主系群修")
+        if not has_req_gap and not has_grp_gap:
+            # 總學分不足但沒有細項違規（理論上不應發生，保留兜底）
+            incomplete_items.append("主系必修")
     if double_major_result and double_major_result.get("status") not in ("complete",):
         incomplete_items.append("雙主修")
     for mr in minor_results:

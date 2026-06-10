@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from src.core.database import get_db
 from src.core.exceptions import BadRequestException, NotFoundException
 from src.models import Course, Enrollment, FieldOfStudy, Student
-from src.services.checker import GRADUATION_TOTAL_CREDITS, check_graduation
+from src.services.checker import GRADUATION_TOTAL_CREDITS, check_graduation, reload_rules_cache
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -198,3 +198,11 @@ def update_student_admin(
         student.advisor_notes = body.notes
     db.commit()
     return _load_profiles(db, sid=sid)[0]
+
+
+@router.post("/rules/reload-cache", summary="清除畢業規則快取")
+def admin_reload_rules_cache():
+    """清除 graduation_requirements / minor_requirements 等 JSON 規則的記憶體快取。
+    在更新 data/ 下的規則 JSON 後呼叫，讓系統立即反映最新規則，不需重啟服務。"""
+    reload_rules_cache()
+    return {"message": "規則快取已清除，下次查詢將重新讀取最新 JSON 檔案。"}
