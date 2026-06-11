@@ -5,6 +5,7 @@ import { useCheckStore } from '@/stores/check'
 import type { DeptCheck } from '@/api/types'
 import CheckGate from '@/components/CheckGate.vue'
 import CourseTable from '@/components/CourseTable.vue'
+import GeCourseTable from '@/components/GeCourseTable.vue'
 import GroupCreditPanel from '@/components/GroupCreditPanel.vue'
 
 const check = useCheckStore()
@@ -58,7 +59,7 @@ const geMissingCategories = computed(
               class="section"
             >
               <h3 class="section-title">通識 — {{ cat.category_name }}（{{ cat.remark_code }}）</h3>
-              <CourseTable :courses="cat.courses" show-score />
+              <GeCourseTable :courses="cat.courses" />
             </section>
           </template>
           <el-empty v-else description="尚無已通過的應修課程" :image-size="80" />
