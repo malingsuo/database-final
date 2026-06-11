@@ -62,7 +62,8 @@ docker compose up -d --build auth
 > - `administrator.id` 直接使用 `account.id`（UUID FK）
 > - `enrollment` 的 `course_id` 改為複合 FK `(course_code, year, semester)`
 
-[<img height="630" alt="erd" src="https://github.com/user-attachments/assets/ecefae3c-964a-4e3a-abbe-5c32998f1406" />](https://app.diagrams.net/#Uhttps%3A%2F%2Fgithub.com%2Fmalingsuo%2Fdatabase-final%2Freleases%2Fdownload%2Fresource%2Ferd.drawio)
+[<img height="630" alt="erd" src="https://github.com/user-attachments/assets/f139941e-cd3b-49cc-8a0d-5c3a8991b32d" />](https://app.diagrams.net/#Uhttps%3A%2F%2Fgithub.com%2Fmalingsuo%2Fdatabase-final%2Freleases%2Fdownload%2Fresource%2Ferd.drawio)
+
 
 <details>
 <summary>ER to DB</summary>
