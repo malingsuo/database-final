@@ -18,6 +18,10 @@ class Settings(BaseSettings):
         f"{os.getenv('DB_PORT', '5432')}/"
         f"{os.getenv('DB_NAME', 'dbfinal')}"
     )
+    REDIS_URL: str = (
+        f"redis://{os.getenv('REDIS_HOST', 'localhost')}:"
+        f"{os.getenv('REDIS_PORT', '6379')}/0"
+    )
     SECRET_KEY: str = "change-me"
     LOG_LEVEL: str = "INFO"
     LOG_FORMAT: str = "console"
