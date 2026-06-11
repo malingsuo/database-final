@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.7
 ARG BASE_IMAGE=ubuntu:24.04
 
 FROM $BASE_IMAGE AS python-base
