@@ -15,6 +15,7 @@ from src.core.exceptions import (
 )
 from src.models import Account, Student
 from src.services.importer import import_parsed_for_student, parse_student_data
+from src.api.routes.shared import invalidate_check_cache
 
 router = APIRouter(prefix="/check", tags=["student"])
 
@@ -63,6 +64,8 @@ async def upload_student_json(
         student, course_count = import_parsed_for_student(db, parsed, student)
     except ValueError as e:
         raise BadRequestException(str(e))
+
+    invalidate_check_cache(student.student_id)
 
     return {
         "student_id": student.student_id,
