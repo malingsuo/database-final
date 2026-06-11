@@ -7,6 +7,7 @@ from sqlalchemy import delete, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from ..cache import token_delete, token_set
 from ..dependencies import get_current_account, get_session, oauth2_scheme
 from ..models import AccountInfo, AdminRegisterRequest, LoginRequest, StudentRegisterRequest, TokenResponse
 from ..tables import Account, Administrator, Department, Student, Token
@@ -29,6 +30,7 @@ async def login(body: LoginRequest, session: AsyncSession = Depends(get_session)
     token_str = secrets.token_urlsafe(32)
     session.add(Token(account_id=account.id, token=token_str))
     await session.commit()
+    await token_set(token_str, str(account.id))
     return {"access_token": token_str, "role": account.role}
 
 
@@ -37,6 +39,7 @@ async def logout(
     token: str = Depends(oauth2_scheme),
     session: AsyncSession = Depends(get_session),
 ):
+    await token_delete(token)
     await session.execute(delete(Token).where(Token.token == token))
     await session.commit()
     return {"message": "Logged out"}
