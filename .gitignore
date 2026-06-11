@@ -23,6 +23,10 @@ wheels/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
+
+# k6 共用模組（lib/ 規則的例外，須納入版控）
+!k6/lib/
+!k6/lib/**
 *.egg
 MANIFEST
 
