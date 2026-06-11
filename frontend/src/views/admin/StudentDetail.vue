@@ -261,7 +261,9 @@ onMounted(() => {
 
 <style scoped>
 .detail-page {
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 24px clamp(16px, 4vw, 48px) 48px;
   background: var(--app-bg);
 }

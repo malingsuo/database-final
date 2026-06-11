@@ -173,7 +173,9 @@ async function handleLogout() {
 
 <style scoped>
 .admin-page {
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: var(--app-bg);
   color: var(--app-text-strong);
 }
@@ -369,8 +371,13 @@ h1 {
   font-size: 14px;
 }
 
+.panel.wide {
+  overflow-x: auto;
+}
+
 .admin-table {
   width: 100%;
+  min-width: 580px;
 }
 
 .progress-cell {
