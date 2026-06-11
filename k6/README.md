@@ -28,9 +28,14 @@
 | 腳本 | 目的 | 主壓端點 |
 |------|------|----------|
 | `baseline.js` | 乾淨基準線 | `GET /api/public/departments`（免驗證、簡單查詢） |
-| `load.js` | 真實混合場景，找拐點 | 登入 → `GET /api/check/{sid}`（畢業檢核，CPU 重） |
+| `load.js` | 真實混合場景（含登入成本），找拐點 | 每輪登入 → `GET /api/check/{sid}`（畢業檢核，CPU 重） |
+| `browse.js` | 登入一次後持續瀏覽（隔離 argon2） | 開場登入1次，之後純瀏覽 check/status/departments |
 | `stress.js` | 推到極限 | 學生檢核 + `GET /api/admin/dashboard`（聚合查詢） |
 | `spike.js` | 瞬間流量尖峰 | `POST /api/auth/login`（argon2，最脆弱點） |
+
+> **load vs browse 的差異**：load.js 每輪都重新登入，登入成本會蓋過瀏覽（主要在量 argon2）；
+> browse.js 每個 VU 只在開場登入一次、token 跨迭代重用，量的是「已登入使用者正常瀏覽」的真實體驗。
+> 兩者對照可把「登入壓力」與「瀏覽壓力」分開看。
 
 ## 執行
 
@@ -40,6 +45,9 @@ k6 run k6/baseline.js
 
 # 負載（可調假學生數量範圍）
 k6 run -e STU_COUNT=500 k6/load.js
+
+# 登入後瀏覽（隔離 argon2，量純瀏覽體驗）
+k6 run -e STU_COUNT=500 k6/browse.js
 
 # 壓力（含 admin 情境需提供 admin 帳密；不提供則只跑學生情境）
 k6 run -e ADMIN_EMAIL=admin703@nccu.local -e ADMIN_PASSWORD=<pw> k6/stress.js
