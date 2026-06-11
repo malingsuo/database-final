@@ -81,7 +81,7 @@ const kindMeta: Record<Kind, { label: string; type: 'success' | 'warning' | 'dan
   <el-card shadow="never" class="group-panel">
     <template #header>
       <div class="panel-header">
-        <span class="panel-title">資訊群修 A~E</span>
+        <span class="panel-title">群修</span>
         <el-tag :type="violations.length ? 'danger' : 'success'" size="small" effect="dark">
           {{ violations.length ? `${violations.length} 群未達門數` : '門數已達標' }}
         </el-tag>

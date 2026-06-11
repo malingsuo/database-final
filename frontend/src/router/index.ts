@@ -16,12 +16,6 @@ const routes: RouteRecordRaw[] = [
   },
   // ==================== 管理員路由 ====================
   {
-    path: '/admin/login',
-    name: 'admin-login',
-    component: () => import('@/views/admin/AdminLogin.vue'),
-    meta: { public: true },
-  },
-  {
     path: '/admin',
     redirect: { name: 'admin-dashboard' },
   },
@@ -84,7 +78,7 @@ router.beforeEach(async (to) => {
   // ===== 管理員身份驗證 =====
   if (to.meta.requiresAdminAuth) {
     if (!auth.isAuthenticated) {
-      return { name: 'admin-login', query: { redirect: to.fullPath } }
+      return { name: 'login', query: { redirect: to.fullPath } }
     }
     if (!auth.isAdmin) {
       return { name: 'overview' }
@@ -96,14 +90,9 @@ router.beforeEach(async (to) => {
     return { name: 'login', query: { redirect: to.fullPath } }
   }
 
-  // ===== 已認證學生訪問公共路由的重定向 =====
+  // ===== 已認證用戶訪問公共路由的重定向 =====
   if (to.meta.public && to.name === 'login' && auth.isAuthenticated) {
     return auth.isAdmin ? { name: 'admin-dashboard' } : { name: 'overview' }
-  }
-
-  // ===== 已認證管理員訪問管理員登入的重定向 =====
-  if (to.name === 'admin-login' && auth.isAdmin) {
-    return { name: 'admin-dashboard' }
   }
 
   return true

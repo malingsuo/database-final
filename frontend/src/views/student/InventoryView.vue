@@ -137,8 +137,8 @@ const geMissingCategories = computed(
           </div>
         </el-tab-pane>
 
-        <!-- 資訊群修 -->
-        <el-tab-pane label="資訊群修 A~E">
+        <!-- 群修 -->
+        <el-tab-pane label="群修">
           <GroupCreditPanel v-if="result" :check="result.major_check" />
         </el-tab-pane>
       </el-tabs>

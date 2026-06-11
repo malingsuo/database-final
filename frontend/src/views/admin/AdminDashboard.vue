@@ -44,7 +44,7 @@ async function handleLogout() {
   await auth.logout()
   adminStore.reset()
   ElMessage.success('已登出')
-  router.push({ name: 'admin-login' })
+  router.push({ name: 'login' })
 }
 </script>
 

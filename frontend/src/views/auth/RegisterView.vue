@@ -99,7 +99,7 @@ async function onSubmit() {
       administrator: !isStudent.value ? { department_id: form.departmentId } : undefined,
     })
     ElMessage.success(isStudent.value ? '學生註冊成功，請登入' : '管理員註冊成功，請登入')
-    router.replace(isStudent.value ? { name: 'login' } : { name: 'admin-login' })
+    router.replace({ name: 'login' })
   } catch (e) {
     ElMessage.error(e instanceof Error ? e.message : '註冊失敗')
   } finally {
@@ -182,7 +182,7 @@ async function onSubmit() {
 
       <div class="auth-footer">
         已經有帳號？
-        <router-link :to="isStudent ? { name: 'login' } : { name: 'admin-login' }">前往登入</router-link>
+        <router-link :to="{ name: 'login' }">前往登入</router-link>
       </div>
     </el-card>
   </div>
